@@ -5,6 +5,7 @@
 //  Created by Cata on 4/3/21.
 //
 
+import FirebaseAuth
 import UIKit
 
 class LoginViewController: UIViewController {
@@ -13,6 +14,8 @@ class LoginViewController: UIViewController {
   @IBOutlet weak var passwordField: RoundedTextFieldContainer!
   @IBOutlet weak var loginButton: UIButton!
   @IBOutlet weak var createButton: UIButton!
+  
+  var handle: AuthStateDidChangeListenerHandle?
   
   class func instantiateFromStoryboard() -> LoginViewController {
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -25,12 +28,16 @@ class LoginViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
     configureLoginButton()
   }
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
+    handle = Auth.auth().addStateDidChangeListener { (auth, user) in
+      if user != nil {
+        print("Already signed in")
+      }
+    }
   }
   
   override func viewDidAppear(_ animated: Bool) {
@@ -44,6 +51,13 @@ class LoginViewController: UIViewController {
   override func viewDidDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
   }
+  
+  deinit {
+    if let handle = handle {
+      Auth.auth().removeStateDidChangeListener(handle)
+    }
+  }
+
   
   // MARK: - UI Configuration
   

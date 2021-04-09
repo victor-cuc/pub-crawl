@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class RegisterViewController: UIViewController {
   
@@ -57,7 +58,17 @@ class RegisterViewController: UIViewController {
   // MARK: - Actions
   
   @IBAction func registerAction() {
-    print("register has been tapped")
+    let email = emailField.textField.text!
+    let password = passwordField.textField.text!
+    
+    Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+      if let error = error {
+        print("Error registering: \(error)")
+        return
+      }
+      guard let authResult = authResult else { return }
+      print("Registered - \(authResult.description)")
+    }
   }
   
   @IBAction func backAction() {
