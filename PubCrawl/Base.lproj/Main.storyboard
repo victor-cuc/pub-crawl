@@ -188,9 +188,9 @@
                     <navigationItem key="navigationItem" id="pfi-Bm-KWL"/>
                     <connections>
                         <outlet property="createButton" destination="t0Y-Qj-XjV" id="hMW-VN-Pnr"/>
+                        <outlet property="emailField" destination="ngW-me-fm2" id="2NL-HR-s80"/>
                         <outlet property="loginButton" destination="h2r-vm-iMn" id="J8H-gL-Kta"/>
                         <outlet property="passwordField" destination="HuI-1e-LL4" id="t72-21-WLe"/>
-                        <outlet property="usernameField" destination="ngW-me-fm2" id="2NL-HR-s80"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b1j-cd-FmS" sceneMemberID="firstResponder"/>
@@ -373,6 +373,34 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w5P-cM-j7B" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-177" y="19"/>
+        </scene>
+        <!--Routes View Controller-->
+        <scene sceneID="feg-Yk-KMw">
+            <objects>
+                <tableViewController storyboardIdentifier="RoutesViewController" id="xV9-4f-Sng" customClass="RoutesViewController" customModule="PubCrawl" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="A5y-TL-OcN">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="KRD-vu-HP8">
+                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="KRD-vu-HP8" id="EiR-iD-u8L">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="xV9-4f-Sng" id="dra-XC-y0n"/>
+                            <outlet property="delegate" destination="xV9-4f-Sng" id="qud-uQ-KDG"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oAg-MX-qm7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-641" y="747"/>
         </scene>
     </scenes>
     <resources>

@@ -67,7 +67,9 @@ class RegisterViewController: UIViewController {
         return
       }
       guard let authResult = authResult else { return }
-      print("Registered - \(authResult.description)")
+      print("Registration successfull - \(authResult.user)")
+      let routesViewController = RoutesViewController.instantiateFromStoryboard()
+      self.navigationController?.pushViewController(routesViewController, animated: true)
     }
   }
   

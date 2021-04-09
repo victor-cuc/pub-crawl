@@ -10,7 +10,7 @@ import UIKit
 
 class LoginViewController: UIViewController {
   
-  @IBOutlet weak var usernameField: RoundedTextFieldContainer!
+  @IBOutlet weak var emailField: RoundedTextFieldContainer!
   @IBOutlet weak var passwordField: RoundedTextFieldContainer!
   @IBOutlet weak var loginButton: UIButton!
   @IBOutlet weak var createButton: UIButton!
@@ -29,13 +29,18 @@ class LoginViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     configureLoginButton()
+//    do {
+//      try Auth.auth().signOut()
+//    } catch let signOutError as NSError {
+//      print("Error signing out: \(signOutError)")
+//    }
   }
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     handle = Auth.auth().addStateDidChangeListener { (auth, user) in
       if user != nil {
-        print("Already signed in")
+        print("Already signed in with \(user?.email)")
       }
     }
   }
@@ -69,7 +74,18 @@ class LoginViewController: UIViewController {
   // MARK: - Actions
   
   @IBAction func loginAction() {
-    print("login has been tapped")
+    let email = emailField.textField.text!
+    let password = passwordField.textField.text!
+    
+    Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
+      if let error = error {
+        print("Error logging in: \(error)")
+        return
+      }
+      guard let strongSelf = self else { return }
+      let routesViewController = RoutesViewController.instantiateFromStoryboard()
+      strongSelf.navigationController?.pushViewController(routesViewController, animated: true)
+    }
   }
   
   @IBAction func createAction() {
