@@ -14,9 +14,10 @@ class LoginViewController: UIViewController {
   @IBOutlet weak var passwordField: RoundedTextFieldContainer!
   @IBOutlet weak var loginButton: UIButton!
   @IBOutlet weak var createButton: UIButton!
-  
-  var handle: AuthStateDidChangeListenerHandle?
-  
+  @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+  @IBOutlet weak var errorLabel: UILabel!
+  @IBOutlet weak var inputFieldStackView: UIStackView!
+    
   class func instantiateFromStoryboard() -> LoginViewController {
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
     let viewController = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
@@ -29,20 +30,11 @@ class LoginViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     configureLoginButton()
-//    do {
-//      try Auth.auth().signOut()
-//    } catch let signOutError as NSError {
-//      print("Error signing out: \(signOutError)")
-//    }
+    toggleErrorLabel(error: nil, animated: true)
   }
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    handle = Auth.auth().addStateDidChangeListener { (auth, user) in
-      if user != nil {
-        print("Already signed in with \(user?.email)")
-      }
-    }
   }
   
   override func viewDidAppear(_ animated: Bool) {
@@ -57,11 +49,6 @@ class LoginViewController: UIViewController {
     super.viewWillDisappear(animated)
   }
   
-  deinit {
-    if let handle = handle {
-      Auth.auth().removeStateDidChangeListener(handle)
-    }
-  }
 
   
   // MARK: - UI Configuration
@@ -71,20 +58,46 @@ class LoginViewController: UIViewController {
     loginButton.addFullRoundedCorners()
   }
   
+  func toggleErrorLabel(error: Error?, animated: Bool) {
+    errorLabel.text = error?.localizedDescription
+    let hideErrorLabel = error == nil
+    guard hideErrorLabel != errorLabel.isHidden else {
+      return
+    }
+    print("Hide error label: \(hideErrorLabel)")
+    
+    UIView.animate(withDuration: 0.3) {
+      self.errorLabel.isHidden = hideErrorLabel
+      self.inputFieldStackView.layoutIfNeeded()
+    }
+  }
+  
   // MARK: - Actions
   
   @IBAction func loginAction() {
     let email = emailField.textField.text!
     let password = passwordField.textField.text!
     
+    activityIndicator.startAnimating()
+    loginButton.imageView?.tintColor = .clear
+    view.isUserInteractionEnabled = false
+    self.toggleErrorLabel(error: nil, animated: true)
+    
     Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
+      guard let self = self else { return }
+      
+      self.activityIndicator.stopAnimating()
+      self.loginButton.imageView?.tintColor = .white
+      self.view.isUserInteractionEnabled = true
+      
       if let error = error {
         print("Error logging in: \(error)")
+        self.toggleErrorLabel(error: error, animated: true)
         return
       }
-      guard let strongSelf = self else { return }
+      
       let routesViewController = RoutesViewController.instantiateFromStoryboard()
-      strongSelf.navigationController?.pushViewController(routesViewController, animated: true)
+      self.navigationController?.pushViewController(routesViewController, animated: true)
     }
   }
   
@@ -93,4 +106,3 @@ class LoginViewController: UIViewController {
     self.navigationController?.pushViewController(registerViewController, animated: true)
   }
 }
-

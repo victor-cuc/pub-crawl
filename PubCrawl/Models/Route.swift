@@ -8,24 +8,22 @@
 import Foundation
 import CoreLocation
 
-class Route {
+class Route: Hashable {
   
-  let name: String
-  let locations: Set<CLLocation> = []
+  let id = UUID().uuidString
+  var name: String
+  var likes: Int = 0
+//  var locations: [Location] = []
   
   init(name: String) {
     self.name = name
   }
-}
-
-extension Route: Hashable, Identifiable {
+  
   func hash(into hasher: inout Hasher) {
     hasher.combine(id)
   }
-}
-
-extension Route: Equatable {
+  
   static func == (lhs: Route, rhs: Route) -> Bool {
-    lhs === rhs
+    return lhs.id == rhs.id
   }
 }

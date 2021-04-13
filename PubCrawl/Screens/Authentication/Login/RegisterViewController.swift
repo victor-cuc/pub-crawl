@@ -15,6 +15,9 @@ class RegisterViewController: UIViewController {
   @IBOutlet weak var nameField: RoundedTextFieldContainer!
   @IBOutlet weak var emailField: RoundedTextFieldContainer!
   @IBOutlet weak var passwordField: RoundedTextFieldContainer!
+  @IBOutlet weak var errorLabel: UILabel!
+  @IBOutlet weak var inputFieldStackView: UIStackView!
+  @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
   
   
   class func instantiateFromStoryboard() -> RegisterViewController {
@@ -30,6 +33,7 @@ class RegisterViewController: UIViewController {
     super.viewDidLoad()
     
     configureRegisterButton()
+    toggleErrorLabel(error: nil, animated: true)
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -54,6 +58,21 @@ class RegisterViewController: UIViewController {
     registerButton.addDefaultShadow()
     registerButton.addFullRoundedCorners()
   }
+  
+  
+  func toggleErrorLabel(error: Error?, animated: Bool) {
+    errorLabel.text = error?.localizedDescription
+    let hideErrorLabel = error == nil
+    guard hideErrorLabel != errorLabel.isHidden else {
+      return
+    }
+    print("Hide error label: \(hideErrorLabel)")
+    
+    UIView.animate(withDuration: 0.3) {
+      self.errorLabel.isHidden = hideErrorLabel
+      self.inputFieldStackView.layoutIfNeeded()
+    }
+  }
 
   // MARK: - Actions
   
@@ -61,13 +80,26 @@ class RegisterViewController: UIViewController {
     let email = emailField.textField.text!
     let password = passwordField.textField.text!
     
+    activityIndicator.startAnimating()
+    registerButton.imageView?.tintColor = .clear
+    view.isUserInteractionEnabled = false
+    self.toggleErrorLabel(error: nil, animated: true)
+    
     Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+      
+      self.activityIndicator.stopAnimating()
+      self.registerButton.imageView?.tintColor = .white
+      self.view.isUserInteractionEnabled = true
+      
       if let error = error {
         print("Error registering: \(error)")
+        self.toggleErrorLabel(error: error, animated: true)
         return
       }
+      
       guard let authResult = authResult else { return }
       print("Registration successfull - \(authResult.user)")
+      
       let routesViewController = RoutesViewController.instantiateFromStoryboard()
       self.navigationController?.pushViewController(routesViewController, animated: true)
     }
