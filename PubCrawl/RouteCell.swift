@@ -11,4 +11,8 @@ class RouteCell: UICollectionViewCell {
   static let reuseIdentifier = String(describing: RouteCell.self)
   
   @IBOutlet weak var nameLabel: UILabel!
+  
+  @IBAction func star() {
+    print("Star button pressed")
+  }
 }

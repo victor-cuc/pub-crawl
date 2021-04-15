@@ -7,18 +7,20 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseDatabase
 
 class RegisterViewController: UIViewController {
   
   @IBOutlet weak var backButton: UIButton!
   @IBOutlet weak var registerButton: UIButton!
-  @IBOutlet weak var nameField: RoundedTextFieldContainer!
+  @IBOutlet weak var usernameField: RoundedTextFieldContainer!
   @IBOutlet weak var emailField: RoundedTextFieldContainer!
   @IBOutlet weak var passwordField: RoundedTextFieldContainer!
   @IBOutlet weak var errorLabel: UILabel!
   @IBOutlet weak var inputFieldStackView: UIStackView!
   @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
   
+  var ref: DatabaseReference! = Database.database().reference()
   
   class func instantiateFromStoryboard() -> RegisterViewController {
     let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -99,6 +101,8 @@ class RegisterViewController: UIViewController {
       
       guard let authResult = authResult else { return }
       print("Registration successfull - \(authResult.user)")
+      
+      self.ref.child("users").child(authResult.user.uid).setValue(["username": self.usernameField?.textField.text ?? nil])
       
       let routesViewController = RoutesViewController.instantiateFromStoryboard()
       self.navigationController?.pushViewController(routesViewController, animated: true)

@@ -14,12 +14,14 @@
 		5738B37C261A05BE00E68A7D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5738B37A261A05BE00E68A7D /* LaunchScreen.storyboard */; };
 		5738B387261A074D00E68A7D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5738B386261A074D00E68A7D /* User.swift */; };
 		5738B38A261A075B00E68A7D /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5738B389261A075B00E68A7D /* Route.swift */; };
+		5746E5D626260521004E85C6 /* Routes.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5746E5D526260521004E85C6 /* Routes.storyboard */; };
+		5746E5DC26271BE6004E85C6 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5746E5DB26271BE6004E85C6 /* GradientView.swift */; };
 		575B9AD6261AE67A00350250 /* UIView+RoundCorners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575B9ACE261AE67A00350250 /* UIView+RoundCorners.swift */; };
 		575B9AD7261AE67A00350250 /* UIView+Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575B9ACF261AE67A00350250 /* UIView+Shadow.swift */; };
 		575B9AD8261AE67A00350250 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575B9AD3261AE67A00350250 /* LoginViewController.swift */; };
 		575B9AD9261AE67A00350250 /* RoundedTextFieldContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575B9AD5261AE67A00350250 /* RoundedTextFieldContainer.swift */; };
 		57759FAB26248400005AC5A4 /* RouteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57759FAA26248400005AC5A4 /* RouteCell.swift */; };
-		57759FB2262594C8005AC5A4 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57759FB1262594C8005AC5A4 /* Location.swift */; };
+		57759FB2262594C8005AC5A4 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57759FB1262594C8005AC5A4 /* Post.swift */; };
 		57759FB62625954C005AC5A4 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57759FB52625954C005AC5A4 /* DataSource.swift */; };
 		577F1945262050EE004136F4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 577F1944262050EE004136F4 /* GoogleService-Info.plist */; };
 		577F194926205264004136F4 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 577F194826205264004136F4 /* FirebaseStorage */; };
@@ -40,12 +42,14 @@
 		5738B37D261A05BE00E68A7D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5738B386261A074D00E68A7D /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		5738B389261A075B00E68A7D /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
+		5746E5D526260521004E85C6 /* Routes.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Routes.storyboard; sourceTree = "<group>"; };
+		5746E5DB26271BE6004E85C6 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		575B9ACE261AE67A00350250 /* UIView+RoundCorners.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+RoundCorners.swift"; sourceTree = "<group>"; };
 		575B9ACF261AE67A00350250 /* UIView+Shadow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Shadow.swift"; sourceTree = "<group>"; };
 		575B9AD3261AE67A00350250 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		575B9AD5261AE67A00350250 /* RoundedTextFieldContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedTextFieldContainer.swift; sourceTree = "<group>"; };
 		57759FAA26248400005AC5A4 /* RouteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteCell.swift; sourceTree = "<group>"; };
-		57759FB1262594C8005AC5A4 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		57759FB1262594C8005AC5A4 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		57759FB52625954C005AC5A4 /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
 		577F1944262050EE004136F4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		579EFCE126204C0900DC8BAD /* RoutesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutesViewController.swift; sourceTree = "<group>"; };
@@ -94,7 +98,6 @@
 				5738B36F261A05BC00E68A7D /* AppDelegate.swift */,
 				5738B373261A05BC00E68A7D /* ViewController.swift */,
 				57759FAA26248400005AC5A4 /* RouteCell.swift */,
-				5738B375261A05BC00E68A7D /* Main.storyboard */,
 				5738B378261A05BE00E68A7D /* Assets.xcassets */,
 				5738B37A261A05BE00E68A7D /* LaunchScreen.storyboard */,
 				5738B37D261A05BE00E68A7D /* Info.plist */,
@@ -108,7 +111,7 @@
 			children = (
 				5738B386261A074D00E68A7D /* User.swift */,
 				5738B389261A075B00E68A7D /* Route.swift */,
-				57759FB1262594C8005AC5A4 /* Location.swift */,
+				57759FB1262594C8005AC5A4 /* Post.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -134,23 +137,17 @@
 		575B9AD1261AE67A00350250 /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
-				575B9AD2261AE67A00350250 /* Login */,
-			);
-			path = Authentication;
-			sourceTree = "<group>";
-		};
-		575B9AD2261AE67A00350250 /* Login */ = {
-			isa = PBXGroup;
-			children = (
+				5738B375261A05BC00E68A7D /* Main.storyboard */,
 				575B9AD3261AE67A00350250 /* LoginViewController.swift */,
 				57B45779261B011700658820 /* RegisterViewController.swift */,
 			);
-			path = Login;
+			path = Authentication;
 			sourceTree = "<group>";
 		};
 		575B9AD4261AE67A00350250 /* UI Components */ = {
 			isa = PBXGroup;
 			children = (
+				5746E5DB26271BE6004E85C6 /* GradientView.swift */,
 				575B9AD5261AE67A00350250 /* RoundedTextFieldContainer.swift */,
 			);
 			path = "UI Components";
@@ -167,6 +164,7 @@
 		579EFCE526204C2000DC8BAD /* Routes */ = {
 			isa = PBXGroup;
 			children = (
+				5746E5D526260521004E85C6 /* Routes.storyboard */,
 				579EFCE126204C0900DC8BAD /* RoutesViewController.swift */,
 			);
 			path = Routes;
@@ -239,6 +237,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				577F1945262050EE004136F4 /* GoogleService-Info.plist in Resources */,
+				5746E5D626260521004E85C6 /* Routes.storyboard in Resources */,
 				5738B37C261A05BE00E68A7D /* LaunchScreen.storyboard in Resources */,
 				5738B379261A05BE00E68A7D /* Assets.xcassets in Resources */,
 				5738B377261A05BC00E68A7D /* Main.storyboard in Resources */,
@@ -256,6 +255,7 @@
 				57B4577A261B011700658820 /* RegisterViewController.swift in Sources */,
 				575B9AD6261AE67A00350250 /* UIView+RoundCorners.swift in Sources */,
 				57759FB62625954C005AC5A4 /* DataSource.swift in Sources */,
+				5746E5DC26271BE6004E85C6 /* GradientView.swift in Sources */,
 				5738B374261A05BC00E68A7D /* ViewController.swift in Sources */,
 				57759FAB26248400005AC5A4 /* RouteCell.swift in Sources */,
 				5738B370261A05BC00E68A7D /* AppDelegate.swift in Sources */,
@@ -263,7 +263,7 @@
 				5738B387261A074D00E68A7D /* User.swift in Sources */,
 				575B9AD9261AE67A00350250 /* RoundedTextFieldContainer.swift in Sources */,
 				5738B38A261A075B00E68A7D /* Route.swift in Sources */,
-				57759FB2262594C8005AC5A4 /* Location.swift in Sources */,
+				57759FB2262594C8005AC5A4 /* Post.swift in Sources */,
 				575B9AD8261AE67A00350250 /* LoginViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

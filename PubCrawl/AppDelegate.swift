@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     FirebaseApp.configure()
     window = UIWindow(frame: UIScreen.main.bounds)
     
-    // Automatic Sign Out every time app starts
+    // Uncomment for automatic Sign Out every time app starts
 //    do {
 //      try Auth.auth().signOut()
 //    } catch let signOutError as NSError {

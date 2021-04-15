@@ -12,7 +12,7 @@ class DataSource {
   static var dummyData: [Route] {
     var routes: [Route] = []
     for i in 1...20 {
-      routes.append(Route(name: "Route\(i)"))
+      routes.append(Route(name: "RouSDFGHJKXFVGHJKJ HVJND Jte\(i)"))
     }
     return routes
   }

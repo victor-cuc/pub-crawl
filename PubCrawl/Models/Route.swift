@@ -5,15 +5,19 @@
 //  Created by Victor Cuc on 04/04/2021.
 //
 
-import Foundation
+import UIKit
 import CoreLocation
 
 class Route: Hashable {
-  
   let id = UUID().uuidString
   var name: String
   var likes: Int = 0
-//  var locations: [Location] = []
+//  let id: String // String or other type?
+//  var image: UIImage?
+//  var name: String
+//  var locations: [CLLocation]
+//  var stars: Int
+//  var timesCompleted: Int
   
   init(name: String) {
     self.name = name

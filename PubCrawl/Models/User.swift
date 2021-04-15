@@ -1,28 +1,19 @@
+////
+////  UserModel.swift
+////  PubCrawl
+////
+////  Created by Victor Cuc on 04/04/2021.
+////
 //
-//  UserModel.swift
-//  PubCrawl
+//import Foundation
 //
-//  Created by Victor Cuc on 04/04/2021.
+//class User {
 //
-
-import Foundation
-
-class User {
-  
-  // let id: UUID
-  let firstName: String
-  let lastName: String
-  let email: String
-  var savedRoutes: Set<Route> = []
-  var completedRoutes: Set<Route> = []
-  
-  init(
-    firstName: String,
-    lastName: String,
-    email: String
-  ) {
-    self.firstName = firstName
-    self.lastName = lastName
-    self.email = email
-  }
-}
+//  let id: String // UUID or String?
+//  let username: String
+//  let email: String // include?
+//  var savedRoutes: Set<Route> = []
+//  var completedRoutes: Set<Route> = []
+//  var level: Int
+//
+//}
