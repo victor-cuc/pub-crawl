@@ -9,9 +9,9 @@ import UIKit
 import CoreLocation
 
 class Route: Hashable {
-  let id = UUID().uuidString
+  let id: String
   var name: String
-  var likes: Int = 0
+  var stars: Int = 0
 //  let id: String // String or other type?
 //  var image: UIImage?
 //  var name: String
@@ -19,7 +19,8 @@ class Route: Hashable {
 //  var stars: Int
 //  var timesCompleted: Int
   
-  init(name: String) {
+  init(id: String, name: String) {
+    self.id = id
     self.name = name
   }
   

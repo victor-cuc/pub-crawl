@@ -16,7 +16,7 @@ class RoutesViewController: UIViewController {
   
   @IBOutlet var collectionView: UICollectionView!
   private var dataSource: UICollectionViewDiffableDataSource<Section, Route>!
-  private let routes = DataSource.dummyData
+  private var routes: [Route] = []
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -25,14 +25,20 @@ class RoutesViewController: UIViewController {
       setUpView()
     }
   }
-  
   func setUpView() {
     self.title = "Routes"
     
-    collectionView.collectionViewLayout = configureCollectionViewLayout()
+    FirebaseManager.fetchAllRoutes(completion: { (routes) in
+      print("Routes: \(routes)")
+      for routeDiff in routes.difference(from: self.routes) {
+        print(routeDiff)
+      }
+      self.routes = routes
+      self.configureSnapshot()
+    })
+    self.collectionView.collectionViewLayout = self.configureCollectionViewLayout()
 //    collectionView.delegate = self
-    configureDataSource()
-    configureSnapshot()
+    self.configureDataSource()
   }
   
   class func instantiateFromStoryboard() -> RoutesViewController {
@@ -82,8 +88,10 @@ extension RoutesViewController {
     currentSnapshot.appendSections([.community])
     currentSnapshot.appendItems(routes)
     
-    dataSource.apply(currentSnapshot, animatingDifferences: false)
+    dataSource.apply(currentSnapshot, animatingDifferences: true)
   }
+  // MARK: - Get Routes -
+//  private func getAllRoutes(completion: @escaping () -> Void) {
+//  }
 }
 
-// MARK: - UICollectionViewDelegate -
