@@ -10,6 +10,7 @@ import UIKit
 class RouteCell: UICollectionViewCell {
   static let reuseIdentifier = String(describing: RouteCell.self)
   
+  @IBOutlet weak var imageView: UIImageView!
   @IBOutlet weak var roundedCornerContainer: UIView!
   @IBOutlet weak var nameLabel: UILabel!
   @IBOutlet weak var starButton: UIButton!
@@ -19,9 +20,9 @@ class RouteCell: UICollectionViewCell {
   override func awakeFromNib() {
     super.awakeFromNib()
     
-    roundedCornerContainer.addDefaultRoundedCorners()
+    roundedCornerContainer.addDefaultRoundedCorners(clipsToBounds: true)
     self.addDefaultShadow()
-    roundedCornerContainer.clipsToBounds = true
+    self.clipsToBounds = false
   }
   
   @IBAction func star() {
