@@ -14,6 +14,7 @@
 //  let email: String // include?
 //  var savedRoutes: Set<Route> = []
 //  var completedRoutes: Set<Route> = []
-//  var level: Int
-//
+//  var level: Int = 1
+//  var numberOfCompletedRoutes: Int = 0
+//  var numberOfVisitedLocations: Int = 0
 //}
