@@ -9,11 +9,21 @@ import UIKit
 
 protocol RoundCorners: UIView {
   func addFullRoundedCorners()
+  func addDefaultRoundedCorners()
+  func addRoundedCorners(radius: CGFloat)
 }
 
 extension RoundCorners {
   func addFullRoundedCorners() {
-    self.layer.cornerRadius = self.frame.height / 2
+    addRoundedCorners(radius: frame.height / 2)
+  }
+  
+  func addDefaultRoundedCorners() {
+    addRoundedCorners(radius: Constants.Appearance.defaultCornerRadius)
+  }
+  
+  func addRoundedCorners(radius: CGFloat) {
+    self.layer.cornerRadius = radius
     self.layer.masksToBounds = false
   }
 }

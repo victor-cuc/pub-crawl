@@ -30,6 +30,7 @@
 		577F194D26205264004136F4 /* FirebaseStorageSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 577F194C26205264004136F4 /* FirebaseStorageSwift-Beta */; };
 		577F194F26205264004136F4 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 577F194E26205264004136F4 /* FirebaseDatabase */; };
 		579EFCE226204C0900DC8BAD /* RoutesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 579EFCE126204C0900DC8BAD /* RoutesViewController.swift */; };
+		57A49646262B653100EF779B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A49645262B653100EF779B /* Constants.swift */; };
 		57B4577A261B011700658820 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B45779261B011700658820 /* RegisterViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -55,6 +56,7 @@
 		57759FB1262594C8005AC5A4 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		577F1944262050EE004136F4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		579EFCE126204C0900DC8BAD /* RoutesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutesViewController.swift; sourceTree = "<group>"; };
+		57A49645262B653100EF779B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		57B45779261B011700658820 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -92,13 +94,13 @@
 		5738B36E261A05BC00E68A7D /* PubCrawl */ = {
 			isa = PBXGroup;
 			children = (
+				57A49645262B653100EF779B /* Constants.swift */,
 				57759FB42625953B005AC5A4 /* Data */,
 				575B9ACD261AE67A00350250 /* Helpers */,
 				575B9AD0261AE67A00350250 /* Screens */,
 				575B9AD4261AE67A00350250 /* UI Components */,
 				5738B384261A073500E68A7D /* Models */,
 				5738B36F261A05BC00E68A7D /* AppDelegate.swift */,
-				57759FAA26248400005AC5A4 /* RouteCell.swift */,
 				5738B378261A05BE00E68A7D /* Assets.xcassets */,
 				5738B37A261A05BE00E68A7D /* LaunchScreen.storyboard */,
 				5738B37D261A05BE00E68A7D /* Info.plist */,
@@ -166,11 +168,20 @@
 		579EFCE526204C2000DC8BAD /* Routes */ = {
 			isa = PBXGroup;
 			children = (
+				57A49643262B638100EF779B /* Cells */,
 				5746E5D526260521004E85C6 /* Routes.storyboard */,
 				579EFCE126204C0900DC8BAD /* RoutesViewController.swift */,
 				57193B2B2628AA33001F15A6 /* NewRouteViewController.swift */,
 			);
 			path = Routes;
+			sourceTree = "<group>";
+		};
+		57A49643262B638100EF779B /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				57759FAA26248400005AC5A4 /* RouteCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -261,6 +272,7 @@
 				5746E5DC26271BE6004E85C6 /* GradientView.swift in Sources */,
 				57759FAB26248400005AC5A4 /* RouteCell.swift in Sources */,
 				57193B2C2628AA33001F15A6 /* NewRouteViewController.swift in Sources */,
+				57A49646262B653100EF779B /* Constants.swift in Sources */,
 				5738B370261A05BC00E68A7D /* AppDelegate.swift in Sources */,
 				579EFCE226204C0900DC8BAD /* RoutesViewController.swift in Sources */,
 				5738B387261A074D00E68A7D /* User.swift in Sources */,

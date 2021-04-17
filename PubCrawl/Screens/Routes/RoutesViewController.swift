@@ -14,7 +14,7 @@ class RoutesViewController: UIViewController {
     case community
   }
   
-  @IBOutlet var collectionView: UICollectionView!
+  @IBOutlet weak var collectionView: UICollectionView!
   private var dataSource: UICollectionViewDiffableDataSource<Section, Route>!
   private var routes: [Route] = []
   
