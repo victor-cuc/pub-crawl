@@ -18,6 +18,13 @@ class RoutesViewController: UIViewController {
   private var dataSource: UICollectionViewDiffableDataSource<Section, Route>!
   private var routes: [Route] = []
   
+  class func instantiateFromStoryboard() -> UINavigationController {
+    let storyboard = UIStoryboard(name: "Routes", bundle: nil)
+    let viewController = storyboard.instantiateInitialViewController() as! UINavigationController
+    
+    return viewController
+  }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     if let user = Auth.auth().currentUser {
@@ -40,13 +47,6 @@ class RoutesViewController: UIViewController {
 //    collectionView.delegate = self
     self.configureDataSource()
   }
-  
-  class func instantiateFromStoryboard() -> RoutesViewController {
-    let storyboard = UIStoryboard(name: "Routes", bundle: nil)
-    let viewController = storyboard.instantiateViewController(withIdentifier: "RoutesViewController") as! RoutesViewController
-    
-    return viewController
-  }
 }
 // MARK: - Collection View -
 
@@ -60,6 +60,7 @@ extension RoutesViewController {
     let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
     
     let section = NSCollectionLayoutSection(group: group)
+    section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0)
     
     return UICollectionViewCompositionalLayout(section: section)
   }
