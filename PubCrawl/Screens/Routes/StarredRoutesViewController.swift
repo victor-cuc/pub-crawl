@@ -8,22 +8,15 @@
 import UIKit
 import FirebaseAuth
 
-class RoutesViewController: UIViewController, RouteCellActionDelegate {
+class StarredRoutesViewController: UIViewController, RouteCellActionDelegate {
   
   enum Section {
-    case community
+    case saved
   }
   
   @IBOutlet weak var collectionView: UICollectionView!
   private var dataSource: UICollectionViewDiffableDataSource<Section, Route>!
   private var routes: [Route] = []
-  
-  class func instantiateFromStoryboard() -> UITabBarController {
-    let storyboard = UIStoryboard(name: "Routes", bundle: nil)
-    let viewController = storyboard.instantiateInitialViewController() as! UITabBarController
-    
-    return viewController
-  }
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -37,7 +30,7 @@ class RoutesViewController: UIViewController, RouteCellActionDelegate {
     
     FirebaseManager.fetchAllRoutes(completion: { (routes) in
       print("Routes: \(routes)")
-      self.routes = routes
+      self.routes = routes.filter { $0.isStarredByCurrentUser() }
       self.configureSnapshot()
     })
     self.collectionView.collectionViewLayout = self.configureCollectionViewLayout()
@@ -47,7 +40,7 @@ class RoutesViewController: UIViewController, RouteCellActionDelegate {
 }
 // MARK: - Collection View -
 
-extension RoutesViewController {
+extension StarredRoutesViewController {
   func configureCollectionViewLayout() -> UICollectionViewCompositionalLayout {
     let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
     let item = NSCollectionLayoutItem(layoutSize: itemSize)
@@ -65,7 +58,7 @@ extension RoutesViewController {
 
 // MARK: - Diffable Data Source -
 
-extension RoutesViewController {
+extension StarredRoutesViewController {
   typealias RouteDataSource = UICollectionViewDiffableDataSource<Section, Route>
   
   func configureDataSource() {
@@ -88,7 +81,7 @@ extension RoutesViewController {
   
   func configureSnapshot() {
     var currentSnapshot = NSDiffableDataSourceSnapshot<Section, Route>()
-    currentSnapshot.appendSections([.community])
+    currentSnapshot.appendSections([.saved])
     currentSnapshot.appendItems(routes)
     
     dataSource.apply(currentSnapshot, animatingDifferences: true)
