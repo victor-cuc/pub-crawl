@@ -7,8 +7,14 @@
 
 import UIKit
 
+protocol RouteCellActionDelegate {
+  func toggleStarAction(cell: RouteCell)
+}
+
 class RouteCell: UICollectionViewCell {
   static let reuseIdentifier = String(describing: RouteCell.self)
+  
+  var actionDelegate: RouteCellActionDelegate?
   
   @IBOutlet weak var imageView: UIImageView!
   @IBOutlet weak var roundedCornerContainer: UIView!
@@ -25,7 +31,7 @@ class RouteCell: UICollectionViewCell {
     self.clipsToBounds = false
   }
   
-  @IBAction func star() {
-    print("Star button pressed")
+  @IBAction func toggleStar() {
+    actionDelegate?.toggleStarAction(cell: self)
   }
 }

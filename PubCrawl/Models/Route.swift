@@ -6,14 +6,14 @@
 //
 
 import UIKit
-import FirebaseStorage
+import Firebase
 import CoreLocation
 
 class Route: Hashable {
   let id: String
   var name: String
-  var starCount: Int
-  var completedCount: Int
+  var starredBy: [String]
+  var completedBy: [String]
   var locationIDs: [String] = []
   var imageRef: StorageReference!
 //  let id: String // String or other type?
@@ -26,17 +26,21 @@ class Route: Hashable {
     self.id = id
     name = data["name"] as? String ?? "No name"
     
-    let starredBy = data["starredBy"] as? [String: Any] ?? [:]
-    starCount = starredBy.count
+    let starredByData = data["starredBy"] as? [String: Any] ?? [:]
+    starredBy = Array(starredByData.keys)
     
-    let completedBy = data["completedBy"] as? [String: Any] ?? [:]
-    completedCount = completedBy.count
+    let completedByData = data["completedBy"] as? [String: Any] ?? [:]
+    completedBy = Array(completedByData.keys)
     
     let locations = data["locations"] as? [String: Any] ?? [:]
     for location in locations {
       self.locationIDs.append(location.key)
     }
-    
+  }
+  
+  func isStarredByCurrentUser() -> Bool {
+    guard let currentUserID = Auth.auth().currentUser?.uid else { return false }
+    return starredBy.contains(currentUserID)
   }
   
   func hash(into hasher: inout Hasher) {

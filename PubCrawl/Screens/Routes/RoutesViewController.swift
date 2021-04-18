@@ -8,7 +8,7 @@
 import UIKit
 import FirebaseAuth
 
-class RoutesViewController: UIViewController {
+class RoutesViewController: UIViewController, RouteCellActionDelegate {
   
   enum Section {
     case community
@@ -18,9 +18,9 @@ class RoutesViewController: UIViewController {
   private var dataSource: UICollectionViewDiffableDataSource<Section, Route>!
   private var routes: [Route] = []
   
-  class func instantiateFromStoryboard() -> UINavigationController {
+  class func instantiateFromStoryboard() -> UITabBarController {
     let storyboard = UIStoryboard(name: "Routes", bundle: nil)
-    let viewController = storyboard.instantiateInitialViewController() as! UINavigationController
+    let viewController = storyboard.instantiateInitialViewController() as! UITabBarController
     
     return viewController
   }
@@ -56,7 +56,7 @@ extension RoutesViewController {
     let item = NSCollectionLayoutItem(layoutSize: itemSize)
     item.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
     
-    let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.3))
+    let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.25))
     let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
     
     let section = NSCollectionLayoutSection(group: group)
@@ -78,8 +78,10 @@ extension RoutesViewController {
         return nil
       }
       
+      cell.starButton.isSelected = route.isStarredByCurrentUser()
+      cell.actionDelegate = self
       cell.nameLabel.text = route.name
-      cell.starCount.text = String(route.starCount)
+      cell.starCount.text = String(route.starredBy.count)
       cell.locationCount.text = String(route.locationIDs.count)
       cell.imageView.loadImageFromFirebase(reference: route.imageRef, placeholder: UIImage(named: "placeholderRouteThumbnail"))
   
@@ -94,8 +96,14 @@ extension RoutesViewController {
     
     dataSource.apply(currentSnapshot, animatingDifferences: true)
   }
-  // MARK: - Get Routes -
-//  private func getAllRoutes(completion: @escaping () -> Void) {
-//  }
+  
+  // MARK: - RouteCellActionDelegate -
+  
+  func toggleStarAction(cell: RouteCell) {
+    if let indexPath = collectionView.indexPath(for: cell) {
+      let route = routes[indexPath.item]
+      FirebaseManager.toggleRouteStar(route: route)
+    }
+  }
 }
 

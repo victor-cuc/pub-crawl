@@ -17,6 +17,7 @@ class FirebaseManager {
     ref.child("routes").observe(.value, with: { (snapshot) in
       routes.removeAll()
       guard let routeDict = snapshot.value as? [String: Any] else { fatalError("Error getting/casting route dict") }
+      
       for route in routeDict {
         let routeValues = route.value as? [String: Any] ?? [:]
         let route = Route(id: route.key, data: routeValues)
@@ -25,7 +26,20 @@ class FirebaseManager {
         
         routes.append(route)
       }
+      routes.sort { $0.name < $1.name }
       completion(routes)
     })
+  }
+  
+  static func toggleRouteStar(route: Route) {
+    guard let currentUserID = Auth.auth().currentUser?.uid else { return }
+
+    let newValue = route.isStarredByCurrentUser() ? nil : true
+//    print("toggleRouteStar - \(currentUserID) - \(route.isStarredByCurrentUser()) - \(newValue)")
+    let starUpdates = [
+      "/routes/\(route.id)/starredBy/\(currentUserID)": newValue,
+      "/users/\(currentUserID)/starred/\(route.id)": newValue
+    ]
+    ref.updateChildValues(starUpdates as [AnyHashable : Any])
   }
 }
