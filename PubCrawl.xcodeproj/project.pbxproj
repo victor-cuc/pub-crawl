@@ -31,6 +31,7 @@
 		577F194F26205264004136F4 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 577F194E26205264004136F4 /* FirebaseDatabase */; };
 		579EFCE226204C0900DC8BAD /* RoutesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 579EFCE126204C0900DC8BAD /* RoutesViewController.swift */; };
 		57A49646262B653100EF779B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A49645262B653100EF779B /* Constants.swift */; };
+		57A4964A262C4F5000EF779B /* ImageView+Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A49649262C4F5000EF779B /* ImageView+Firebase.swift */; };
 		57B4577A261B011700658820 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B45779261B011700658820 /* RegisterViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -57,6 +58,7 @@
 		577F1944262050EE004136F4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		579EFCE126204C0900DC8BAD /* RoutesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutesViewController.swift; sourceTree = "<group>"; };
 		57A49645262B653100EF779B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		57A49649262C4F5000EF779B /* ImageView+Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageView+Firebase.swift"; sourceTree = "<group>"; };
 		57B45779261B011700658820 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -125,6 +127,7 @@
 			children = (
 				575B9ACE261AE67A00350250 /* UIView+RoundCorners.swift */,
 				575B9ACF261AE67A00350250 /* UIView+Shadow.swift */,
+				57A49649262C4F5000EF779B /* ImageView+Firebase.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -277,6 +280,7 @@
 				579EFCE226204C0900DC8BAD /* RoutesViewController.swift in Sources */,
 				5738B387261A074D00E68A7D /* User.swift in Sources */,
 				575B9AD9261AE67A00350250 /* RoundedTextFieldContainer.swift in Sources */,
+				57A4964A262C4F5000EF779B /* ImageView+Firebase.swift in Sources */,
 				5738B38A261A075B00E68A7D /* Route.swift in Sources */,
 				57759FB2262594C8005AC5A4 /* Post.swift in Sources */,
 				575B9AD8261AE67A00350250 /* LoginViewController.swift in Sources */,

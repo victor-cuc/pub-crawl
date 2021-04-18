@@ -79,7 +79,10 @@ extension RoutesViewController {
       }
       
       cell.nameLabel.text = route.name
-      
+      cell.starCount.text = String(route.starCount)
+      cell.locationCount.text = String(route.locationIDs.count)
+      cell.imageView.loadImageFromFirebase(reference: route.imageRef, placeholder: UIImage(named: "placeholderRouteThumbnail"))
+  
       return cell
     }
   }
