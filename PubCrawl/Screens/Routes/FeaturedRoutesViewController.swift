@@ -8,15 +8,22 @@
 import UIKit
 import FirebaseAuth
 
-class StarredRoutesViewController: UIViewController {
+class FeaturedRoutesViewController: UIViewController {
   
   enum Section {
-    case saved
+    case allRoutes
   }
   
   @IBOutlet weak var collectionView: UICollectionView!
   private var dataSource: UICollectionViewDiffableDataSource<Section, Route>!
   private var routes: [Route] = []
+  
+  class func instantiateFromStoryboard() -> FeaturedRoutesViewController {
+    let storyboard = UIStoryboard(name: "Routes", bundle: nil)
+    let viewController = storyboard.instantiateViewController(identifier: "FeaturedRoutesViewController") as! FeaturedRoutesViewController
+    
+    return viewController
+  }
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -25,12 +32,14 @@ class StarredRoutesViewController: UIViewController {
       setUpView()
     }
   }
+  
   func setUpView() {
-    self.title = "Routes"
     
     FirebaseManager.fetchAllRoutes(completion: { (routes) in
       print("Routes: \(routes)")
-      self.routes = routes.filter { $0.isStarredByCurrentUser() }
+      let popularRoutes = routes.sorted(by: { $0.starredBy.count > $1.starredBy.count })
+      
+      self.routes = Array(popularRoutes.prefix(10))
       self.configureSnapshot()
     })
     self.collectionView.collectionViewLayout = self.configureCollectionViewLayout()
@@ -40,25 +49,26 @@ class StarredRoutesViewController: UIViewController {
 }
 // MARK: - Collection View -
 
-extension StarredRoutesViewController {
+extension FeaturedRoutesViewController {
   func configureCollectionViewLayout() -> UICollectionViewCompositionalLayout {
-    let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
+    let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.9), heightDimension: .fractionalHeight(1.0))
     let item = NSCollectionLayoutItem(layoutSize: itemSize)
     item.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
     
-    let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(0.25))
+    let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
     let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
     
     let section = NSCollectionLayoutSection(group: group)
     section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0)
     
     return UICollectionViewCompositionalLayout(section: section)
+    
   }
 }
 
 // MARK: - Diffable Data Source -
 
-extension StarredRoutesViewController {
+extension FeaturedRoutesViewController {
   typealias RouteDataSource = UICollectionViewDiffableDataSource<Section, Route>
   
   func configureDataSource() {
@@ -81,14 +91,14 @@ extension StarredRoutesViewController {
   
   func configureSnapshot() {
     var currentSnapshot = NSDiffableDataSourceSnapshot<Section, Route>()
-    currentSnapshot.appendSections([.saved])
+    currentSnapshot.appendSections([.allRoutes])
     currentSnapshot.appendItems(routes)
     
     dataSource.apply(currentSnapshot, animatingDifferences: true)
   }
 }
   // MARK: - RouteCellActionDelegate -
-extension StarredRoutesViewController: RouteCellActionDelegate {
+extension FeaturedRoutesViewController: RouteCellActionDelegate {
   func toggleStarAction(cell: RouteCell) {
     if let indexPath = collectionView.indexPath(for: cell) {
       let route = routes[indexPath.item]
@@ -96,4 +106,15 @@ extension StarredRoutesViewController: RouteCellActionDelegate {
     }
   }
 }
+
+extension FeaturedRoutesViewController: UICollectionViewDelegate {
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    if let route = dataSource.itemIdentifier(for: indexPath), let routeDetailViewController = storyboard?.instantiateViewController(identifier: RouteDetailViewController.identifier, creator: {
+      return RouteDetailViewController(coder: $0, route: route)
+    }) {
+      show(routeDetailViewController, sender: nil)
+    }
+  }
+}
+
 

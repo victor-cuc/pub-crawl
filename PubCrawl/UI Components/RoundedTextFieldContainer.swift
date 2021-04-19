@@ -15,7 +15,9 @@ class RoundedTextFieldContainer: UIView {
   override func awakeFromNib() {
     super.awakeFromNib()
     
-    self.iconImageView.tintColor = .black
+    if self.iconImageView != nil {
+      self.iconImageView.tintColor = .black
+    }
     self.textField.attributedPlaceholder = NSAttributedString(string: self.textField.placeholder ?? "", attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
     self.backgroundColor = .white
     self.addFullRoundedCorners()

@@ -8,10 +8,10 @@
 import UIKit
 import FirebaseAuth
 
-class RoutesViewController: UIViewController, RouteCellActionDelegate {
+class RoutesViewController: UIViewController {
   
   enum Section {
-    case community
+    case allRoutes
   }
   
   @IBOutlet weak var collectionView: UICollectionView!
@@ -32,6 +32,7 @@ class RoutesViewController: UIViewController, RouteCellActionDelegate {
       setUpView()
     }
   }
+  
   func setUpView() {
     self.title = "Routes"
     
@@ -88,14 +89,14 @@ extension RoutesViewController {
   
   func configureSnapshot() {
     var currentSnapshot = NSDiffableDataSourceSnapshot<Section, Route>()
-    currentSnapshot.appendSections([.community])
+    currentSnapshot.appendSections([.allRoutes])
     currentSnapshot.appendItems(routes)
     
     dataSource.apply(currentSnapshot, animatingDifferences: true)
   }
-  
+}
   // MARK: - RouteCellActionDelegate -
-  
+extension RoutesViewController: RouteCellActionDelegate {
   func toggleStarAction(cell: RouteCell) {
     if let indexPath = collectionView.indexPath(for: cell) {
       let route = routes[indexPath.item]
@@ -103,4 +104,15 @@ extension RoutesViewController {
     }
   }
 }
+
+extension RoutesViewController: UICollectionViewDelegate {
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    if let route = dataSource.itemIdentifier(for: indexPath), let routeDetailViewController = storyboard?.instantiateViewController(identifier: RouteDetailViewController.identifier, creator: {
+      return RouteDetailViewController(coder: $0, route: route)
+    }) {
+      show(routeDetailViewController, sender: nil)
+    }
+  }
+}
+
 
