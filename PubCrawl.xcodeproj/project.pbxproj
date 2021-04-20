@@ -29,6 +29,7 @@
 		577F194B26205264004136F4 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 577F194A26205264004136F4 /* FirebaseAuth */; };
 		577F194D26205264004136F4 /* FirebaseStorageSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 577F194C26205264004136F4 /* FirebaseStorageSwift-Beta */; };
 		577F194F26205264004136F4 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 577F194E26205264004136F4 /* FirebaseDatabase */; };
+		5792F77E262F175F002CDCE5 /* ExploreHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5792F77D262F175F002CDCE5 /* ExploreHeaderView.xib */; };
 		579EFCE226204C0900DC8BAD /* RoutesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 579EFCE126204C0900DC8BAD /* RoutesViewController.swift */; };
 		57A49646262B653100EF779B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A49645262B653100EF779B /* Constants.swift */; };
 		57A4964A262C4F5000EF779B /* ImageView+Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A49649262C4F5000EF779B /* ImageView+Firebase.swift */; };
@@ -61,6 +62,7 @@
 		57759FAA26248400005AC5A4 /* RouteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteCell.swift; sourceTree = "<group>"; };
 		57759FB1262594C8005AC5A4 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		577F1944262050EE004136F4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5792F77D262F175F002CDCE5 /* ExploreHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExploreHeaderView.xib; sourceTree = "<group>"; };
 		579EFCE126204C0900DC8BAD /* RoutesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutesViewController.swift; sourceTree = "<group>"; };
 		57A49645262B653100EF779B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		57A49649262C4F5000EF779B /* ImageView+Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageView+Firebase.swift"; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 			children = (
 				5746E5DB26271BE6004E85C6 /* GradientView.swift */,
 				575B9AD5261AE67A00350250 /* RoundedTextFieldContainer.swift */,
+				5792F77D262F175F002CDCE5 /* ExploreHeaderView.xib */,
 			);
 			path = "UI Components";
 			sourceTree = "<group>";
@@ -269,6 +272,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				577F1945262050EE004136F4 /* GoogleService-Info.plist in Resources */,
+				5792F77E262F175F002CDCE5 /* ExploreHeaderView.xib in Resources */,
 				5746E5D626260521004E85C6 /* Routes.storyboard in Resources */,
 				5738B37C261A05BE00E68A7D /* LaunchScreen.storyboard in Resources */,
 				5738B379261A05BE00E68A7D /* Assets.xcassets in Resources */,

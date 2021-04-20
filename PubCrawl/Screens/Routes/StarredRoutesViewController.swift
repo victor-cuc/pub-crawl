@@ -26,7 +26,7 @@ class StarredRoutesViewController: UIViewController {
     }
   }
   func setUpView() {
-    self.title = "Routes"
+    self.title = "Saved"
     
     FirebaseManager.fetchAllRoutes(completion: { (routes) in
       print("Routes: \(routes)")

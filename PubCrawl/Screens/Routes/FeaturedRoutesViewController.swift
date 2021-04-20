@@ -39,7 +39,7 @@ class FeaturedRoutesViewController: UIViewController {
       print("Routes: \(routes)")
       let popularRoutes = routes.sorted(by: { $0.starredBy.count > $1.starredBy.count })
       
-      self.routes = Array(popularRoutes.prefix(10))
+      self.routes = Array(popularRoutes.prefix(5))
       self.configureSnapshot()
     })
     self.collectionView.collectionViewLayout = self.configureCollectionViewLayout()
@@ -58,7 +58,7 @@ extension FeaturedRoutesViewController {
     let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
     
     let section = NSCollectionLayoutSection(group: group)
-    section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0)
+    section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0)
     section.orthogonalScrollingBehavior = .groupPaging
     
     return UICollectionViewCompositionalLayout(section: section)

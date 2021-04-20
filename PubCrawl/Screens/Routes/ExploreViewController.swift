@@ -7,10 +7,15 @@
 
 import UIKit
 
+class ExploreHeaderView: UITableViewHeaderFooterView {
+  static let reuseIdentifier = String(describing: ExploreHeaderView.self)
+  @IBOutlet weak var titleLabel: UILabel!
+}
+
 class ExploreViewController: UITableViewController {
-  enum Section: Int {
-    case popular
-    case community
+  enum Section: String, CaseIterable {
+    case popular = "Popular"
+    case community = "Community"
   }
   
   var dataSource: UITableViewDiffableDataSource<Section, Route>!
@@ -18,13 +23,27 @@ class ExploreViewController: UITableViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    tableView.register(UINib(nibName: ExploreHeaderView.reuseIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: ExploreHeaderView.reuseIdentifier)
+    
     configureDataSource()
     updateDataSource()
   }
+  // MARK:- Delegate
+  override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: ExploreHeaderView.reuseIdentifier) as! ExploreHeaderView
+    view.titleLabel.text = Section.allCases[section].rawValue
+    return view
+  }
   
+  override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    50
+  }
+  
+  // MARK:- Data Source
   func configureDataSource() {
     dataSource = UITableViewDiffableDataSource(tableView: tableView) { (tableView, indexPath, route) -> UITableViewCell? in
-      if indexPath.section == Section.popular.rawValue {
+      if indexPath == IndexPath(row: 0, section: 0) {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FeaturedRoutesCell", for: indexPath)
         self.embedChildViewController(self.featuredRoutesViewController, in: cell)
         return cell

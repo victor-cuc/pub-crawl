@@ -7,7 +7,6 @@
 
 import UIKit
 import Firebase
-import CoreLocation
 
 class Route: Hashable {
   let id: String
