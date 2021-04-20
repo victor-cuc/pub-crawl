@@ -51,24 +51,39 @@
         <scene sceneID="6PQ-7p-wcx">
             <objects>
                 <tableViewController storyboardIdentifier="ExploreViewController" id="ePU-C1-3Zu" customClass="ExploreViewController" customModule="PubCrawl" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" estimatedRowHeight="1" sectionHeaderHeight="28" sectionFooterHeight="28" id="nAc-wA-L7B">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="200" sectionHeaderHeight="28" sectionFooterHeight="28" id="nAc-wA-L7B">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FeaturedRoutesCell" id="76L-yp-WAB" userLabel="Featured Cell">
-                                <rect key="frame" x="0.0" y="28" width="390" height="100"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FeaturedRoutesCell" rowHeight="200" id="76L-yp-WAB" userLabel="Featured Cell">
+                                <rect key="frame" x="0.0" y="28" width="390" height="200"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="76L-yp-WAB" id="FUQ-Av-jqE">
-                                    <rect key="frame" x="0.0" y="0.0" width="390" height="100"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="390" height="200"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bau-ia-re4">
+                                            <rect key="frame" x="0.0" y="0.0" width="390" height="200"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="200" id="4aY-2F-wCs"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Bau-ia-re4" firstAttribute="leading" secondItem="FUQ-Av-jqE" secondAttribute="leading" id="GDu-NH-hLC"/>
+                                        <constraint firstAttribute="bottom" secondItem="Bau-ia-re4" secondAttribute="bottom" id="K9d-Uq-yF8"/>
+                                        <constraint firstAttribute="trailing" secondItem="Bau-ia-re4" secondAttribute="trailing" id="djM-ga-Y3O"/>
+                                        <constraint firstItem="Bau-ia-re4" firstAttribute="top" secondItem="FUQ-Av-jqE" secondAttribute="top" id="lUQ-ur-7sh"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PostCell" id="X6s-Mb-NuJ" customClass="PostCell" customModule="PubCrawl" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="128" width="390" height="100"/>
+                                <rect key="frame" x="0.0" y="228" width="390" height="43.666667938232422"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="X6s-Mb-NuJ" id="JpT-4e-eC9">
-                                    <rect key="frame" x="0.0" y="0.0" width="390" height="100"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="390" height="43.666667938232422"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>

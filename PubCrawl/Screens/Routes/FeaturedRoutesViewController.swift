@@ -43,7 +43,6 @@ class FeaturedRoutesViewController: UIViewController {
       self.configureSnapshot()
     })
     self.collectionView.collectionViewLayout = self.configureCollectionViewLayout()
-//    collectionView.delegate = self
     self.configureDataSource()
   }
 }
@@ -51,18 +50,18 @@ class FeaturedRoutesViewController: UIViewController {
 
 extension FeaturedRoutesViewController {
   func configureCollectionViewLayout() -> UICollectionViewCompositionalLayout {
-    let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.9), heightDimension: .fractionalHeight(1.0))
+    let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
     let item = NSCollectionLayoutItem(layoutSize: itemSize)
     item.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
     
-    let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
+    let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.8), heightDimension: .fractionalHeight(1.0))
     let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
     
     let section = NSCollectionLayoutSection(group: group)
     section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0)
+    section.orthogonalScrollingBehavior = .groupPaging
     
     return UICollectionViewCompositionalLayout(section: section)
-    
   }
 }
 
