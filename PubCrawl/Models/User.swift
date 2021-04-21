@@ -6,12 +6,13 @@
 //
 //
 import UIKit
+import FirebaseStorage
 
 class User {
 
   let id: String // UUID or String?
   let username: String
-  var profilePicture: UIImage?
+  var profilePictureRef: StorageReference?
   var level: Int
   var numberOfCompletedRoutes: Int
   var numberOfVisitedLocations: Int

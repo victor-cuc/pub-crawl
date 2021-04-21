@@ -75,6 +75,9 @@ class FirebaseManager {
       } else if snapshot.exists() {
         let userData = snapshot.value as? [String: Any] ?? [:]
         let user = User(id: id, data: userData)
+        let imageRef = storeRef.child("profilePictures/\(user.id)/profile.jpg")
+        user.profilePictureRef = imageRef
+        
         completion(user)
       } else {
         print("No data available")

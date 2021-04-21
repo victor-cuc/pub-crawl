@@ -63,6 +63,7 @@ class ExploreViewController: UITableViewController {
       else { fatalError("Could not create PostCell") }
       
       cell.usernameLabel.text = post.user.username
+      cell.profilePicture.loadImageFromFirebase(reference: post.user.profilePictureRef, placeholder: UIImage(named: "placeholderProfile"))
       cell.postTextLabel.text = post.text
       
       cell.routeNameLabel.text = post.route.name
