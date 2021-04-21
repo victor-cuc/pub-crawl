@@ -25,10 +25,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //      print("Error signing out: \(signOutError)")
 //    }
     
-    FirebaseManager.fetchAllPosts { posts in
-      print(posts.first?.text ?? "No text found")
-    }
-    
     let isUserLoggedIn = Auth.auth().currentUser != nil
     if isUserLoggedIn {
       let routesViewController = RoutesViewController.instantiateFromStoryboard()

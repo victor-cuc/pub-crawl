@@ -28,3 +28,13 @@ class Post {
     }
   }
 }
+
+extension Post: Hashable {
+  func hash(into hasher: inout Hasher) {
+    hasher.combine(id)
+  }
+  
+  static func == (lhs: Post, rhs: Post) -> Bool {
+    return lhs.id == rhs.id
+  }
+}
