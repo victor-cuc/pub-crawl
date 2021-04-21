@@ -48,12 +48,31 @@ class FirebaseManager {
     }
   }
   
+  static func fetchAllPosts(completion: @escaping ([Post]) -> Void) {
+    var posts = [Post]()
+    ref.child("posts").observe(.value, with: { (snapshot) in
+      posts.removeAll()
+      guard let postDict = snapshot.value as? [String: Any] else { fatalError("Error getting/casting post dict") }
+      
+      for post in postDict {
+        let postValues = post.value as? [String: Any] ?? [:]
+        let post = Post(id: post.key, data: postValues)
+        let imageRef1 = storeRef.child("postImages/\(post.id)/1.jpg")
+        let imageRef2 = storeRef.child("postImages/\(post.id)/2.jpg")
+        
+        post.imageRefs.append(contentsOf: [imageRef1, imageRef2])
+        
+        posts.append(post)
+      }
+      completion(posts)
+    })
+  }
+  
   static func getUser(byID id: String, completion: @escaping (User) -> Void) {
     ref.child("users/\(id)").getData { (error, snapshot) in
       if let error = error {
         print("Error getting data \(error)")
       } else if snapshot.exists() {
-        print("Got data \(snapshot.value!)")
         let userData = snapshot.value as? [String: Any] ?? [:]
         let user = User(id: id, data: userData)
         completion(user)
