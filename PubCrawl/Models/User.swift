@@ -1,20 +1,28 @@
-////
-////  UserModel.swift
-////  PubCrawl
-////
-////  Created by Victor Cuc on 04/04/2021.
-////
 //
-//import Foundation
+//  UserModel.swift
+//  PubCrawl
 //
-//class User {
+//  Created by Victor Cuc on 04/04/2021.
 //
-//  let id: String // UUID or String?
-//  let username: String
-//  let email: String // include?
-//  var savedRoutes: Set<Route> = []
-//  var completedRoutes: Set<Route> = []
-//  var level: Int = 1
-//  var numberOfCompletedRoutes: Int = 0
-//  var numberOfVisitedLocations: Int = 0
-//}
+//
+import UIKit
+
+class User {
+
+  let id: String // UUID or String?
+  let username: String
+  var profilePicture: UIImage?
+  var level: Int
+  var numberOfCompletedRoutes: Int
+  var numberOfVisitedLocations: Int
+  
+  init(id: String, data: [String: Any]) {
+    self.id = id
+    username = data["username"] as! String
+    let stats = data["stats"] as? [String: Any] ?? [:]
+    print(stats)
+    level = stats["level"] as? Int ?? 0
+    numberOfCompletedRoutes = stats["completedCount"] as? Int ?? 0
+    numberOfVisitedLocations = stats["locationCount"] as? Int ?? 0
+  }
+}

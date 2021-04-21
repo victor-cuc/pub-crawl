@@ -31,6 +31,38 @@ class FirebaseManager {
     })
   }
   
+  static func getRoute(byID id: String, completion: @escaping (Route) -> Void) {
+    ref.child("routes/\(id)").getData { (error, snapshot) in
+      if let error = error {
+        print("Error getting data \(error)")
+      } else if snapshot.exists() {
+        let routeData = snapshot.value as? [String: Any] ?? [:]
+        let route = Route(id: id, data: routeData)
+        let imageRef = storeRef.child("routeImages/\(route.id)/thumbnail.jpg")
+        route.imageRef = imageRef
+        
+        completion(route)
+      } else {
+        print("No data available")
+      }
+    }
+  }
+  
+  static func getUser(byID id: String, completion: @escaping (User) -> Void) {
+    ref.child("users/\(id)").getData { (error, snapshot) in
+      if let error = error {
+        print("Error getting data \(error)")
+      } else if snapshot.exists() {
+        print("Got data \(snapshot.value!)")
+        let userData = snapshot.value as? [String: Any] ?? [:]
+        let user = User(id: id, data: userData)
+        completion(user)
+      } else {
+        print("No data available")
+      }
+    }
+  }
+  
   static func toggleRouteStar(route: Route) {
     guard let currentUserID = Auth.auth().currentUser?.uid else { return }
 
