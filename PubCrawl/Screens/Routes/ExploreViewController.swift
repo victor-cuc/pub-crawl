@@ -26,6 +26,8 @@ class ExploreViewController: UITableViewController {
     
     tableView.register(UINib(nibName: ExploreHeaderView.reuseIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: ExploreHeaderView.reuseIdentifier)
     
+    tableView.separatorStyle = .none
+    
     configureDataSource()
     updateDataSource()
   }
@@ -37,7 +39,7 @@ class ExploreViewController: UITableViewController {
   }
   
   override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-    50
+    60
   }
   
   // MARK:- Data Source
