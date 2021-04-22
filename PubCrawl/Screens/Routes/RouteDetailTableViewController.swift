@@ -8,12 +8,34 @@
 import UIKit
 
 class RouteDetailTableViewController: UITableViewController {
-  var route: Route
+  static let identifier = String(describing: RouteDetailTableViewController.self)
   
-  required init?(coder: NSCoder) { fatalError("This should never be called") }
+  private var route: Route!
   
-  init?(coder: NSCoder, route: Route) {
-    self.route = route
+  @IBOutlet weak var starCount: UILabel!
+  @IBOutlet weak var starButton: UIButton!
+  @IBOutlet weak var nameLabel: UILabel!
+  @IBOutlet weak var roundedCornerContainer: UIView!
+  @IBOutlet weak var imageView: UIImageView!
+  @IBOutlet weak var locationCount: UILabel!
+  @IBOutlet weak var startButton: UIButton!
+  
+  required init?(coder: NSCoder) {
     super.init(coder: coder)
+  }
+
+  class func instantiateFromStoryboard(route: Route) -> RouteDetailTableViewController {
+    let storyboard = UIStoryboard(name: "Routes", bundle: nil)
+    let viewController = storyboard.instantiateViewController(identifier: "RouteDetailTableViewController") as! RouteDetailTableViewController
+    viewController.route = route
+    
+    return viewController
+  }
+
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    
+    self.title = route.name
+    nameLabel.text = route.name
   }
 }

@@ -106,14 +106,14 @@ extension FeaturedRoutesViewController: RouteCellActionDelegate {
   }
 }
 
-extension FeaturedRoutesViewController: UICollectionViewDelegate {
-  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    if let route = dataSource.itemIdentifier(for: indexPath), let routeDetailViewController = storyboard?.instantiateViewController(identifier: RouteDetailViewController.identifier, creator: {
-      return RouteDetailViewController(coder: $0, route: route)
-    }) {
-      show(routeDetailViewController, sender: nil)
-    }
-  }
-}
+//extension FeaturedRoutesViewController: UICollectionViewDelegate {
+//  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//    if let route = dataSource.itemIdentifier(for: indexPath), let routeDetailViewController = storyboard?.instantiateViewController(identifier: RouteDetailTableViewController.identifier, creator: {
+//      return RouteDetailTableViewController(coder: $0, route: route)
+//    }) {
+//      show(routeDetailViewController, sender: nil)
+//    }
+//  }
+//}
 
 

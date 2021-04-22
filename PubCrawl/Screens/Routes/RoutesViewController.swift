@@ -42,7 +42,7 @@ class RoutesViewController: UIViewController {
       self.configureSnapshot()
     })
     self.collectionView.collectionViewLayout = self.configureCollectionViewLayout()
-//    collectionView.delegate = self
+    collectionView.delegate = self
     self.configureDataSource()
   }
 }
@@ -97,6 +97,7 @@ extension RoutesViewController {
 }
   // MARK: - RouteCellActionDelegate -
 extension RoutesViewController: RouteCellActionDelegate {
+  
   func toggleStarAction(cell: RouteCell) {
     if let indexPath = collectionView.indexPath(for: cell) {
       let route = routes[indexPath.item]
@@ -106,11 +107,12 @@ extension RoutesViewController: RouteCellActionDelegate {
 }
 
 extension RoutesViewController: UICollectionViewDelegate {
+  
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    if let route = dataSource.itemIdentifier(for: indexPath), let routeDetailViewController = storyboard?.instantiateViewController(identifier: RouteDetailViewController.identifier, creator: {
-      return RouteDetailViewController(coder: $0, route: route)
-    }) {
-      show(routeDetailViewController, sender: nil)
+    print("item pressed")
+    if let route = dataSource.itemIdentifier(for: indexPath) {
+      let routeDetailViewController = RouteDetailTableViewController.instantiateFromStoryboard(route: route)
+      navigationController?.pushViewController(routeDetailViewController, animated: true)
     }
   }
 }

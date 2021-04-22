@@ -39,7 +39,6 @@
 		57A49652262CC10000EF779B /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A49651262CC10000EF779B /* ExploreViewController.swift */; };
 		57B4577A261B011700658820 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B45779261B011700658820 /* RegisterViewController.swift */; };
 		57DF83AF262CC311002CFBD5 /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DF83AE262CC311002CFBD5 /* PostCell.swift */; };
-		57DF83BD262D8CC2002CFBD5 /* RouteDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DF83BC262D8CC2002CFBD5 /* RouteDetailViewController.swift */; };
 		57DF83C1262D8FF8002CFBD5 /* FeaturedRoutesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DF83C0262D8FF8002CFBD5 /* FeaturedRoutesViewController.swift */; };
 		57E6473326301ADF004A5565 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 57E6473226301ADF004A5565 /* IQKeyboardManagerSwift */; };
 /* End PBXBuildFile section */
@@ -75,7 +74,6 @@
 		57A49651262CC10000EF779B /* ExploreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
 		57B45779261B011700658820 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		57DF83AE262CC311002CFBD5 /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
-		57DF83BC262D8CC2002CFBD5 /* RouteDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDetailViewController.swift; sourceTree = "<group>"; };
 		57DF83C0262D8FF8002CFBD5 /* FeaturedRoutesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedRoutesViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -193,7 +191,6 @@
 				57A49651262CC10000EF779B /* ExploreViewController.swift */,
 				57DF83C0262D8FF8002CFBD5 /* FeaturedRoutesViewController.swift */,
 				579EFCE126204C0900DC8BAD /* RoutesViewController.swift */,
-				57DF83BC262D8CC2002CFBD5 /* RouteDetailViewController.swift */,
 				5792F780262F1FCA002CDCE5 /* RouteDetailTableViewController.swift */,
 				57A4964C262CB58800EF779B /* StarredRoutesViewController.swift */,
 				575B9AD1261AE67A00350250 /* Authentication */,
@@ -300,7 +297,6 @@
 				575B9AD7261AE67A00350250 /* UIView+Shadow.swift in Sources */,
 				57B4577A261B011700658820 /* RegisterViewController.swift in Sources */,
 				57193B2F2628AD38001F15A6 /* Location.swift in Sources */,
-				57DF83BD262D8CC2002CFBD5 /* RouteDetailViewController.swift in Sources */,
 				575B9AD6261AE67A00350250 /* UIView+RoundCorners.swift in Sources */,
 				5746E5DC26271BE6004E85C6 /* GradientView.swift in Sources */,
 				57759FAB26248400005AC5A4 /* RouteCell.swift in Sources */,
