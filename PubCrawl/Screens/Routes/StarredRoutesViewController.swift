@@ -33,9 +33,9 @@ class StarredRoutesViewController: UIViewController {
       self.routes = routes.filter { $0.isStarredByCurrentUser() }
       self.configureSnapshot()
     })
-    self.collectionView.collectionViewLayout = self.configureCollectionViewLayout()
-//    collectionView.delegate = self
-    self.configureDataSource()
+    collectionView.collectionViewLayout = self.configureCollectionViewLayout()
+    collectionView.delegate = self
+    configureDataSource()
   }
 }
 // MARK: - Collection View -
@@ -93,6 +93,17 @@ extension StarredRoutesViewController: RouteCellActionDelegate {
     if let indexPath = collectionView.indexPath(for: cell) {
       let route = routes[indexPath.item]
       FirebaseManager.toggleRouteStar(route: route)
+    }
+  }
+}
+
+extension StarredRoutesViewController: UICollectionViewDelegate {
+  
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    print("item pressed")
+    if let route = dataSource.itemIdentifier(for: indexPath) {
+      let routeDetailViewController = RouteDetailTableViewController.instantiateFromStoryboard(route: route)
+      navigationController?.pushViewController(routeDetailViewController, animated: true)
     }
   }
 }

@@ -42,8 +42,9 @@ class FeaturedRoutesViewController: UIViewController {
       self.routes = Array(popularRoutes.prefix(5))
       self.configureSnapshot()
     })
-    self.collectionView.collectionViewLayout = self.configureCollectionViewLayout()
-    self.configureDataSource()
+    collectionView.collectionViewLayout = self.configureCollectionViewLayout()
+    collectionView.delegate = self
+    configureDataSource()
   }
 }
 // MARK: - Collection View -
@@ -106,14 +107,16 @@ extension FeaturedRoutesViewController: RouteCellActionDelegate {
   }
 }
 
-//extension FeaturedRoutesViewController: UICollectionViewDelegate {
-//  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//    if let route = dataSource.itemIdentifier(for: indexPath), let routeDetailViewController = storyboard?.instantiateViewController(identifier: RouteDetailTableViewController.identifier, creator: {
-//      return RouteDetailTableViewController(coder: $0, route: route)
-//    }) {
-//      show(routeDetailViewController, sender: nil)
-//    }
-//  }
-//}
+
+extension FeaturedRoutesViewController: UICollectionViewDelegate {
+  
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    print("item pressed")
+    if let route = dataSource.itemIdentifier(for: indexPath) {
+      let routeDetailViewController = RouteDetailTableViewController.instantiateFromStoryboard(route: route)
+      navigationController?.pushViewController(routeDetailViewController, animated: true)
+    }
+  }
+}
 
 

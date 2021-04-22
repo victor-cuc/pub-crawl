@@ -32,7 +32,6 @@ class ExploreViewController: UITableViewController {
       self.posts = posts
       self.updateDataSource()
     }
-    
     configureDataSource()
   }
   
