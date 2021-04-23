@@ -22,13 +22,13 @@ class Post {
     self.id = id
     text = data["text"] as? String ?? ""
     
-    let imageRefsArray = data["imageRefs"] as? NSMutableArray ?? []
-    for i in 0..<imageRefsArray.count {
-      self.imageRefs.append(storeRef.child("postImages/\(id)/\(i).jpg"))
-    }
-//
     guard let routeId = data["route"] as? String else { return }
     self.routeId = routeId
+
+    let imageRefsArray = data["imageRefs"] as? [String] ?? []
+    for imageRef in imageRefsArray {
+      imageRefs.append(storeRef.child(imageRef))
+    }
   }
 }
 
