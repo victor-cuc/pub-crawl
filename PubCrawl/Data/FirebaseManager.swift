@@ -47,24 +47,31 @@ class FirebaseManager {
     })
   }
   
-  static func getRoutes(byIDs IDs: [String], completion: @escaping ([Route]) -> Void) {
+  static func getRoutes(withIDs IDs: [String], completion: @escaping ([Route]) -> Void) {
     var routes: [Route] = []
     
     let queue = OperationQueue()
+    let completionOperation = BlockOperation {
+        completion(routes)
+    }
     
     for id in IDs {
-      let operation = BlockOperation {
-        getRoute(byID: id) { route in
-          routes.append(route)
+        let operation = BlockOperation {
+            let lock = NSLock()
+            lock.lock()
+            getRoute(byID: id) { route in
+                routes.append(route)
+                lock.unlock()
+            }
+            lock.lock()
+            return
         }
-      }
-      
-      queue.addOperation(operation)
+        
+        completionOperation.addDependency(operation)
+        queue.addOperation(operation)
     }
     
-    queue.addBarrierBlock {
-      completion(routes)
-    }
+    queue.addOperation(completionOperation)
   }
   
   static func getRoute(byID id: String, completion: @escaping (Route) -> Void) {
@@ -126,12 +133,18 @@ class FirebaseManager {
       
       for post in postDict {
         let postValues = post.value as? [String: Any] ?? [:]
-//        print(postValues)
         let post = Post(id: post.key, data: postValues)
         
         posts.append(post)
       }
-      completion(posts)
+        
+        self.getRoutes(withIDs: posts.compactMap({$0.routeId})) { (routes) in
+            var routesDict = [String: Route]()
+            routes.forEach({routesDict[$0.id] = $0})
+            
+            posts.forEach({$0.route = routesDict[$0.routeId]})
+            completion(posts)
+        }
     })
   }
   

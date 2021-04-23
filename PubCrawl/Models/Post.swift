@@ -13,6 +13,7 @@ class Post {
   var user: User!
   var text: String
   var route: Route!
+  var routeId: String!
   var imageRefs: [StorageReference] = []
   
   let storeRef = Storage.storage().reference()
@@ -26,14 +27,8 @@ class Post {
       self.imageRefs.append(storeRef.child("postImages/\(id)/\(i).jpg"))
     }
 //
-    guard let routeID = data["route"] as? String else { return }
-    FirebaseManager.getRoute(byID: routeID) { route in
-      self.route = route
-    }
-    guard let userID = data["user"] as? String else { return }
-    FirebaseManager.getUser(byID: userID) { user in
-      self.user = user
-    }
+    guard let routeId = data["route"] as? String else { return }
+    self.routeId = routeId
   }
 }
 
