@@ -13,6 +13,7 @@ class Post {
   var user: User!
   var text: String
   var route: Route!
+  var routeId: String!
   var imageRefs: [StorageReference] = []
   
   let storeRef = Storage.storage().reference()
@@ -21,6 +22,9 @@ class Post {
     self.id = id
     text = data["text"] as? String ?? ""
     
+    guard let routeId = data["route"] as? String else { return }
+    self.routeId = routeId
+
     let imageRefsArray = data["imageRefs"] as? [String] ?? []
     for imageRef in imageRefsArray {
       imageRefs.append(storeRef.child(imageRef))

@@ -52,20 +52,26 @@ class FirebaseManager {
     
     let queue = OperationQueue()
     let completionOperation = BlockOperation {
-      completion(routes)
+        completion(routes)
     }
-    queue.addOperation(completionOperation)
     
     for id in IDs {
-      let operation = BlockOperation {
-        getRoute(byID: id) { route in
-          routes.append(route)
+        let operation = BlockOperation {
+            let lock = NSLock()
+            lock.lock()
+            getRoute(byID: id) { route in
+                routes.append(route)
+                lock.unlock()
+            }
+            lock.lock()
+            return
         }
-      }
-      
-      completionOperation.addDependency(operation)
-      queue.addOperation(operation)
+        
+        completionOperation.addDependency(operation)
+        queue.addOperation(operation)
     }
+    
+    queue.addOperation(completionOperation)
   }
   
   static func getRoute(byID id: String, completion: @escaping (Route) -> Void) {
@@ -131,12 +137,18 @@ class FirebaseManager {
       var posts = [Post]()
       for post in postDict {
         let postValues = post.value as? [String: Any] ?? [:]
-//        print(postValues)
         let post = Post(id: post.key, data: postValues)
         
         posts.append(post)
       }
-      completion(posts, nil)
+        
+        self.getRoutes(withIDs: posts.compactMap({$0.routeId})) { (routes) in
+            var routesDict = [String: Route]()
+            routes.forEach({routesDict[$0.id] = $0})
+            
+            posts.forEach({$0.route = routesDict[$0.routeId]})
+            completion(posts)
+        }
     })
   }
   
