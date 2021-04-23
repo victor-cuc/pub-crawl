@@ -47,10 +47,14 @@ class FirebaseManager {
     })
   }
   
-  static func getRoutes(byIDs IDs: [String], completion: @escaping ([Route]) -> Void) {
+  static func getRoutes(withIDs IDs: [String], completion: @escaping ([Route]) -> Void) {
     var routes: [Route] = []
     
     let queue = OperationQueue()
+    let completionOperation = BlockOperation {
+      completion(routes)
+    }
+    queue.addOperation(completionOperation)
     
     for id in IDs {
       let operation = BlockOperation {
@@ -59,11 +63,8 @@ class FirebaseManager {
         }
       }
       
+      completionOperation.addDependency(operation)
       queue.addOperation(operation)
-    }
-    
-    queue.addBarrierBlock {
-      completion(routes)
     }
   }
   
@@ -118,12 +119,16 @@ class FirebaseManager {
     completion(Post(id: key, data: post))
   }
   
-  static func getAllPosts(completion: @escaping ([Post]) -> Void) {
-    var posts = [Post]()
-    ref.child("posts").observe(.value, with: { (snapshot) in
-      posts.removeAll()
+  static func getAllPosts(completion: @escaping ([Post], Error?) -> Void) {
+    ref.child("posts").getData(completion: { (error, snapshot) in
+      if let error = error {
+        completion([], error)
+        return
+      }
+      
       guard let postDict = snapshot.value as? [String: Any] else { fatalError("Error getting/casting post dict") }
       
+      var posts = [Post]()
       for post in postDict {
         let postValues = post.value as? [String: Any] ?? [:]
 //        print(postValues)
@@ -131,7 +136,7 @@ class FirebaseManager {
         
         posts.append(post)
       }
-      completion(posts)
+      completion(posts, nil)
     })
   }
   

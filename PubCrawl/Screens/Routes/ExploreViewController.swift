@@ -28,7 +28,7 @@ class ExploreViewController: UITableViewController {
     tableView.register(UINib(nibName: ExploreHeaderView.reuseIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: ExploreHeaderView.reuseIdentifier)
     tableView.separatorStyle = .none
     
-    FirebaseManager.getAllPosts { posts in
+    FirebaseManager.getAllPosts { posts, error in
       self.posts = posts
       self.updateDataSource()
     }
@@ -72,11 +72,11 @@ class ExploreViewController: UITableViewController {
       cell.postImageView1.loadImageFromFirebase(reference: post.imageRefs.first)
       cell.postImageView2.loadImageFromFirebase(reference: post.imageRefs.last)
       
-      cell.routeNameLabel.text = post.route.name
-      cell.routeImageView.loadImageFromFirebase(reference: post.route.imageRef, placeholder: UIImage(named: "placeholderRouteThumbnail"))
-      cell.routeLocationCount.text = String(post.route.locationIDs.count)
-      cell.routeStarButton.isSelected = post.route.isStarredByCurrentUser()
-      cell.routeStarCount.text = String(post.route.starredBy.count)
+//      cell.routeNameLabel.text = post.route.name
+//      cell.routeImageView.loadImageFromFirebase(reference: post.route.imageRef, placeholder: UIImage(named: "placeholderRouteThumbnail"))
+//      cell.routeLocationCount.text = String(post.route.locationIDs.count)
+//      cell.routeStarButton.isSelected = post.route.isStarredByCurrentUser()
+//      cell.routeStarCount.text = String(post.route.starredBy.count)
       
       return cell
     }
