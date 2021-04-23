@@ -21,18 +21,9 @@ class Post {
     self.id = id
     text = data["text"] as? String ?? ""
     
-    let imageRefsArray = data["imageRefs"] as? NSMutableArray ?? []
-    for i in 0..<imageRefsArray.count {
-      self.imageRefs.append(storeRef.child("postImages/\(id)/\(i).jpg"))
-    }
-//
-    guard let routeID = data["route"] as? String else { return }
-    FirebaseManager.getRoute(byID: routeID) { route in
-      self.route = route
-    }
-    guard let userID = data["user"] as? String else { return }
-    FirebaseManager.getUser(byID: userID) { user in
-      self.user = user
+    let imageRefsArray = data["imageRefs"] as? [String] ?? []
+    for imageRef in imageRefsArray {
+      imageRefs.append(storeRef.child(imageRef))
     }
   }
 }
