@@ -14,7 +14,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   var window: UIWindow?
   
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-    // Override point for customization after application launch.
     FirebaseApp.configure()
     window = UIWindow(frame: UIScreen.main.bounds)
     
@@ -27,6 +26,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     let isUserLoggedIn = Auth.auth().currentUser != nil
     if isUserLoggedIn {
+//      FirebaseManager.getRoutes(byIDs: ["r1", "r2"]) { routes in
+//        print(routes)
+//        routes.forEach { route in
+//          print("getRoutesByIDs route names:", route.name)
+//        }
+//      }
       let routesViewController = RoutesViewController.instantiateFromStoryboard()
       window?.rootViewController = routesViewController
     } else {

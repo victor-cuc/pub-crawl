@@ -28,7 +28,7 @@ class ExploreViewController: UITableViewController {
     tableView.register(UINib(nibName: ExploreHeaderView.reuseIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: ExploreHeaderView.reuseIdentifier)
     tableView.separatorStyle = .none
     
-    FirebaseManager.fetchAllPosts { posts in
+    FirebaseManager.getAllPosts { posts in
       self.posts = posts
       self.updateDataSource()
     }
@@ -66,6 +66,11 @@ class ExploreViewController: UITableViewController {
       cell.usernameLabel.text = post.user?.username
       cell.profilePicture.loadImageFromFirebase(reference: post.user?.profilePictureRef, placeholder: UIImage(named: "placeholderProfile"))
       cell.postTextLabel.text = post.text
+      
+      cell.postImageContainer.isHidden = post.imageRefs.isEmpty
+      cell.postImageView2.isHidden = post.imageRefs.count == 1
+      cell.postImageView1.loadImageFromFirebase(reference: post.imageRefs.first)
+      cell.postImageView2.loadImageFromFirebase(reference: post.imageRefs.last)
       
       cell.routeNameLabel.text = post.route.name
       cell.routeImageView.loadImageFromFirebase(reference: post.route.imageRef, placeholder: UIImage(named: "placeholderRouteThumbnail"))

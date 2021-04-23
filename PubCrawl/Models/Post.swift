@@ -15,9 +15,17 @@ class Post {
   var route: Route!
   var imageRefs: [StorageReference] = []
   
+  let storeRef = Storage.storage().reference()
+  
   init(id: String, data: [String: Any]) {
     self.id = id
     text = data["text"] as? String ?? ""
+    
+    let imageRefsArray = data["imageRefs"] as? NSMutableArray ?? []
+    for i in 0..<imageRefsArray.count {
+      self.imageRefs.append(storeRef.child("postImages/\(id)/\(i).jpg"))
+    }
+//
     guard let routeID = data["route"] as? String else { return }
     FirebaseManager.getRoute(byID: routeID) { route in
       self.route = route

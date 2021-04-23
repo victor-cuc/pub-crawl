@@ -21,15 +21,13 @@ class StarredRoutesViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     if let user = Auth.auth().currentUser {
-      print("Viewing routes for user: \(user)")
       setUpView()
     }
   }
   func setUpView() {
     self.title = "Saved"
     
-    FirebaseManager.fetchAllRoutes(completion: { (routes) in
-      print("Routes: \(routes)")
+    FirebaseManager.getAllRoutes(completion: { (routes) in
       self.routes = routes.filter { $0.isStarredByCurrentUser() }
       self.configureSnapshot()
     })

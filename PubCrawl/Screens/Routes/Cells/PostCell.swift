@@ -19,7 +19,7 @@ class PostCell: UITableViewCell {
   @IBOutlet weak var postImageView2: UIImageView!
   
   @IBOutlet weak var routeImageView: UIImageView!
-  @IBOutlet weak var routeRoundedCornerContainer: UIView!
+  @IBOutlet weak var routeThumbnailContainer: UIView!
   @IBOutlet weak var routeNameLabel: UILabel!
   @IBOutlet weak var routeStarButton: UIButton!
   @IBOutlet weak var routeStarCount: UILabel!
@@ -28,7 +28,12 @@ class PostCell: UITableViewCell {
   override func awakeFromNib() {
     super.awakeFromNib()
     
-    routeRoundedCornerContainer.addDefaultRoundedCorners(clipsToBounds: true)
+    profilePicture.addFullRoundedCorners(clipsToBounds: true)
+    
+    postImageView1.addDefaultRoundedCorners(clipsToBounds: true)
+    postImageView2.addDefaultRoundedCorners(clipsToBounds: true)
+    
+    routeThumbnailContainer.addDefaultRoundedCorners(clipsToBounds: true)
     
     containerView.addDefaultRoundedCorners()
     containerView.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)

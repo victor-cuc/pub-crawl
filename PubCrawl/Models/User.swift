@@ -21,7 +21,7 @@ class User {
     self.id = id
     username = data["username"] as! String
     let stats = data["stats"] as? [String: Any] ?? [:]
-    print(stats)
+//    print(stats)
     level = stats["level"] as? Int ?? 0
     numberOfCompletedRoutes = stats["completedCount"] as? Int ?? 0
     numberOfVisitedLocations = stats["locationCount"] as? Int ?? 0

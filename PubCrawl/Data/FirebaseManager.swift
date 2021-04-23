@@ -12,7 +12,23 @@ class FirebaseManager {
   private static var ref: DatabaseReference! = Database.database().reference()
   private static var storeRef: StorageReference! = Storage.storage().reference()
   
-  static func fetchAllRoutes(completion: @escaping ([Route]) -> Void) {
+  // MARK:- Routes
+  
+  static func createNewDummyRoute(completion: @escaping (Route) -> Void) {
+    let name = "Route\(Int.random(in: 1...100))"
+    createNewRoute(name: name) { route in
+      completion(route)
+    }
+  }
+  
+  static func createNewRoute(name: String, completion: @escaping (Route) -> Void) {
+    guard let key = ref.child("routes").childByAutoId().key else { return }
+    let route = ["name": name]
+    ref.child("routes").child(key).setValue(route)
+    completion(Route(id: key, data: route))
+  }
+  
+  static func getAllRoutes(completion: @escaping ([Route]) -> Void) {
     var routes = [Route]()
     ref.child("routes").observe(.value, with: { (snapshot) in
       routes.removeAll()
@@ -29,6 +45,26 @@ class FirebaseManager {
       routes.sort { $0.name < $1.name }
       completion(routes)
     })
+  }
+  
+  static func getRoutes(byIDs IDs: [String], completion: @escaping ([Route]) -> Void) {
+    var routes: [Route] = []
+    
+    let queue = OperationQueue()
+    
+    for id in IDs {
+      let operation = BlockOperation {
+        getRoute(byID: id) { route in
+          routes.append(route)
+        }
+      }
+      
+      queue.addOperation(operation)
+    }
+    
+    queue.addBarrierBlock {
+      completion(routes)
+    }
   }
   
   static func getRoute(byID id: String, completion: @escaping (Route) -> Void) {
@@ -48,7 +84,41 @@ class FirebaseManager {
     }
   }
   
-  static func fetchAllPosts(completion: @escaping ([Post]) -> Void) {
+  static func toggleRouteStar(route: Route, isSelected: (() -> Void)? = nil) {
+    guard let currentUserID = Auth.auth().currentUser?.uid else { return }
+
+    let newValue = route.isStarredByCurrentUser() ? nil : true
+    let starUpdates = [
+      "/routes/\(route.id)/starredBy/\(currentUserID)": newValue,
+      "/users/\(currentUserID)/starred/\(route.id)": newValue
+    ]
+    ref.updateChildValues(starUpdates as [AnyHashable : Any])
+    isSelected?()
+  }
+  
+  // MARK:- Posts
+  
+  static func createNewDummyPost(completion: @escaping (Post) -> Void) {
+    let text = "post text: \(Int.random(in: 1...100))"
+    let routeID = "r1"
+    createNewPost(forRouteID: routeID, withText: text) { post in
+      completion(post)
+    }
+  }
+  
+  static func createNewPost(forRouteID routeID: String, withText text: String, completion: @escaping (Post) -> Void) {
+    let currentUserID = Auth.auth().currentUser!.uid
+    guard let key = ref.child("posts").childByAutoId().key else { return }
+    let post = [
+      "route": routeID,
+      "user": currentUserID,
+      "text": text
+    ]
+    ref.child("posts").child(key).setValue(post)
+    completion(Post(id: key, data: post))
+  }
+  
+  static func getAllPosts(completion: @escaping ([Post]) -> Void) {
     var posts = [Post]()
     ref.child("posts").observe(.value, with: { (snapshot) in
       posts.removeAll()
@@ -56,17 +126,16 @@ class FirebaseManager {
       
       for post in postDict {
         let postValues = post.value as? [String: Any] ?? [:]
+//        print(postValues)
         let post = Post(id: post.key, data: postValues)
-        let imageRef1 = storeRef.child("postImages/\(post.id)/1.jpg")
-        let imageRef2 = storeRef.child("postImages/\(post.id)/2.jpg")
-        
-        post.imageRefs.append(contentsOf: [imageRef1, imageRef2])
         
         posts.append(post)
       }
       completion(posts)
     })
   }
+  
+  //MARK:- Users
   
   static func getUser(byID id: String, completion: @escaping (User) -> Void) {
     ref.child("users/\(id)").getData { (error, snapshot) in
@@ -83,17 +152,5 @@ class FirebaseManager {
         print("No data available")
       }
     }
-  }
-  
-  static func toggleRouteStar(route: Route) {
-    guard let currentUserID = Auth.auth().currentUser?.uid else { return }
-
-    let newValue = route.isStarredByCurrentUser() ? nil : true
-//    print("toggleRouteStar - \(currentUserID) - \(route.isStarredByCurrentUser()) - \(newValue)")
-    let starUpdates = [
-      "/routes/\(route.id)/starredBy/\(currentUserID)": newValue,
-      "/users/\(currentUserID)/starred/\(route.id)": newValue
-    ]
-    ref.updateChildValues(starUpdates as [AnyHashable : Any])
   }
 }

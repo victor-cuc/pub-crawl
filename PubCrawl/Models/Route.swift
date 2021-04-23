@@ -20,7 +20,7 @@ class Route: Hashable {
 //  var name: String
 //  var stars: Int
 //  var timesCompleted: Int
-  
+    
   init(id: String, data: [String: Any]) {
     self.id = id
     name = data["name"] as? String ?? "No name"

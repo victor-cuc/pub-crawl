@@ -68,7 +68,6 @@ class RegisterViewController: UIViewController {
     guard hideErrorLabel != errorLabel.isHidden else {
       return
     }
-    print("Hide error label: \(hideErrorLabel)")
     
     UIView.animate(withDuration: 0.3) {
       self.errorLabel.isHidden = hideErrorLabel

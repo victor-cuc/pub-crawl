@@ -28,7 +28,6 @@ class RoutesViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     if let user = Auth.auth().currentUser {
-      print("Viewing routes for user: \(user)")
       setUpView()
     }
   }
@@ -36,8 +35,7 @@ class RoutesViewController: UIViewController {
   func setUpView() {
     self.title = "Routes"
     
-    FirebaseManager.fetchAllRoutes(completion: { (routes) in
-      print("Routes: \(routes)")
+    FirebaseManager.getAllRoutes(completion: { (routes) in
       self.routes = routes
       self.configureSnapshot()
     })

@@ -28,15 +28,13 @@ class FeaturedRoutesViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     if let user = Auth.auth().currentUser {
-      print("Viewing routes for user: \(user)")
       setUpView()
     }
   }
   
   func setUpView() {
     
-    FirebaseManager.fetchAllRoutes(completion: { (routes) in
-      print("Routes: \(routes)")
+    FirebaseManager.getAllRoutes(completion: { (routes) in
       let popularRoutes = routes.sorted(by: { $0.starredBy.count > $1.starredBy.count })
       
       self.routes = Array(popularRoutes.prefix(5))
