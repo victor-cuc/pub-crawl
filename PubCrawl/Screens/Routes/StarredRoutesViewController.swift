@@ -90,7 +90,7 @@ extension StarredRoutesViewController: RouteCellActionDelegate {
   func toggleStarAction(cell: RouteCell) {
     if let indexPath = collectionView.indexPath(for: cell) {
       let route = routes[indexPath.item]
-      FirebaseManager.toggleRouteStar(route: route)
+      FirebaseManager.toggleStar(forRoute: route)
     }
   }
 }

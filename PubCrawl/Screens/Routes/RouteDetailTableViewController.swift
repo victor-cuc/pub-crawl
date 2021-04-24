@@ -21,8 +21,8 @@ class RouteDetailTableViewController: UITableViewController {
   @IBOutlet weak var startButton: UIButton!
   
   @IBAction func toggleStar() {
-    FirebaseManager.toggleRouteStar(route: route) {
-      self.starButton.isSelected = !self.starButton.isSelected
+    FirebaseManager.toggleStar(forRoute: route) { selectedState in
+      self.starButton.isSelected = selectedState
     }
   }
   
@@ -48,7 +48,7 @@ class RouteDetailTableViewController: UITableViewController {
     nameLabel.text = route.name
     starCount.text = String(route.starredBy.count)
     starButton.isSelected = route.isStarredByCurrentUser()
-    imageView.loadImageFromFirebase(reference: route.imageRef)
+    imageView.loadImageFromFirebase(reference: route.imageRef, placeholder: UIImage(named: "placeholderRouteThumbnail"))
     locationCount.text = String(route.locationIDs.count)
     
     roundedCornerContainer.addDefaultRoundedCorners(clipsToBounds: true)

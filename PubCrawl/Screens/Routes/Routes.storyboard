@@ -197,6 +197,9 @@
                                                                             <state key="selected" image="star.fill" catalog="system">
                                                                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="32"/>
                                                                             </state>
+                                                                            <connections>
+                                                                                <action selector="toggleStar" destination="X6s-Mb-NuJ" eventType="touchUpInside" id="YLl-dh-zUp"/>
+                                                                            </connections>
                                                                         </button>
                                                                     </subviews>
                                                                 </stackView>
@@ -271,6 +274,7 @@
                                     <outlet property="routeStarCount" destination="RNH-9u-Iq1" id="0jH-AM-LS8"/>
                                     <outlet property="routeThumbnailContainer" destination="tOx-jN-kf1" id="s2V-yK-eXv"/>
                                     <outlet property="spacerView" destination="z66-Lm-GVV" id="AQ7-nj-v41"/>
+                                    <outlet property="timestampLabel" destination="ijK-Zr-xbv" id="ZjO-fy-qmh"/>
                                     <outlet property="usernameLabel" destination="ofE-MQ-gvD" id="4uH-Sv-VLv"/>
                                 </connections>
                             </tableViewCell>

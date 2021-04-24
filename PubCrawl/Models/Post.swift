@@ -11,6 +11,7 @@ import Firebase
 class Post {
   let id: String
   var user: User!
+  var createdAt: Date!
   var text: String
   var route: Route!
   var routeID: String!
@@ -22,6 +23,10 @@ class Post {
   init(id: String, data: [String: Any]) {
     self.id = id
     text = data["text"] as? String ?? ""
+    print(text)
+    
+    guard let interval = data["createdAt"] as? Double else { return }
+    self.createdAt = Date(timeIntervalSince1970: interval)
     
     guard let routeID = data["route"] as? String else { return }
     self.routeID = routeID

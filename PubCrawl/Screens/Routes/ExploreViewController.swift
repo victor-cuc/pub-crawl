@@ -63,8 +63,11 @@ class ExploreViewController: UITableViewController {
         fatalError("Could not create PostCell")
       }
       
+      cell.actionDelegate = self
+      
       cell.usernameLabel.text = post.user?.username
       cell.profilePicture.loadImageFromFirebase(reference: post.user?.profilePictureRef, placeholder: UIImage(named: "placeholderProfile"))
+      cell.timestampLabel.text = post.createdAt.timeAgoDisplay()
       cell.postTextLabel.text = post.text
       
       cell.postImageContainer.isHidden = post.imageRefs.isEmpty
@@ -86,7 +89,7 @@ class ExploreViewController: UITableViewController {
     var newSnapshot = NSDiffableDataSourceSnapshot<Section, Post>()
     
     newSnapshot.appendSections([.popular])
-    newSnapshot.appendItems([Post(id: "111", data: [:])], toSection: .popular)
+    newSnapshot.appendItems([Post(id: "Dummy Post for Featured Section", data: [:])], toSection: .popular)
     
     newSnapshot.appendSections([.community])
     newSnapshot.appendItems(posts)
@@ -102,4 +105,26 @@ class ExploreViewController: UITableViewController {
     view.addSubview(viewController.view)
     viewController.didMove(toParent: self)
   }
+}
+
+extension ExploreViewController: PostCellActionDelegate {
+  
+  func toggleStarAction(cell: PostCell) {
+    print("star action table delegate")
+    if let indexPath = tableView.indexPath(for: cell) {
+      let post = posts[indexPath.item]
+      guard let route = post.route else { return }
+      print(route.name)
+      FirebaseManager.toggleStar(forRoute: route)
+    }
+  }
+}
+
+//MARK:- Date extension - Time ago
+extension Date {
+    func timeAgoDisplay() -> String {
+        let formatter = RelativeDateTimeFormatter()
+        formatter.unitsStyle = .full
+        return formatter.localizedString(for: self, relativeTo: Date())
+    }
 }

@@ -23,7 +23,10 @@ class FirebaseManager {
   
   static func createNewRoute(name: String, completion: @escaping (Route) -> Void) {
     guard let key = ref.child("routes").childByAutoId().key else { return }
-    let route = ["name": name]
+    let route = [
+      "name": name,
+      "createdAt": Date().timeIntervalSince1970
+    ] as [String : Any]
     ref.child("routes").child(key).setValue(route)
     completion(Route(id: key, data: route))
   }
@@ -91,7 +94,7 @@ class FirebaseManager {
     }
   }
   
-  static func toggleRouteStar(route: Route, isSelected: (() -> Void)? = nil) {
+  static func toggleStar(forRoute route: Route, completion: ((Bool) -> Void)? = nil) {
     guard let currentUserID = Auth.auth().currentUser?.uid else { return }
     
     let newValue = route.isStarredByCurrentUser() ? nil : true
@@ -99,8 +102,12 @@ class FirebaseManager {
       "/routes/\(route.id)/starredBy/\(currentUserID)": newValue,
       "/users/\(currentUserID)/starred/\(route.id)": newValue
     ]
-    ref.updateChildValues(starUpdates as [AnyHashable : Any])
-    isSelected?()
+    ref.updateChildValues(starUpdates as [AnyHashable : Any]) { (error, ref) in
+      if error != nil {
+        return
+      }
+      completion?(newValue != nil)
+    }
   }
   
   // MARK:- Posts
@@ -119,8 +126,9 @@ class FirebaseManager {
     let post = [
       "route": routeID,
       "user": currentUserID,
-      "text": text
-    ]
+      "text": text,
+      "createdAt": Date().timeIntervalSince1970
+    ] as [String : Any]
     ref.child("posts").child(key).setValue(post)
     completion(Post(id: key, data: post))
   }
@@ -155,6 +163,7 @@ class FirebaseManager {
           users.forEach({usersDict[$0.id] = $0})
           
           posts.forEach({$0.user = usersDict[$0.userID]})
+          posts.sort { $0.createdAt >= $1.createdAt }
           
           completion(posts, nil)
         }

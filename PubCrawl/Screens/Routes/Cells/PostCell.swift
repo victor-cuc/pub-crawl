@@ -7,12 +7,19 @@
 
 import UIKit
 
+protocol PostCellActionDelegate {
+  func toggleStarAction(cell: PostCell)
+}
+
 class PostCell: UITableViewCell {
+
+  var actionDelegate: PostCellActionDelegate?
   
   @IBOutlet weak var containerView: UIView!
   
   @IBOutlet weak var usernameLabel: UILabel!
   @IBOutlet weak var profilePicture: UIImageView!
+  @IBOutlet weak var timestampLabel: UILabel!
   @IBOutlet weak var postTextLabel: UILabel!
   @IBOutlet weak var postImageContainer: UIView!
   @IBOutlet weak var postImageView1: UIImageView!
@@ -25,9 +32,10 @@ class PostCell: UITableViewCell {
   @IBOutlet weak var routeStarButton: UIButton!
   @IBOutlet weak var routeStarCount: UILabel!
   @IBOutlet weak var routeLocationCount: UILabel!
-  
+
   override func awakeFromNib() {
     super.awakeFromNib()
+    
     
     profilePicture.addFullRoundedCorners(clipsToBounds: true)
     
@@ -42,5 +50,10 @@ class PostCell: UITableViewCell {
     containerView.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     containerView.layer.borderWidth = 1
     containerView.layer.borderColor = Constants.Appearance.borderColor
+  }
+  
+  @IBAction func toggleStar() {
+    print("Star pressed")
+    actionDelegate?.toggleStarAction(cell: self)
   }
 }

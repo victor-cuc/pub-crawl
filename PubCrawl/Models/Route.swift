@@ -15,6 +15,7 @@ class Route: Hashable {
   var completedBy: [String]
   var locationIDs: [String] = []
   var imageRef: StorageReference!
+  var createdAt: Date
 //  let id: String // String or other type?
 //  var image: UIImage?
 //  var name: String
@@ -35,6 +36,9 @@ class Route: Hashable {
     for location in locations {
       self.locationIDs.append(location.key)
     }
+    
+    guard let interval = data["createdAt"] as? Double else { fatalError("error casting date") }
+    self.createdAt = Date(timeIntervalSince1970: interval)
   }
   
   func isStarredByCurrentUser() -> Bool {

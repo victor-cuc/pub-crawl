@@ -27,7 +27,7 @@ class FeaturedRoutesViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    if let user = Auth.auth().currentUser {
+    if Auth.auth().currentUser != nil {
       setUpView()
     }
   }
@@ -100,7 +100,7 @@ extension FeaturedRoutesViewController: RouteCellActionDelegate {
   func toggleStarAction(cell: RouteCell) {
     if let indexPath = collectionView.indexPath(for: cell) {
       let route = routes[indexPath.item]
-      FirebaseManager.toggleRouteStar(route: route)
+      FirebaseManager.toggleStar(forRoute: route)
     }
   }
 }
