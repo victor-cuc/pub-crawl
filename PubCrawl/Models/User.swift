@@ -27,3 +27,14 @@ class User {
     numberOfVisitedLocations = stats["locationCount"] as? Int ?? 0
   }
 }
+
+extension User: Hashable {
+  func hash(into hasher: inout Hasher) {
+    hasher.combine(id)
+  }
+  
+  static func == (lhs: User, rhs: User) -> Bool {
+    return lhs.id == rhs.id
+  }
+}
+

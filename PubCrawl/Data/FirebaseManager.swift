@@ -52,23 +52,23 @@ class FirebaseManager {
     
     let queue = OperationQueue()
     let completionOperation = BlockOperation {
-        completion(routes)
+      completion(routes)
     }
     
     for id in IDs {
-        let operation = BlockOperation {
-            let lock = NSLock()
-            lock.lock()
-            getRoute(byID: id) { route in
-                routes.append(route)
-                lock.unlock()
-            }
-            lock.lock()
-            return
+      let operation = BlockOperation {
+        let lock = NSLock()
+        lock.lock()
+        getRoute(byID: id) { route in
+          routes.append(route)
+          lock.unlock()
         }
-        
-        completionOperation.addDependency(operation)
-        queue.addOperation(operation)
+        lock.lock()
+        return
+      }
+      
+      completionOperation.addDependency(operation)
+      queue.addOperation(operation)
     }
     
     queue.addOperation(completionOperation)
@@ -93,7 +93,7 @@ class FirebaseManager {
   
   static func toggleRouteStar(route: Route, isSelected: (() -> Void)? = nil) {
     guard let currentUserID = Auth.auth().currentUser?.uid else { return }
-
+    
     let newValue = route.isStarredByCurrentUser() ? nil : true
     let starUpdates = [
       "/routes/\(route.id)/starredBy/\(currentUserID)": newValue,
@@ -141,14 +141,24 @@ class FirebaseManager {
         
         posts.append(post)
       }
+      
+      let routeIDs = Set(posts.compactMap({$0.routeID}))
+      self.getRoutes(withIDs: Array(routeIDs)) { (routes) in
+        var routesDict = [String: Route]()
+        routes.forEach({routesDict[$0.id] = $0})
         
-        self.getRoutes(withIDs: posts.compactMap({$0.routeId})) { (routes) in
-            var routesDict = [String: Route]()
-            routes.forEach({routesDict[$0.id] = $0})
-            
-            posts.forEach({$0.route = routesDict[$0.routeId]})
-            completion(posts)
+        posts.forEach({$0.route = routesDict[$0.routeID]})
+        
+        let userIDs = Set(posts.compactMap({$0.userID}))
+        self.getUsers(withIDs: Array(userIDs)) { (users) in
+          var usersDict = [String: User]()
+          users.forEach({usersDict[$0.id] = $0})
+          
+          posts.forEach({$0.user = usersDict[$0.userID]})
+          
+          completion(posts, nil)
         }
+      }
     })
   }
   
@@ -170,4 +180,31 @@ class FirebaseManager {
       }
     }
   }
-}
+  
+  static func getUsers(withIDs IDs: [String], completion: @escaping ([User]) -> Void) {
+    var users: [User] = []
+    
+    let queue = OperationQueue()
+    let completionOperation = BlockOperation {
+      completion(users)
+    }
+    
+    for id in IDs {
+      let operation = BlockOperation {
+        let lock = NSLock()
+        lock.lock()
+        getUser(byID: id) { user in
+          users.append(user)
+          lock.unlock()
+        }
+        lock.lock()
+        return
+      }
+      
+      completionOperation.addDependency(operation)
+      queue.addOperation(operation)
+    }
+    
+    queue.addOperation(completionOperation)
+  }
+  }

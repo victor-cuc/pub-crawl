@@ -18,6 +18,7 @@ class PostCell: UITableViewCell {
   @IBOutlet weak var postImageView1: UIImageView!
   @IBOutlet weak var postImageView2: UIImageView!
   
+  @IBOutlet weak var spacerView: UIView!
   @IBOutlet weak var routeImageView: UIImageView!
   @IBOutlet weak var routeThumbnailContainer: UIView!
   @IBOutlet weak var routeNameLabel: UILabel!
@@ -33,11 +34,13 @@ class PostCell: UITableViewCell {
     postImageView1.addDefaultRoundedCorners(clipsToBounds: true)
     postImageView2.addDefaultRoundedCorners(clipsToBounds: true)
     
+    spacerView.backgroundColor = UIColor(cgColor: Constants.Appearance.borderColor)
+    
     routeThumbnailContainer.addDefaultRoundedCorners(clipsToBounds: true)
     
     containerView.addDefaultRoundedCorners()
     containerView.layoutMargins = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     containerView.layer.borderWidth = 1
-    containerView.layer.borderColor = CGColor(gray: 0.5, alpha: 0.3)
+    containerView.layer.borderColor = Constants.Appearance.borderColor
   }
 }

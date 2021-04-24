@@ -82,17 +82,17 @@
                                 <color key="backgroundColor" name="defaultBackgroundColor"/>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PostCell" id="X6s-Mb-NuJ" customClass="PostCell" customModule="PubCrawl" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="255.33333206176758" width="390" height="478.66665649414062"/>
+                                <rect key="frame" x="0.0" y="255.33333206176758" width="390" height="489.66665649414062"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="X6s-Mb-NuJ" id="JpT-4e-eC9">
-                                    <rect key="frame" x="0.0" y="0.0" width="390" height="478.66665649414062"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="390" height="489.66665649414062"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SPo-cC-d5B">
-                                            <rect key="frame" x="16" y="16" width="358" height="462.66666666666669"/>
+                                            <rect key="frame" x="16" y="16" width="358" height="473.66666666666669"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="gCb-AC-f4I">
-                                                    <rect key="frame" x="16" y="16" width="326" height="430.66666666666669"/>
+                                                    <rect key="frame" x="16" y="16" width="326" height="441.66666666666669"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f95-TJ-d7p" userLabel="Profile Info">
                                                             <rect key="frame" x="0.0" y="0.0" width="326" height="64"/>
@@ -160,8 +160,14 @@
                                                                 <constraint firstItem="ojW-G4-ruT" firstAttribute="leading" secondItem="324-Be-iin" secondAttribute="leading" id="iGd-s0-C2e"/>
                                                             </constraints>
                                                         </view>
+                                                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="z66-Lm-GVV" userLabel="Spacer View">
+                                                            <rect key="frame" x="0.0" y="280.66666666666669" width="326" height="1"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="1" id="BQp-hR-rNn"/>
+                                                            </constraints>
+                                                        </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tOx-jN-kf1">
-                                                            <rect key="frame" x="0.0" y="280.66666666666669" width="326" height="150"/>
+                                                            <rect key="frame" x="0.0" y="291.66666666666669" width="326" height="150"/>
                                                             <subviews>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholderRouteThumbnail" translatesAutoresizingMaskIntoConstraints="NO" id="zCt-pp-c6c" userLabel="Thumbnail">
                                                                     <rect key="frame" x="0.0" y="0.0" width="326" height="150"/>
@@ -264,6 +270,7 @@
                                     <outlet property="routeStarButton" destination="7Ps-Om-sy7" id="NI8-H7-DbS"/>
                                     <outlet property="routeStarCount" destination="RNH-9u-Iq1" id="0jH-AM-LS8"/>
                                     <outlet property="routeThumbnailContainer" destination="tOx-jN-kf1" id="s2V-yK-eXv"/>
+                                    <outlet property="spacerView" destination="z66-Lm-GVV" id="AQ7-nj-v41"/>
                                     <outlet property="usernameLabel" destination="ofE-MQ-gvD" id="4uH-Sv-VLv"/>
                                 </connections>
                             </tableViewCell>
