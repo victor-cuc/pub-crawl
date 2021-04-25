@@ -7,6 +7,7 @@
 import Firebase
 import UIKit
 import IQKeyboardManagerSwift
+import GoogleMaps
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,6 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     FirebaseApp.configure()
+    GMSServices.provideAPIKey(Constants.SDK.googleMapsAPIKey)
+    
     window = UIWindow(frame: UIScreen.main.bounds)
     
     // Uncomment for automatic Sign Out every time app starts
@@ -26,12 +29,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     let isUserLoggedIn = Auth.auth().currentUser != nil
     if isUserLoggedIn {
-//      FirebaseManager.getRoutes(byIDs: ["r1", "r2"]) { routes in
-//        print(routes)
-//        routes.forEach { route in
-//          print("getRoutesByIDs route names:", route.name)
-//        }
-//      }
       let routesViewController = RoutesViewController.instantiateFromStoryboard()
       window?.rootViewController = routesViewController
     } else {

@@ -94,19 +94,26 @@ class FirebaseManager {
     }
   }
   
-  static func toggleStar(forRoute route: Route, completion: ((Bool) -> Void)? = nil) {
+  static func toggleStar(forRoute route: Route, completion: (() -> Void)? = nil) {
     guard let currentUserID = Auth.auth().currentUser?.uid else { return }
     
-    let newValue = route.isStarredByCurrentUser() ? nil : true
+    let newValue = !route.isStarredByCurrentUser()
     let starUpdates = [
-      "/routes/\(route.id)/starredBy/\(currentUserID)": newValue,
-      "/users/\(currentUserID)/starred/\(route.id)": newValue
+      "/routes/\(route.id)/starredBy/\(currentUserID)": newValue ? true : nil,
+      "/users/\(currentUserID)/starred/\(route.id)": newValue ? true : nil
     ]
     ref.updateChildValues(starUpdates as [AnyHashable : Any]) { (error, ref) in
       if error != nil {
         return
       }
-      completion?(newValue != nil)
+      if newValue {
+        route.starredBy.append(currentUserID)
+      } else {
+        route.starredBy.removeAll { (id) -> Bool in
+          return id == currentUserID
+        }
+      }
+      completion?()
     }
   }
   

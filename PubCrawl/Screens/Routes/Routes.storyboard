@@ -500,6 +500,12 @@
                                                     <state key="normal" image="star" catalog="system">
                                                         <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="36" weight="heavy"/>
                                                     </state>
+                                                    <state key="selected" image="star.fill" catalog="system">
+                                                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="36" weight="heavy"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="toggleStar" destination="hhb-3d-B3Z" eventType="touchUpInside" id="Ixi-JM-nhw"/>
+                                                    </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="232" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9l2-3g-UKw">
                                                     <rect key="frame" x="270.33333333333331" y="1.6666666666666679" width="33.666666666666686" height="24"/>
@@ -575,6 +581,9 @@
                                             <state key="normal" title="Start Route">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </state>
+                                            <connections>
+                                                <action selector="startRoute" destination="hhb-3d-B3Z" eventType="touchUpInside" id="Bxc-Fd-UeY"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                 </stackView>

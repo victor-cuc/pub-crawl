@@ -31,6 +31,14 @@ class RouteCell: UICollectionViewCell {
     self.clipsToBounds = false
   }
   
+  func configureWith(route: Route) {
+    starButton.isSelected = route.isStarredByCurrentUser()
+    nameLabel.text = route.name
+    starCount.text = String(route.starredBy.count)
+    locationCount.text = String(route.locationIDs.count)
+    imageView.loadImageFromFirebase(reference: route.imageRef, placeholder: UIImage(named: "placeholderRouteThumbnail"))
+  }
+ 
   @IBAction func toggleStar() {
     actionDelegate?.toggleStarAction(cell: self)
   }

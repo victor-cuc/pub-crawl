@@ -12,4 +12,8 @@ struct Constants {
     static let defaultCornerRadius: CGFloat = 10
     static let borderColor = CGColor(gray: 0.5, alpha: 0.3)
   }
+  
+  struct SDK {
+    static let googleMapsAPIKey = "AIzaSyAlQ4b6wNXLPe9y_4apvegZ9LJtgA8Xme4"
+  }
 }

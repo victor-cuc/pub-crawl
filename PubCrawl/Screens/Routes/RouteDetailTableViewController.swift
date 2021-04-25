@@ -21,9 +21,14 @@ class RouteDetailTableViewController: UITableViewController {
   @IBOutlet weak var startButton: UIButton!
   
   @IBAction func toggleStar() {
-    FirebaseManager.toggleStar(forRoute: route) { selectedState in
-      self.starButton.isSelected = selectedState
+    FirebaseManager.toggleStar(forRoute: route) {
+      self.starButton.isSelected = self.route.isStarredByCurrentUser()
+      self.starCount.text = String(self.route.starredBy.count)
     }
+  }
+  
+  @IBAction func startRoute() {
+    navigationController?.pushViewController(MyLocationViewController.init(), animated: true)
   }
   
   required init?(coder: NSCoder) {
@@ -41,6 +46,10 @@ class RouteDetailTableViewController: UITableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    configureDetailView()
+  }
+  
+  func configureDetailView() {
     startButton.addDefaultShadow()
     startButton.addDefaultRoundedCorners()
     

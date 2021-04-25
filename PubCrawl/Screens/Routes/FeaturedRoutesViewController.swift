@@ -76,12 +76,8 @@ extension FeaturedRoutesViewController {
         return nil
       }
       
-      cell.starButton.isSelected = route.isStarredByCurrentUser()
       cell.actionDelegate = self
-      cell.nameLabel.text = route.name
-      cell.starCount.text = String(route.starredBy.count)
-      cell.locationCount.text = String(route.locationIDs.count)
-      cell.imageView.loadImageFromFirebase(reference: route.imageRef, placeholder: UIImage(named: "placeholderRouteThumbnail"))
+      cell.configureWith(route: route)
   
       return cell
     }
@@ -101,6 +97,7 @@ extension FeaturedRoutesViewController: RouteCellActionDelegate {
     if let indexPath = collectionView.indexPath(for: cell) {
       let route = routes[indexPath.item]
       FirebaseManager.toggleStar(forRoute: route)
+      cell.configureWith(route: route)
     }
   }
 }
