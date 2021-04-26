@@ -15,5 +15,7 @@ struct Constants {
   
   struct SDK {
     static let googleMapsAPIKey = "AIzaSyAlQ4b6wNXLPe9y_4apvegZ9LJtgA8Xme4"
+    static let googlePlacesAPIKey = "AIzaSyAlQ4b6wNXLPe9y_4apvegZ9LJtgA8Xme4"
+
   }
 }

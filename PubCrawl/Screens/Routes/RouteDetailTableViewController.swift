@@ -5,6 +5,7 @@
 //  Created by Victor Cuc on 20/04/2021.
 //
 
+import GooglePlaces
 import UIKit
 
 class RouteDetailTableViewController: UITableViewController {
@@ -19,6 +20,7 @@ class RouteDetailTableViewController: UITableViewController {
   @IBOutlet weak var imageView: UIImageView!
   @IBOutlet weak var locationCount: UILabel!
   @IBOutlet weak var startButton: UIButton!
+  @IBOutlet weak var addLocationButton: UIButton!
   
   @IBAction func toggleStar() {
     FirebaseManager.toggleStar(forRoute: route) {
@@ -61,5 +63,54 @@ class RouteDetailTableViewController: UITableViewController {
     locationCount.text = String(route.locationIDs.count)
     
     roundedCornerContainer.addDefaultRoundedCorners(clipsToBounds: true)
+  }
+  
+  @IBAction func showLocationSearch() {
+    let locationSearchController = GMSAutocompleteViewController()
+    locationSearchController.delegate = self
+    
+    let fields: GMSPlaceField = GMSPlaceField(rawValue: UInt(GMSPlaceField.name.rawValue) |
+                                                UInt(GMSPlaceField.placeID.rawValue))
+    
+    let filter = GMSAutocompleteFilter()
+    filter.type = .establishment
+    locationSearchController.autocompleteFilter = filter
+    
+    locationSearchController.placeFields = fields
+    
+    present(locationSearchController, animated: true)
+  }
+}
+
+//MARK:- Google Maps Autocomplete ViewController Delegate
+extension RouteDetailTableViewController: GMSAutocompleteViewControllerDelegate {
+  func viewController(
+    _ viewController: GMSAutocompleteViewController,
+    didAutocompleteWith place: GMSPlace
+  ) {
+    print(place)
+    dismiss(animated: true, completion: nil)
+  }
+
+  func viewController(
+    _ viewController: GMSAutocompleteViewController,
+    didFailAutocompleteWithError error: Error
+  ) {
+    // TODO: Handle Error
+    dismiss(animated: true, completion: nil)
+    print("Error: ", error.localizedDescription)
+  }
+
+  func wasCancelled(_ viewController: GMSAutocompleteViewController) {
+    navigationController?.dismiss(animated: true)
+    dismiss(animated: true, completion: nil)
+  }
+
+  func didRequestAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
+    UIApplication.shared.isNetworkActivityIndicatorVisible = true
+  }
+
+  func didUpdateAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
+    UIApplication.shared.isNetworkActivityIndicatorVisible = false
   }
 }

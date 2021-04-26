@@ -61,6 +61,7 @@
 		57DF83AF262CC311002CFBD5 /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DF83AE262CC311002CFBD5 /* PostCell.swift */; };
 		57DF83C1262D8FF8002CFBD5 /* FeaturedRoutesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DF83C0262D8FF8002CFBD5 /* FeaturedRoutesViewController.swift */; };
 		57E6473326301ADF004A5565 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 57E6473226301ADF004A5565 /* IQKeyboardManagerSwift */; };
+		57F0AC352636C80D0043299A /* GooglePlaces.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 57F0AC342636C80D0043299A /* GooglePlaces.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -115,6 +116,7 @@
 		57B45779261B011700658820 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		57DF83AE262CC311002CFBD5 /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
 		57DF83C0262D8FF8002CFBD5 /* FeaturedRoutesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedRoutesViewController.swift; sourceTree = "<group>"; };
+		57F0AC342636C80D0043299A /* GooglePlaces.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GooglePlaces.bundle; path = "../../../../Downloads/GooglePlaces-4.2.0/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -202,6 +204,7 @@
 		5750C5CA263566CA00683CD2 /* Google Maps */ = {
 			isa = PBXGroup;
 			children = (
+				57F0AC342636C80D0043299A /* GooglePlaces.bundle */,
 				5750C5FD26358E7200683CD2 /* GooglePlaces.framework */,
 				5750C5F826356D0400683CD2 /* GoogleMaps.bundle */,
 				5750C5CB263566DF00683CD2 /* GoogleMaps.framework */,
@@ -381,6 +384,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57F0AC352636C80D0043299A /* GooglePlaces.bundle in Resources */,
 				577F1945262050EE004136F4 /* GoogleService-Info.plist in Resources */,
 				5792F77E262F175F002CDCE5 /* ExploreHeaderView.xib in Resources */,
 				5746E5D626260521004E85C6 /* Routes.storyboard in Resources */,
