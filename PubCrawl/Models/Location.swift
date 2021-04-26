@@ -6,23 +6,33 @@
 //
 
 import Foundation
+import GooglePlaces
 
 class Location: Hashable {
   var placeID: String
   var name: String
+  var coordinate: CLLocationCoordinate2D
   var priceLevel: Int? // from 0 to 4
   var rating: Float? // from 1.0 to 5.0
   
-  init(
-    placeID: String,
-    name: String,
-    priceLevel: Int?,
-    rating: Float?
-  ) {
-    self.placeID = placeID
-    self.name = name
-    self.priceLevel = priceLevel
-    self.rating = rating
+  /**
+   Initializez Location object - requires a **GMSPlace** with _placeID_ and _name_, optionally _priceLevel_ and _rating_
+   - parameters:
+      - googlePlace: GMSPlace
+        - **required:**
+          - *name*
+          - *placeID*
+          - *coordinate*
+        - optional
+          - *priceLevel*
+          - *rating*
+ */
+  init(googlePlace: GMSPlace) {
+    self.placeID = googlePlace.placeID!
+    self.name = googlePlace.name!
+    self.coordinate = googlePlace.coordinate
+    self.priceLevel = googlePlace.priceLevel.rawValue
+    self.rating = googlePlace.rating
   }
   
   func hash(into hasher: inout Hasher) {

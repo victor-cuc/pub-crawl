@@ -69,8 +69,12 @@ class RouteDetailTableViewController: UITableViewController {
     let locationSearchController = GMSAutocompleteViewController()
     locationSearchController.delegate = self
     
-    let fields: GMSPlaceField = GMSPlaceField(rawValue: UInt(GMSPlaceField.name.rawValue) |
-                                                UInt(GMSPlaceField.placeID.rawValue))
+    let fields: GMSPlaceField = GMSPlaceField(rawValue:
+                                                UInt(GMSPlaceField.name.rawValue) |
+                                                UInt(GMSPlaceField.placeID.rawValue) |
+                                                UInt(GMSPlaceField.coordinate.rawValue) |
+                                                UInt(GMSPlaceField.rating.rawValue) |
+                                                UInt(GMSPlaceField.priceLevel.rawValue))
     
     let filter = GMSAutocompleteFilter()
     filter.type = .establishment
@@ -88,7 +92,8 @@ extension RouteDetailTableViewController: GMSAutocompleteViewControllerDelegate 
     _ viewController: GMSAutocompleteViewController,
     didAutocompleteWith place: GMSPlace
   ) {
-    print(place)
+    let pickedPlace = Location(googlePlace: place)
+    print(pickedPlace.coordinate)
     dismiss(animated: true, completion: nil)
   }
 
