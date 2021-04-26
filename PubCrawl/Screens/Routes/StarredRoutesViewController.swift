@@ -20,20 +20,37 @@ class StarredRoutesViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    if let user = Auth.auth().currentUser {
+    if Auth.auth().currentUser != nil {
       setUpView()
     }
   }
   func setUpView() {
     self.title = "Saved"
     
+    configureRefreshControl()
+    fetchRoutes()
+    collectionView.collectionViewLayout = self.configureCollectionViewLayout()
+    collectionView.delegate = self
+    configureDataSource()
+  }
+  
+  func fetchRoutes() {
     FirebaseManager.getAllRoutes(completion: { (routes) in
       self.routes = routes.filter { $0.isStarredByCurrentUser() }
       self.configureSnapshot()
     })
-    collectionView.collectionViewLayout = self.configureCollectionViewLayout()
-    collectionView.delegate = self
-    configureDataSource()
+  }
+  
+  func configureRefreshControl() {
+    collectionView.refreshControl = UIRefreshControl()
+    collectionView.refreshControl?.addTarget(self, action: #selector(handleRefreshControl), for: .valueChanged)
+  }
+  
+  @objc func handleRefreshControl() {
+    fetchRoutes()
+    DispatchQueue.main.async {
+      self.collectionView.refreshControl?.endRefreshing()
+    }
   }
 }
 // MARK: - Collection View -
@@ -66,12 +83,8 @@ extension StarredRoutesViewController {
         return nil
       }
       
-      cell.starButton.isSelected = route.isStarredByCurrentUser()
       cell.actionDelegate = self
-      cell.nameLabel.text = route.name
-      cell.starCount.text = String(route.starredBy.count)
-      cell.locationCount.text = String(route.locationIDs.count)
-      cell.imageView.loadImageFromFirebase(reference: route.imageRef, placeholder: UIImage(named: "placeholderRouteThumbnail"))
+      cell.configureWith(route: route)
   
       return cell
     }
@@ -90,7 +103,9 @@ extension StarredRoutesViewController: RouteCellActionDelegate {
   func toggleStarAction(cell: RouteCell) {
     if let indexPath = collectionView.indexPath(for: cell) {
       let route = routes[indexPath.item]
-      FirebaseManager.toggleStar(forRoute: route)
+      FirebaseManager.toggleStar(forRoute: route) {
+        cell.configureWith(route: route)
+      }
     }
   }
 }

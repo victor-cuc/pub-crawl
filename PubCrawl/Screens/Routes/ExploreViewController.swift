@@ -25,15 +25,35 @@ class ExploreViewController: UITableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    
     tableView.register(UINib(nibName: ExploreHeaderView.reuseIdentifier, bundle: nil), forHeaderFooterViewReuseIdentifier: ExploreHeaderView.reuseIdentifier)
     tableView.separatorStyle = .none
     
+    configureRefreshControl()
+    fetchPosts()
+    configureDataSource()
+  }
+  
+  func fetchPosts() {
     FirebaseManager.getAllPosts { posts, error in
       self.posts = posts
       self.updateDataSource()
     }
-    configureDataSource()
   }
+  
+  func configureRefreshControl() {
+    tableView.refreshControl = UIRefreshControl()
+    tableView.refreshControl?.addTarget(self, action: #selector(handleRefreshControl), for: .valueChanged)
+  }
+  
+  @objc func handleRefreshControl() {
+    featuredRoutesViewController.fetchRoutes()
+    self.fetchPosts()
+    DispatchQueue.main.async {
+      self.tableView.refreshControl?.endRefreshing()
+    }
+  }
+  
   
   // MARK:- Delegate
   override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

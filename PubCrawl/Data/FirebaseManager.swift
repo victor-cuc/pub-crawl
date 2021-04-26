@@ -32,11 +32,10 @@ class FirebaseManager {
   }
   
   static func getAllRoutes(completion: @escaping ([Route]) -> Void) {
-    var routes = [Route]()
-    ref.child("routes").observe(.value, with: { (snapshot) in
-      routes.removeAll()
+    ref.child("routes").getData(completion: { (error, snapshot) in
       guard let routeDict = snapshot.value as? [String: Any] else { fatalError("Error getting/casting route dict") }
       
+      var routes = [Route]()
       for route in routeDict {
         let routeValues = route.value as? [String: Any] ?? [:]
         let route = Route(id: route.key, data: routeValues)

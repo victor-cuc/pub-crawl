@@ -34,15 +34,19 @@ class FeaturedRoutesViewController: UIViewController {
   
   func setUpView() {
     
+    fetchRoutes()
+    collectionView.collectionViewLayout = self.configureCollectionViewLayout()
+    collectionView.delegate = self
+    configureDataSource()
+  }
+  
+  func fetchRoutes() {
     FirebaseManager.getAllRoutes(completion: { (routes) in
       let popularRoutes = routes.sorted(by: { $0.starredBy.count > $1.starredBy.count })
       
       self.routes = Array(popularRoutes.prefix(5))
       self.configureSnapshot()
     })
-    collectionView.collectionViewLayout = self.configureCollectionViewLayout()
-    collectionView.delegate = self
-    configureDataSource()
   }
 }
 // MARK: - Collection View -
@@ -96,8 +100,9 @@ extension FeaturedRoutesViewController: RouteCellActionDelegate {
   func toggleStarAction(cell: RouteCell) {
     if let indexPath = collectionView.indexPath(for: cell) {
       let route = routes[indexPath.item]
-      FirebaseManager.toggleStar(forRoute: route)
-      cell.configureWith(route: route)
+      FirebaseManager.toggleStar(forRoute: route) {
+        cell.configureWith(route: route)
+      }
     }
   }
 }

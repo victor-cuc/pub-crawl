@@ -35,15 +35,34 @@ class RoutesViewController: UIViewController {
   func setUpView() {
     self.title = "Routes"
     
-    FirebaseManager.getAllRoutes(completion: { (routes) in
-      self.routes = routes
-      self.configureSnapshot()
-    })
+    configureRefreshControl()
+    fetchRoutes()
+    
     self.collectionView.collectionViewLayout = self.configureCollectionViewLayout()
     collectionView.delegate = self
     self.configureDataSource()
   }
+  
+  func fetchRoutes() {
+    FirebaseManager.getAllRoutes(completion: { (routes) in
+      self.routes = routes
+      self.configureSnapshot()
+    })
+  }
+  
+  func configureRefreshControl() {
+    collectionView.refreshControl = UIRefreshControl()
+    collectionView.refreshControl?.addTarget(self, action: #selector(handleRefreshControl), for: .valueChanged)
+  }
+  
+  @objc func handleRefreshControl() {
+    fetchRoutes()
+    DispatchQueue.main.async {
+      self.collectionView.refreshControl?.endRefreshing()
+    }
+  }
 }
+
 // MARK: - Collection View -
 
 extension RoutesViewController {
@@ -95,8 +114,9 @@ extension RoutesViewController: RouteCellActionDelegate {
   func toggleStarAction(cell: RouteCell) {
     if let indexPath = collectionView.indexPath(for: cell) {
       let route = routes[indexPath.item]
-      FirebaseManager.toggleStar(forRoute: route)
-      cell.configureWith(route: route)
+      FirebaseManager.toggleStar(forRoute: route) {
+        cell.configureWith(route: route)
+      }
     }
   }
 }
