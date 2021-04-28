@@ -249,17 +249,19 @@ class FirebaseManager {
       "rating": rating
     ] as [String : Any?]
     
+    let createdLocation = Location(id: key, data: locationData as [String : Any])
+    let newLocationIDsArray = route.locationIDs + [key]
+    
     let updates = [
       "locations/\(key)": locationData,
-      "routes/\(route.id)/locations/\(key)": true
+      "routes/\(route.id)/locations/": newLocationIDsArray
     ] as [String : Any?]
     
     ref.updateChildValues(updates as [AnyHashable : Any]) { (error, reference) in
       if error != nil {
         return
       }
-      
-      let createdLocation = Location(id: key, data: locationData as [String : Any])
+      route.locationIDs = newLocationIDsArray
       print(createdLocation)
       
       completion(createdLocation)
@@ -268,8 +270,7 @@ class FirebaseManager {
   
   static func getLocations(forRoute route: Route, completion: @escaping ([Location]) -> Void) {
     ref.child("routes").child(route.id).child("locations").getData { (error, data) in
-      guard let dataDict = data.value as? [String: Any] else { return }
-      let locationIDs = Array(dataDict.keys)
+      guard let locationIDs = data.value as? [String] else { return }
 //      print(locationIDs)
       
       var locations: [Location] = []
