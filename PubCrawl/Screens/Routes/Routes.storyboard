@@ -686,7 +686,7 @@
         <scene sceneID="t6e-3N-jAg">
             <objects>
                 <viewController storyboardIdentifier="NewRouteViewController" id="pKL-ni-uHv" customClass="NewRouteViewController" customModule="PubCrawl" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8iL-Cz-VeX" customClass="New">
+                    <view key="view" contentMode="scaleToFill" id="8iL-Cz-VeX">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="756"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -738,7 +738,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Add New Route" largeTitleDisplayMode="always" id="faW-hH-U0I">
-                        <barButtonItem key="leftBarButtonItem" style="plain" systemItem="cancel" id="g6X-oL-nsm"/>
+                        <barButtonItem key="leftBarButtonItem" style="plain" systemItem="cancel" id="g6X-oL-nsm">
+                            <connections>
+                                <action selector="cancel" destination="pKL-ni-uHv" id="pJh-kE-mwf"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Next" id="tWG-Wz-UP1">
                             <connections>
                                 <action selector="nextStep" destination="pKL-ni-uHv" id="b5b-N5-nfB"/>
@@ -748,6 +752,7 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
                         <outlet property="nameTextField" destination="vPF-Uo-wm0" id="DLb-a3-grO"/>
+                        <outlet property="nextButton" destination="tWG-Wz-UP1" id="aa9-2e-vZv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lQn-o5-vWi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

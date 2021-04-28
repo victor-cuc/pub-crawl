@@ -7,11 +7,11 @@
 
 import UIKit
 
-class NewRouteViewController: UIViewController {
+class NewRouteViewController: UIViewController, UITextFieldDelegate {
   
   @IBOutlet weak var nameTextField: UITextField!
 //  @IBAction weak var roundedButtonContainer: UIView!
-//  @IBAction weak var nextButton: UIButton!
+  @IBOutlet weak var nextButton: UIBarButtonItem!
   
   class func instantiateFromStoryboard() -> NewRouteViewController {
     let storyboard = UIStoryboard(name: "Routes", bundle: nil)
@@ -22,12 +22,26 @@ class NewRouteViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    nextButton.isEnabled = nameTextField.hasText
+    nameTextField.delegate = self
+  }
+  
+  func textFieldDidChangeSelection(_ textField: UITextField) {
+    nextButton.isEnabled = nameTextField.hasText
+  }
+  
+  @IBAction func cancel() {
+    self.navigationController?.popViewController(animated: true)
   }
   
   @IBAction func nextStep() {
-    FirebaseManager.createNewRoute(name: nameTextField.text ?? "No name") { (route) in
-      let editRouteViewController = EditRouteViewController.instantiateFromStoryboard(route: route)
-      self.navigationController?.pushViewController(editRouteViewController, animated: true)
+    guard let nameEntered = nameTextField.text else { return }
+    if !nameEntered.isEmpty {
+      print(nameEntered)
+      FirebaseManager.createNewRoute(name: nameEntered) { (route) in
+        let editRouteViewController = EditRouteViewController.instantiateFromStoryboard(route: route)
+        self.navigationController?.pushViewController(editRouteViewController, animated: true)
+      }
     }
   }
 }
