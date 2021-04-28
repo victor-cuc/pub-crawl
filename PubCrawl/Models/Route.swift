@@ -7,12 +7,14 @@
 
 import UIKit
 import Firebase
+import GooglePlaces
 
 class Route: Hashable {
   let id: String
   var name: String
   var starredBy: [String]
   var completedBy: [String]
+  var locations: [Location]!
   var locationIDs: [String] = []
   var imageRef: StorageReference!
   var createdAt: Date
@@ -44,6 +46,13 @@ class Route: Hashable {
   func isStarredByCurrentUser() -> Bool {
     guard let currentUserID = Auth.auth().currentUser?.uid else { return false }
     return starredBy.contains(currentUserID)
+  }
+  
+  func fetchLocations(completion: @escaping () -> Void) {
+    FirebaseManager.getLocations(forRoute: self) { (locations) in
+      self.locations = locations
+      completion()
+    }
   }
   
   func hash(into hasher: inout Hasher) {

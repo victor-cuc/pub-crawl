@@ -7,6 +7,7 @@
 
 import UIKit
 import Firebase
+import GooglePlaces
 
 class FirebaseManager {
   private static var ref: DatabaseReference! = Database.database().reference()
@@ -222,4 +223,94 @@ class FirebaseManager {
     
     queue.addOperation(completionOperation)
   }
+  
+  // MARK:- Locations
+  
+  static func createLocation(fromGMSPlace gmsPlace: GMSPlace, toRoute route: Route, completion: @escaping (Location) -> Void) {
+    guard let key = ref.child("locations").childByAutoId().key else { return }
+    
+    guard let placeID = gmsPlace.placeID,
+          let name = gmsPlace.name else { return }
+
+    let latitude = gmsPlace.coordinate.latitude,
+        longitude = gmsPlace.coordinate.longitude
+    
+    let address = gmsPlace.formattedAddress
+    let priceLevel = gmsPlace.priceLevel.rawValue
+    let rating = gmsPlace.rating
+    
+    let locationData = [
+      "placeID": placeID,
+      "name": name,
+      "address": address,
+      "latitude": latitude,
+      "longitude": longitude,
+      "priceLevel": priceLevel,
+      "rating": rating
+    ] as [String : Any?]
+    
+    let updates = [
+      "locations/\(key)": locationData,
+      "routes/\(route.id)/locations/\(key)": true
+    ] as [String : Any?]
+    
+    ref.updateChildValues(updates as [AnyHashable : Any]) { (error, reference) in
+      if error != nil {
+        return
+      }
+      
+      let createdLocation = Location(id: key, data: locationData as [String : Any])
+      print(createdLocation)
+      
+      completion(createdLocation)
+    }
   }
+  
+  static func getLocations(forRoute route: Route, completion: @escaping ([Location]) -> Void) {
+    ref.child("routes").child(route.id).child("locations").getData { (error, data) in
+      guard let dataDict = data.value as? [String: Any] else { return }
+      let locationIDs = Array(dataDict.keys)
+//      print(locationIDs)
+      
+      var locations: [Location] = []
+      
+      let queue = OperationQueue()
+      let completionOperation = BlockOperation {
+        completion(locations)
+      }
+      
+      for id in locationIDs {
+        let operation = BlockOperation {
+          let lock = NSLock()
+          lock.lock()
+          getLocation(byID: id) { location in
+            locations.append(location)
+            lock.unlock()
+          }
+          lock.lock()
+          return
+        }
+        
+        completionOperation.addDependency(operation)
+        queue.addOperation(operation)
+      }
+      
+      queue.addOperation(completionOperation)
+    }
+  }
+  
+  static func getLocation(byID id: String, completion: @escaping (Location) -> Void) {
+    ref.child("locations/\(id)").getData { (error, snapshot) in
+      if let error = error {
+        print("Error getting data \(error)")
+      } else if snapshot.exists() {
+        let locationData = snapshot.value as? [String: Any] ?? [:]
+        let location = Location(id: id, data: locationData)
+        
+        completion(location)
+      } else {
+        print("No data available")
+      }
+    }
+  }
+}

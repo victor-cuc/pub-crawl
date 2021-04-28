@@ -25,6 +25,11 @@ class RoutesViewController: UIViewController {
     return viewController
   }
   
+  @IBAction func newRoute() {
+    let newRouteViewController = NewRouteViewController.instantiateFromStoryboard()
+    navigationController?.pushViewController(newRouteViewController, animated: true)
+  }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     if Auth.auth().currentUser != nil {
