@@ -11,6 +11,14 @@ import UIKit
 class EditRouteViewController: UITableViewController {
   static let identifier = String(describing: EditRouteViewController.self)
   
+  class func instantiateFromStoryboard(route: Route) -> EditRouteViewController {
+    let storyboard = UIStoryboard(name: "Routes", bundle: nil)
+    let viewController = storyboard.instantiateViewController(identifier: "EditRouteViewController") as! EditRouteViewController
+    viewController.route = route
+    
+    return viewController
+  }
+
   private var route: Route!
   var dataSource: UITableViewDiffableDataSource<Int, Location>!
   
@@ -19,26 +27,13 @@ class EditRouteViewController: UITableViewController {
   @IBOutlet weak var imageView: UIImageView!
   @IBOutlet weak var addLocationButton: UIButton!
   
-  
-  class func instantiateFromStoryboard(route: Route) -> EditRouteViewController {
-    let storyboard = UIStoryboard(name: "Routes", bundle: nil)
-    let viewController = storyboard.instantiateViewController(identifier: "EditRouteViewController") as! EditRouteViewController
-    viewController.route = route
-    
-    return viewController
-  }
-  
   override func viewDidLoad() {
     super.viewDidLoad()
     
     addLocationButton.addDefaultShadow()
     addLocationButton.addFullRoundedCorners()
     
-    route.fetchLocations() {
-      if self.route.locations != nil {
-        print(self.route.locations!)
-      }
-    }
+    route.fetchLocations() { return }
     
     self.configureDetailView()
     self.configureDataSource()
@@ -114,7 +109,6 @@ extension EditRouteViewController: GMSAutocompleteViewControllerDelegate {
     FirebaseManager.createLocation(fromGMSPlace: place, toRoute: route) { (location) in
       print(location)
       self.route.fetchLocations {
-        print(self.route.locations)
         self.updateDataSource()
       }
       self.dismiss(animated: true, completion: nil)

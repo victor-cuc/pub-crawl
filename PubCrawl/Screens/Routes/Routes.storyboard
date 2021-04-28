@@ -614,30 +614,30 @@
                             </constraints>
                         </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="95" id="OuO-fz-IkM" userLabel="Location Cell">
-                                <rect key="frame" x="0.0" y="439" width="390" height="95"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="LocationCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="LocationCell" rowHeight="150" id="bEa-34-uSA" userLabel="Location Cell" customClass="LocationCell" customModule="PubCrawl" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="439" width="390" height="150"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="OuO-fz-IkM" id="P6a-mW-2NA">
-                                    <rect key="frame" x="0.0" y="0.0" width="390" height="95"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bEa-34-uSA" id="5bF-QS-7cF">
+                                    <rect key="frame" x="0.0" y="0.0" width="390" height="150"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ST5-L4-npS" userLabel="Location Index">
-                                            <rect key="frame" x="20" y="33.333333333333336" width="13.666666666666664" height="28.666666666666664"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" text="1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B9R-RS-j0h" userLabel="Location Index">
+                                            <rect key="frame" x="20" y="15" width="13.666666666666664" height="120"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="24"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="gmO-O3-X0h">
-                                            <rect key="frame" x="49.666666666666657" y="19" width="304.33333333333337" height="57"/>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="xRr-6X-CLK">
+                                            <rect key="frame" x="49.666666666666657" y="15" width="304.33333333333337" height="120"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Irish Pub" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pKj-bG-Ub9">
-                                                    <rect key="frame" x="0.0" y="0.0" width="101.33333333333333" height="28.666666666666668"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Irish Pub" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aiG-VE-Cz0">
+                                                    <rect key="frame" x="0.0" y="0.0" width="101.33333333333333" height="95.666666666666671"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="24"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Strada Eroilor 23A, Cluj-Napoca" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x46-wj-ccL">
-                                                    <rect key="frame" x="0.0" y="36.666666666666664" width="242.33333333333334" height="20.333333333333336"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Strada Eroilor 23A, Cluj-Napoca" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zEs-dI-Z1l">
+                                                    <rect key="frame" x="0.0" y="99.666666666666671" width="242.33333333333334" height="20.333333333333329"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" systemColor="secondaryLabelColor"/>
                                                     <nil key="highlightedColor"/>
@@ -646,13 +646,20 @@
                                         </stackView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="gmO-O3-X0h" firstAttribute="leading" secondItem="ST5-L4-npS" secondAttribute="trailing" constant="16" id="4GY-OO-1Ot"/>
-                                        <constraint firstItem="ST5-L4-npS" firstAttribute="centerY" secondItem="P6a-mW-2NA" secondAttribute="centerY" id="nDN-we-JTn"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="gmO-O3-X0h" secondAttribute="trailing" constant="16" id="p8C-DN-u1e"/>
-                                        <constraint firstItem="gmO-O3-X0h" firstAttribute="centerY" secondItem="P6a-mW-2NA" secondAttribute="centerY" id="xKF-j8-bIG"/>
-                                        <constraint firstItem="ST5-L4-npS" firstAttribute="leading" secondItem="P6a-mW-2NA" secondAttribute="leading" constant="20" symbolic="YES" id="xwH-TR-AEK"/>
+                                        <constraint firstItem="B9R-RS-j0h" firstAttribute="top" secondItem="5bF-QS-7cF" secondAttribute="topMargin" constant="4" id="G1P-n2-9aA"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="xRr-6X-CLK" secondAttribute="trailing" constant="16" id="Rj6-0M-IIb"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="B9R-RS-j0h" secondAttribute="bottom" constant="4" id="jDe-0p-a5r"/>
+                                        <constraint firstItem="B9R-RS-j0h" firstAttribute="leading" secondItem="5bF-QS-7cF" secondAttribute="leading" constant="20" symbolic="YES" id="n5s-fL-dAz"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="xRr-6X-CLK" secondAttribute="bottom" constant="4" id="qKb-nv-ESM"/>
+                                        <constraint firstItem="xRr-6X-CLK" firstAttribute="top" secondItem="5bF-QS-7cF" secondAttribute="topMargin" constant="4" id="tyM-WH-tEv"/>
+                                        <constraint firstItem="xRr-6X-CLK" firstAttribute="leading" secondItem="B9R-RS-j0h" secondAttribute="trailing" constant="16" id="xvA-OT-1xT"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="addressLabel" destination="zEs-dI-Z1l" id="1Nn-Cy-86N"/>
+                                    <outlet property="indexLabel" destination="B9R-RS-j0h" id="Ldc-SS-10N"/>
+                                    <outlet property="nameLabel" destination="aiG-VE-Cz0" id="Dg4-9b-cCT"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>

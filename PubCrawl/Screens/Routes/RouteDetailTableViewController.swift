@@ -10,8 +10,17 @@ import UIKit
 
 class RouteDetailTableViewController: UITableViewController {
   static let identifier = String(describing: RouteDetailTableViewController.self)
+
+  class func instantiateFromStoryboard(route: Route) -> RouteDetailTableViewController {
+    let storyboard = UIStoryboard(name: "Routes", bundle: nil)
+    let viewController = storyboard.instantiateViewController(identifier: "RouteDetailTableViewController") as! RouteDetailTableViewController
+    viewController.route = route
+    
+    return viewController
+  }
   
   private var route: Route!
+  var dataSource: UITableViewDiffableDataSource<Int, Location>!
   
   @IBOutlet weak var starCount: UILabel!
   @IBOutlet weak var starButton: UIButton!
@@ -37,22 +46,15 @@ class RouteDetailTableViewController: UITableViewController {
     super.init(coder: coder)
   }
 
-  class func instantiateFromStoryboard(route: Route) -> RouteDetailTableViewController {
-    let storyboard = UIStoryboard(name: "Routes", bundle: nil)
-    let viewController = storyboard.instantiateViewController(identifier: "RouteDetailTableViewController") as! RouteDetailTableViewController
-    viewController.route = route
-    
-    return viewController
-  }
-
   override func viewDidLoad() {
     super.viewDidLoad()
     
     route.fetchLocations() {
-      print(self.route.locations)
+      self.updateDataSource()
     }
     
     self.configureDetailView()
+    self.configureDataSource()
   }
   
   func configureDetailView() {
@@ -69,59 +71,31 @@ class RouteDetailTableViewController: UITableViewController {
     roundedCornerContainer.addDefaultRoundedCorners(clipsToBounds: true)
   }
   
-  @IBAction func showLocationSearch() {
-    let locationSearchController = GMSAutocompleteViewController()
-    locationSearchController.delegate = self
+  // MARK:- Data Source
+  func configureDataSource() {
+    typealias LocationDataSource = UITableViewDiffableDataSource<Int, Location>
     
-    let fields: GMSPlaceField = GMSPlaceField(rawValue:
-                                                UInt(GMSPlaceField.name.rawValue) |
-                                                UInt(GMSPlaceField.placeID.rawValue) |
-                                                UInt(GMSPlaceField.coordinate.rawValue) |
-                                                UInt(GMSPlaceField.rating.rawValue) |
-                                                UInt(GMSPlaceField.priceLevel.rawValue) |
-                                                UInt(GMSPlaceField.formattedAddress.rawValue))
-    
-    let filter = GMSAutocompleteFilter()
-    filter.type = .establishment
-    locationSearchController.autocompleteFilter = filter
-    
-    locationSearchController.placeFields = fields
-    
-    present(locationSearchController, animated: true)
-  }
-}
-
-//MARK:- Google Maps Autocomplete ViewController Delegate
-extension RouteDetailTableViewController: GMSAutocompleteViewControllerDelegate {
-  func viewController(
-    _ viewController: GMSAutocompleteViewController,
-    didAutocompleteWith place: GMSPlace
-  ) {
-    FirebaseManager.createLocation(fromGMSPlace: place, toRoute: route) { (location) in
-      print(location)
-      self.dismiss(animated: true, completion: nil)
+    dataSource = LocationDataSource(tableView: tableView) {
+      (tableView: UITableView, indexPath: IndexPath, location: Location) -> UITableViewCell? in
+      
+      guard let cell = tableView.dequeueReusableCell(withIdentifier: "LocationCell", for: indexPath) as? LocationCell else {
+        fatalError("Could not create LocationCell")
+      }
+      
+      cell.indexLabel.text = String(indexPath.item + 1)
+      cell.nameLabel.text = location.name
+      cell.addressLabel.text = location.address ?? ""
+      
+      return cell
     }
   }
-
-  func viewController(
-    _ viewController: GMSAutocompleteViewController,
-    didFailAutocompleteWithError error: Error
-  ) {
-    // TODO: Handle Error
-    dismiss(animated: true, completion: nil)
-    print("Error: ", error.localizedDescription)
-  }
-
-  func wasCancelled(_ viewController: GMSAutocompleteViewController) {
-    navigationController?.dismiss(animated: true)
-    dismiss(animated: true, completion: nil)
-  }
-
-  func didRequestAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
-    UIApplication.shared.isNetworkActivityIndicatorVisible = true
-  }
-
-  func didUpdateAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
-    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+  
+  func updateDataSource() {
+    var newSnapshot = NSDiffableDataSourceSnapshot<Int, Location>()
+    
+    newSnapshot.appendSections([0])
+    newSnapshot.appendItems(route.locations!)
+    
+    dataSource.apply(newSnapshot, animatingDifferences: true)
   }
 }
