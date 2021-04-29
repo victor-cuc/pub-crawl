@@ -21,6 +21,7 @@ class EditRouteViewController: UITableViewController {
 
   private var route: Route!
   var dataSource: UITableViewDiffableDataSource<Int, Location>!
+  let rectangularBounds = GMSPlaceRectangularLocationOption(CLLocationCoordinate2D(latitude: 46.814222, longitude: 23.711550), CLLocationCoordinate2D(latitude: 46.709125, longitude: 23.530400))
   
   @IBOutlet weak var nameLabel: UILabel!
   @IBOutlet weak var roundedCornerContainer: UIView!
@@ -30,6 +31,8 @@ class EditRouteViewController: UITableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    navigationItem.rightBarButtonItem = editButtonItem
+
     addLocationButton.addDefaultShadow()
     addLocationButton.addFullRoundedCorners()
     
@@ -76,6 +79,22 @@ class EditRouteViewController: UITableViewController {
     dataSource.apply(newSnapshot, animatingDifferences: true)
   }
   
+  //MARK:- Editing
+  
+  override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+    true
+  }
+  
+  override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+    .delete
+  }
+  
+  override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    if editingStyle == .delete {
+      guard let location = dataSource.itemIdentifier(for: indexPath) else { return }
+      print("should delete location\(location.name)")
+    }
+  }
   
   //MARK:- Location Search
   @IBAction func showLocationSearch() {
@@ -93,6 +112,8 @@ class EditRouteViewController: UITableViewController {
     let filter = GMSAutocompleteFilter()
     filter.type = .establishment
     locationSearchController.autocompleteFilter = filter
+    
+    filter.locationBias = rectangularBounds
     
     locationSearchController.placeFields = fields
     

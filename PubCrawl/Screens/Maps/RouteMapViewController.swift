@@ -8,7 +8,9 @@
 import GoogleMaps
 import UIKit
 
-class MyLocationViewController: UIViewController {
+class RouteMapViewController: UIViewController {
+  
+  var route: Route!
   
   lazy var mapView: GMSMapView = {
     let camera = GMSCameraPosition(latitude: -33.868, longitude: 151.2086, zoom: 1)
@@ -31,6 +33,8 @@ class MyLocationViewController: UIViewController {
     mapView.settings.myLocationButton = true
     mapView.isMyLocationEnabled = true
     view = mapView
+    
+    createMarkers()
 
     // Listen to the myLocation property of GMSMapView.
     observation = mapView.observe(\.myLocation, options: [.new]) {
@@ -42,9 +46,22 @@ class MyLocationViewController: UIViewController {
   deinit {
     observation?.invalidate()
   }
+  
+  func createMarkers() {
+    
+    if route.locations != nil {
+      let coordinates = route.locations.map { (location) -> CLLocationCoordinate2D in
+        CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
+      }
+      for coordinate in coordinates {
+        let marker = GMSMarker(position: coordinate)
+        marker.map = mapView
+      }
+    }
+  }
 }
 
-extension MyLocationViewController: GMSMapViewDelegate {
+extension RouteMapViewController: GMSMapViewDelegate {
   func mapView(_ mapView: GMSMapView, didTapMyLocation location: CLLocationCoordinate2D) {
     let alert = UIAlertController(
       title: "Location Tapped",

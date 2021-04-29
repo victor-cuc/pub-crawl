@@ -36,7 +36,7 @@
 		5750C5EE2635676E00683CD2 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5750C5DF2635676D00683CD2 /* CoreData.framework */; };
 		5750C5EF2635676E00683CD2 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5750C5E02635676E00683CD2 /* CoreImage.framework */; };
 		5750C5F02635676E00683CD2 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5750C5E12635676E00683CD2 /* CoreText.framework */; };
-		5750C5F526356AC100683CD2 /* MyLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5750C5F426356AC100683CD2 /* MyLocation.swift */; };
+		5750C5F526356AC100683CD2 /* RouteMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5750C5F426356AC100683CD2 /* RouteMapViewController.swift */; };
 		5750C5F926356D0400683CD2 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5750C5F826356D0400683CD2 /* GoogleMaps.bundle */; };
 		5750C5FE26358E7200683CD2 /* GooglePlaces.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5750C5FD26358E7200683CD2 /* GooglePlaces.framework */; };
 		575B9AD6261AE67A00350250 /* UIView+RoundCorners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 575B9ACE261AE67A00350250 /* UIView+RoundCorners.swift */; };
@@ -98,7 +98,7 @@
 		5750C5DF2635676D00683CD2 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		5750C5E02635676E00683CD2 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		5750C5E12635676E00683CD2 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
-		5750C5F426356AC100683CD2 /* MyLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyLocation.swift; sourceTree = "<group>"; };
+		5750C5F426356AC100683CD2 /* RouteMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteMapViewController.swift; sourceTree = "<group>"; };
 		5750C5F826356D0400683CD2 /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = GoogleMaps.framework/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
 		5750C5FD26358E7200683CD2 /* GooglePlaces.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GooglePlaces.framework; sourceTree = "<group>"; };
 		575B9ACE261AE67A00350250 /* UIView+RoundCorners.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+RoundCorners.swift"; sourceTree = "<group>"; };
@@ -243,7 +243,7 @@
 		5750C5F326356AA600683CD2 /* Maps */ = {
 			isa = PBXGroup;
 			children = (
-				5750C5F426356AC100683CD2 /* MyLocation.swift */,
+				5750C5F426356AC100683CD2 /* RouteMapViewController.swift */,
 			);
 			path = Maps;
 			sourceTree = "<group>";
@@ -408,7 +408,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5750C5F526356AC100683CD2 /* MyLocation.swift in Sources */,
+				5750C5F526356AC100683CD2 /* RouteMapViewController.swift in Sources */,
 				575B9AD7261AE67A00350250 /* UIView+Shadow.swift in Sources */,
 				57B4577A261B011700658820 /* RegisterViewController.swift in Sources */,
 				57193B2F2628AD38001F15A6 /* Location.swift in Sources */,

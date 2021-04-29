@@ -29,7 +29,6 @@ class RouteDetailTableViewController: UITableViewController {
   @IBOutlet weak var imageView: UIImageView!
   @IBOutlet weak var locationCount: UILabel!
   @IBOutlet weak var startButton: UIButton!
-  @IBOutlet weak var addLocationButton: UIButton!
   
   @IBAction func toggleStar() {
     FirebaseManager.toggleStar(forRoute: route) {
@@ -39,7 +38,9 @@ class RouteDetailTableViewController: UITableViewController {
   }
   
   @IBAction func startRoute() {
-    navigationController?.pushViewController(MyLocationViewController.init(), animated: true)
+    let routeMapViewController = RouteMapViewController()
+    routeMapViewController.route = route
+    navigationController?.pushViewController(routeMapViewController, animated: true)
   }
   
   required init?(coder: NSCoder) {
