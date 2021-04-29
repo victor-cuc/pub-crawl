@@ -34,10 +34,7 @@ class Route: Hashable {
     let completedByData = data["completedBy"] as? [String: Any] ?? [:]
     completedBy = Array(completedByData.keys)
     
-    let locations = data["locations"] as? [String: Any] ?? [:]
-    for location in locations {
-      self.locationIDs.append(location.key)
-    }
+    self.locationIDs = data["locations"] as? [String] ?? []
     
     guard let interval = data["createdAt"] as? Double else { fatalError("error casting date") }
     self.createdAt = Date(timeIntervalSince1970: interval)
