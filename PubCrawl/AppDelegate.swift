@@ -17,8 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     FirebaseApp.configure()
-    GMSServices.provideAPIKey(Constants.SDK.googleMapsAPIKey)
-    GMSPlacesClient.provideAPIKey(Constants.SDK.googlePlacesAPIKey)
+    GMSServices.provideAPIKey(Constants.SDK.googleAPIKey)
+    GMSPlacesClient.provideAPIKey(Constants.SDK.googleAPIKey)
     
     window = UIWindow(frame: UIScreen.main.bounds)
     

@@ -7,6 +7,8 @@
 
 import GoogleMaps
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 class RouteMapViewController: UIViewController {
   
@@ -16,7 +18,7 @@ class RouteMapViewController: UIViewController {
     let camera = GMSCameraPosition(latitude: -33.868, longitude: 151.2086, zoom: 1)
     return GMSMapView(frame: .zero, camera: camera)
   }()
-
+  
   var observation: NSKeyValueObservation?
   var location: CLLocation? {
     didSet {
@@ -24,10 +26,38 @@ class RouteMapViewController: UIViewController {
       mapView.camera = GMSCameraPosition(target: firstLocation.coordinate, zoom: 14)
     }
   }
-
+  
   override func viewDidLoad() {
     super.viewDidLoad()
-
+    // MARK: Request for response from google
+    if let url = GoogleDirectionsManager.makeDirectionsURL(forRoute: route) {
+      AF.request(url).responseJSON { (response) in
+        debugPrint(response)
+        guard let data = response.data else {
+          return
+        }
+        
+        do {
+          let jsonData = try JSON(data: data)
+          let routes = jsonData["routes"].arrayValue
+          
+          for route in routes {
+            let overview_polyline = route["overview_polyline"].dictionary
+            let points = overview_polyline?["points"]?.string
+            let path = GMSPath.init(fromEncodedPath: points ?? "")
+            let polyline = GMSPolyline.init(path: path)
+            polyline.strokeColor = .systemBlue
+            polyline.strokeWidth = 5
+            polyline.map = self.mapView
+          }
+        }
+        catch let error {
+          print(error.localizedDescription)
+        }
+      }
+    }
+    
+    
     mapView.delegate = self
     mapView.settings.compassButton = true
     mapView.settings.myLocationButton = true
@@ -35,14 +65,14 @@ class RouteMapViewController: UIViewController {
     view = mapView
     
     createMarkers()
-
+    
     // Listen to the myLocation property of GMSMapView.
     observation = mapView.observe(\.myLocation, options: [.new]) {
       [weak self] mapView, _ in
       self?.location = mapView.myLocation
     }
   }
-
+  
   deinit {
     observation?.invalidate()
   }
@@ -53,8 +83,11 @@ class RouteMapViewController: UIViewController {
       let coordinates = route.locations.map { (location) -> CLLocationCoordinate2D in
         CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
       }
-      for coordinate in coordinates {
+      for i in 0..<coordinates.count {
+        let coordinate = coordinates[i]
+        
         let marker = GMSMarker(position: coordinate)
+        marker.title = String(i+1)
         marker.map = mapView
       }
     }
