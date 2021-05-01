@@ -186,11 +186,11 @@
 			isa = PBXGroup;
 			children = (
 				57A49645262B653100EF779B /* Constants.swift */,
-				57759FB42625953B005AC5A4 /* Data */,
 				575B9ACD261AE67A00350250 /* Helpers */,
+				57759FB42625953B005AC5A4 /* Data */,
+				5738B384261A073500E68A7D /* Models */,
 				575B9AD0261AE67A00350250 /* Screens */,
 				575B9AD4261AE67A00350250 /* UI Components */,
-				5738B384261A073500E68A7D /* Models */,
 				5738B36F261A05BC00E68A7D /* AppDelegate.swift */,
 				5738B378261A05BE00E68A7D /* Assets.xcassets */,
 				5738B37A261A05BE00E68A7D /* LaunchScreen.storyboard */,
@@ -305,7 +305,6 @@
 		579EFCE526204C2000DC8BAD /* Routes */ = {
 			isa = PBXGroup;
 			children = (
-				5746E5D526260521004E85C6 /* Routes.storyboard */,
 				57E60B0A26394EF30005C236 /* NewRouteViewController.swift */,
 				57173EFB262DEC00002460E5 /* EditRouteViewController.swift */,
 				57A49651262CC10000EF779B /* ExploreViewController.swift */,
@@ -313,6 +312,7 @@
 				579EFCE126204C0900DC8BAD /* RoutesViewController.swift */,
 				5792F780262F1FCA002CDCE5 /* RouteDetailTableViewController.swift */,
 				57A4964C262CB58800EF779B /* StarredRoutesViewController.swift */,
+				5746E5D526260521004E85C6 /* Routes.storyboard */,
 				575B9AD1261AE67A00350250 /* Authentication */,
 				57A49643262B638100EF779B /* Cells */,
 			);

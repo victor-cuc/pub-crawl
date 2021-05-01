@@ -32,7 +32,6 @@ class RouteMapViewController: UIViewController {
     // MARK: Request for response from google
     if let url = GoogleDirectionsManager.makeDirectionsURL(forRoute: route) {
       AF.request(url).responseJSON { (response) in
-        debugPrint(response)
         guard let data = response.data else {
           return
         }

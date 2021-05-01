@@ -271,21 +271,24 @@ class FirebaseManager {
   static func getLocations(forRoute route: Route, completion: @escaping ([Location]) -> Void) {
     ref.child("routes").child(route.id).child("locations").getData { (error, data) in
       guard let locationIDs = data.value as? [String] else { return }
-//      print(locationIDs)
+      print(locationIDs)
       
-      var locations: [Location] = []
+      var locations: [(index: Int, location: Location)] = []
       
       let queue = OperationQueue()
       let completionOperation = BlockOperation {
-        completion(locations)
+        let sortedLocations = locations.sorted { (value1, value2) -> Bool in
+          return value1.index < value2.index
+        }
+        completion(sortedLocations.compactMap({ $0.location }))
       }
       
-      for id in locationIDs {
+      for (index, id) in locationIDs.enumerated() {
         let operation = BlockOperation {
           let lock = NSLock()
           lock.lock()
           getLocation(byID: id) { location in
-            locations.append(location)
+            locations.append( (index, location) )
             lock.unlock()
           }
           lock.lock()
