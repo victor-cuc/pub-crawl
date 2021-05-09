@@ -10,8 +10,10 @@ import UIKit
 class NewRouteViewController: UIViewController, UITextFieldDelegate {
   
   @IBOutlet weak var nameTextField: UITextField!
-//  @IBAction weak var roundedButtonContainer: UIView!
   @IBOutlet weak var nextButton: UIBarButtonItem!
+  @IBOutlet weak var imageView: UIImageView!
+  
+  var image: UIImage?
   
   class func instantiateFromStoryboard() -> NewRouteViewController {
     let storyboard = UIStoryboard(name: "Routes", bundle: nil)
@@ -38,10 +40,79 @@ class NewRouteViewController: UIViewController, UITextFieldDelegate {
     guard let nameEntered = nameTextField.text else { return }
     if !nameEntered.isEmpty {
       print(nameEntered)
-      FirebaseManager.createNewRoute(name: nameEntered) { (route) in
+      FirebaseManager.createNewRoute(name: nameEntered, thumbnail: image) { (route) in
         let editRouteViewController = EditRouteViewController.instantiateFromStoryboard(route: route)
         self.navigationController?.pushViewController(editRouteViewController, animated: true)
       }
     }
+  }
+}
+
+extension NewRouteViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+  func takePhotoWithCamera() {
+    let imagePicker = UIImagePickerController()
+    imagePicker.sourceType = .camera
+    imagePicker.delegate = self
+    imagePicker.allowsEditing = true
+    present(imagePicker, animated: true, completion: nil)
+  }
+  
+  func choosePhotoFromLibrary() {
+    let imagePicker = UIImagePickerController()
+    imagePicker.sourceType = .photoLibrary
+    imagePicker.delegate = self
+    imagePicker.allowsEditing = true
+    present(imagePicker, animated: true, completion: nil)
+  }
+  
+  // MARK:- Image Picker Delegates
+  func imagePickerController(_ picker: UIImagePickerController,
+       didFinishPickingMediaWithInfo info:
+                     [UIImagePickerController.InfoKey : Any]) {
+
+    image = info[UIImagePickerController.InfoKey.editedImage]
+                                                  as? UIImage
+    if let image = image {
+      imageView.image = image
+    }
+
+    dismiss(animated: true, completion: nil)
+  }
+
+
+  func imagePickerControllerDidCancel(_ picker:
+                        UIImagePickerController) {
+    dismiss(animated: true, completion: nil)
+  }
+  
+  @IBAction func pickPhoto() {
+    if UIImagePickerController.isSourceTypeAvailable(.camera) {
+      showPhotoMenu()
+    } else {
+      choosePhotoFromLibrary()
+    }
+  }
+
+  func showPhotoMenu() {
+    let alert = UIAlertController(title: nil, message: nil,
+                         preferredStyle: .actionSheet)
+
+    let actionCancel = UIAlertAction(title: "Cancel", style: .cancel,
+                                handler: nil)
+    alert.addAction(actionCancel)
+
+    let actionPhoto = UIAlertAction(title: "Take Photo",
+                                    style: .default, handler: { _ in
+                                      self.takePhotoWithCamera()
+                                    })
+    alert.addAction(actionPhoto)
+
+    let actionLibrary = UIAlertAction(title: "Choose From Library",
+                                      style: .default, handler: { _ in
+                                        self.choosePhotoFromLibrary()
+                                      })
+    alert.addAction(actionLibrary)
+
+    present(alert, animated: true, completion: nil)
   }
 }

@@ -42,6 +42,11 @@ class EditRouteViewController: UITableViewController {
     self.configureDataSource()
   }
   
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    tableView.setEditing(true, animated: true)
+  }
+  
   func configureDetailView() {
     
     self.title = route.name

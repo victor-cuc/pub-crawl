@@ -87,6 +87,25 @@ class RouteDetailTableViewController: UITableViewController {
       cell.nameLabel.text = location.name
       cell.addressLabel.text = location.address ?? ""
       
+      if location.rating != nil {
+        cell.ratingNumberLabel.text = String(location.rating!)
+      } else {
+        cell.ratingStack.isHidden = true
+      }
+      
+//      guard location.priceLevel != nil else {
+//        cell.priceLevelLabel.isHidden = true
+//        return cell
+//      }
+      if location.priceLevel != nil && location.priceLevel != -1 {
+        let attributedText = NSMutableAttributedString(attributedString: cell.priceLevelLabel.attributedText!)
+        let range = NSRange(location: location.priceLevel!, length: attributedText.length - location.priceLevel!)
+        attributedText.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.secondaryLabel, range: range)
+        cell.priceLevelLabel.attributedText = attributedText
+      } else {
+        cell.priceLevelLabel.isHidden = true
+      }
+      
       return cell
     }
   }

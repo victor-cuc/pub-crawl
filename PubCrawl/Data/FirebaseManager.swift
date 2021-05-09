@@ -22,14 +22,37 @@ class FirebaseManager {
     }
   }
   
-  static func createNewRoute(name: String, completion: @escaping (Route) -> Void) {
+  static func createNewRoute(name: String, thumbnail: UIImage? = nil, completion: @escaping (Route) -> Void) {
     guard let key = ref.child("routes").childByAutoId().key else { return }
     let route = [
       "name": name,
       "createdAt": Date().timeIntervalSince1970
     ] as [String : Any]
     ref.child("routes").child(key).setValue(route)
-    completion(Route(id: key, data: route))
+    
+    let imageRef = storeRef.child("routeImages/\(key)/thumbnail.jpg")
+    
+    if let thumbnail = thumbnail {
+      guard let uploadData = thumbnail.jpegData(compressionQuality: 0.5) else { return }
+      imageRef.putData(uploadData, metadata: nil) { (metadata, error) in
+        if error != nil {
+          print(error?.localizedDescription)
+        } else {
+          completion(Route(id: key, data: route))
+          //          storageRef.downloadURL(completion: { (url, error) in
+          //
+          //            print(url?.absoluteString)
+          //            completion(url?.absoluteString)
+          //          })
+          
+          //  completion((metadata?.downloadURL()?.absoluteString)!))
+          // your uploaded photo url.
+          
+          
+        }
+      }
+    }
+    
   }
   
   static func getAllRoutes(completion: @escaping ([Route]) -> Void) {
@@ -231,13 +254,13 @@ class FirebaseManager {
     
     guard let placeID = gmsPlace.placeID,
           let name = gmsPlace.name else { return }
-
+    
     let latitude = gmsPlace.coordinate.latitude,
         longitude = gmsPlace.coordinate.longitude
     
     let address = gmsPlace.formattedAddress
     let priceLevel = gmsPlace.priceLevel.rawValue
-    let rating = gmsPlace.rating
+    let rating = roundf(gmsPlace.rating * 10) / 10.0
     
     let locationData = [
       "placeID": placeID,

@@ -52,8 +52,11 @@ class Location: Hashable, Codable {
     address = data["address"] as? String
     latitude = data["latitude"] as! Double
     longitude = data["longitude"] as! Double
-    priceLevel = data["priceLevel"] as? Int
-    rating = data["rating"] as? Float
+    priceLevel = data["priceLevel"] as! Int
+    
+    if let ratingData = data["rating"] as? Float {
+      rating = roundf(ratingData * 10) / 10.0
+    }
   }
   
   func hash(into hasher: inout Hasher) {
