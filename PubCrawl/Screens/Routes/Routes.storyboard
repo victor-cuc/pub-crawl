@@ -713,11 +713,12 @@
                         <outlet property="starButton" destination="pEa-LI-B88" id="yTD-hF-dYE"/>
                         <outlet property="starCount" destination="9l2-3g-UKw" id="FtN-ho-5Wx"/>
                         <outlet property="startButton" destination="7Fk-NN-f2t" id="MXY-gi-bsu"/>
+                        <outlet property="timeEstimate" destination="O73-fl-hFF" id="5dX-2L-r99"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bIX-du-S4w" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2309" y="1293"/>
+            <point key="canvasLocation" x="2323" y="1225"/>
         </scene>
         <!--Add New Route-->
         <scene sceneID="t6e-3N-jAg">
@@ -734,7 +735,7 @@
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wXu-d3-Uz0" userLabel="Username Field" customClass="RoundedTextFieldContainer" customModule="PubCrawl">
-                                <rect key="frame" x="16" y="211.33333333333331" width="358" height="60"/>
+                                <rect key="frame" x="16" y="258" width="358" height="60"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="e.g. North West Crawl" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vPF-Uo-wm0">
                                         <rect key="frame" x="16" y="0.0" width="326" height="60"/>
@@ -765,6 +766,12 @@
                                     <action selector="pickPhoto" destination="pKL-ni-uHv" eventType="touchUpInside" id="gsQ-KM-aic"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Route Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xQH-t0-czK">
+                                <rect key="frame" x="32" y="213.33333333333331" width="143" height="28.666666666666657"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="JxR-qz-K9N"/>
                         <color key="backgroundColor" name="defaultBackgroundColor"/>
@@ -772,11 +779,13 @@
                             <constraint firstItem="stL-LK-7T9" firstAttribute="top" secondItem="JxR-qz-K9N" secondAttribute="top" constant="30" id="2rO-Ka-Axi"/>
                             <constraint firstItem="w3C-fP-5iB" firstAttribute="bottom" secondItem="stL-LK-7T9" secondAttribute="bottom" constant="-8" id="2uq-Kl-aRx"/>
                             <constraint firstItem="stL-LK-7T9" firstAttribute="height" secondItem="8iL-Cz-VeX" secondAttribute="height" multiplier="0.2" id="71M-zo-YCr"/>
-                            <constraint firstItem="wXu-d3-Uz0" firstAttribute="top" secondItem="stL-LK-7T9" secondAttribute="bottom" constant="30" id="HDI-bE-DbS"/>
+                            <constraint firstItem="xQH-t0-czK" firstAttribute="top" secondItem="stL-LK-7T9" secondAttribute="bottom" constant="32" id="B1I-JX-W4g"/>
+                            <constraint firstItem="xQH-t0-czK" firstAttribute="leading" secondItem="JxR-qz-K9N" secondAttribute="leading" constant="32" id="DuR-4h-4qN"/>
                             <constraint firstItem="stL-LK-7T9" firstAttribute="centerX" secondItem="JxR-qz-K9N" secondAttribute="centerX" id="OmE-e5-ylH"/>
                             <constraint firstItem="w3C-fP-5iB" firstAttribute="trailing" secondItem="stL-LK-7T9" secondAttribute="trailing" constant="-8" id="RS8-he-JkQ"/>
                             <constraint firstItem="JxR-qz-K9N" firstAttribute="trailing" secondItem="wXu-d3-Uz0" secondAttribute="trailing" constant="16" id="h8X-eQ-Bh4"/>
                             <constraint firstItem="wXu-d3-Uz0" firstAttribute="leading" secondItem="JxR-qz-K9N" secondAttribute="leading" constant="16" id="t6R-wa-nYQ"/>
+                            <constraint firstItem="wXu-d3-Uz0" firstAttribute="top" secondItem="xQH-t0-czK" secondAttribute="bottom" constant="16" id="wft-on-ZTY"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Add New Route" largeTitleDisplayMode="always" id="faW-hH-U0I">
@@ -800,7 +809,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lQn-o5-vWi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1958" y="450"/>
+            <point key="canvasLocation" x="1940" y="546.6824644549763"/>
         </scene>
         <!--Saved-->
         <scene sceneID="z3p-zR-dzr">
@@ -1106,7 +1115,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="EditRouteViewController" id="705-gm-v0d" customClass="EditRouteViewController" customModule="PubCrawl" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="3cm-ak-i8f">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="756"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="defaultBackgroundColor"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="QnI-pt-qaP">
@@ -1218,7 +1227,14 @@
                             <outlet property="delegate" destination="705-gm-v0d" id="mLv-Sg-PbH"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="iee-7q-mO8"/>
+                    <navigationItem key="navigationItem" id="iee-7q-mO8">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="dsm-bc-TeS">
+                            <connections>
+                                <action selector="cancelAction" destination="705-gm-v0d" id="MRg-YG-mfA"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
                         <outlet property="addLocationButton" destination="aso-0Q-dWM" id="Mzp-Ac-VTL"/>
                         <outlet property="imageView" destination="Mue-3E-Qae" id="mL6-M5-XOw"/>
@@ -1228,7 +1244,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Wd-Hi-iAs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2723" y="450"/>
+            <point key="canvasLocation" x="2705" y="547"/>
         </scene>
     </scenes>
     <resources>

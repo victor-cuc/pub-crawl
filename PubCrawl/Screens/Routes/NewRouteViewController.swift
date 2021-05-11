@@ -40,9 +40,16 @@ class NewRouteViewController: UIViewController, UITextFieldDelegate {
     guard let nameEntered = nameTextField.text else { return }
     if !nameEntered.isEmpty {
       print(nameEntered)
-      FirebaseManager.createNewRoute(name: nameEntered, thumbnail: image) { (route) in
-        let editRouteViewController = EditRouteViewController.instantiateFromStoryboard(route: route)
-        self.navigationController?.pushViewController(editRouteViewController, animated: true)
+      FirebaseManager.createNewRoute(name: nameEntered, thumbnail: image) { (route, error) in
+        if let route = route {
+          let editRouteViewController = EditRouteViewController.instantiateFromStoryboard(route: route)
+          var viewControllers = self.navigationController?.viewControllers
+          viewControllers?.removeLast()
+          viewControllers?.append(editRouteViewController)
+          self.navigationController?.setViewControllers(viewControllers!, animated: true)
+        } else {
+          print(error?.localizedDescription)
+        }
       }
     }
   }

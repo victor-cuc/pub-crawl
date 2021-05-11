@@ -7,6 +7,8 @@
 
 import UIKit
 import Firebase
+import SwiftyJSON
+import Alamofire
 import GooglePlaces
 
 class Route: Hashable {
@@ -15,8 +17,9 @@ class Route: Hashable {
   var starredBy: [String]
   var completedBy: [String]
   var locations: [Location]!
+  var timeEstimateInSeconds = 0
   var locationIDs: [String] = []
-  var imageRef: StorageReference!
+  var imageRef: StorageReference?
   var createdAt: Date
 //  let id: String // String or other type?
 //  var image: UIImage?
@@ -48,6 +51,9 @@ class Route: Hashable {
   func fetchLocations(completion: @escaping () -> Void) {
     FirebaseManager.getLocations(forRoute: self) { (locations) in
       self.locations = locations
+      GoogleDirectionsManager.getTimeEstimate(forRoute: self) { (directionsEstimate) in
+        self.timeEstimateInSeconds = directionsEstimate + 10 * 60 * locations.count // 10 mins per location
+      }
       completion()
     }
   }

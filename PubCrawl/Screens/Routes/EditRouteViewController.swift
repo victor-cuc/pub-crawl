@@ -162,5 +162,18 @@ extension EditRouteViewController: GMSAutocompleteViewControllerDelegate {
   func didUpdateAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
     UIApplication.shared.isNetworkActivityIndicatorVisible = false
   }
+  
+  // MARK:- Actions
+  @IBAction func cancelAction() {
+    self.navigationController?.popViewController(animated: true)
+    FirebaseManager.deleteRoute(route) { (error) in
+      if let error = error {
+        print(error.localizedDescription)
+      } else {
+        print("Deleted route: \(self.route.name)")
+      }
+    }
+  }
 }
+
 

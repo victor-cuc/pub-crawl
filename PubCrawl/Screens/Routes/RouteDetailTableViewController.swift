@@ -28,6 +28,7 @@ class RouteDetailTableViewController: UITableViewController {
   @IBOutlet weak var roundedCornerContainer: UIView!
   @IBOutlet weak var imageView: UIImageView!
   @IBOutlet weak var locationCount: UILabel!
+  @IBOutlet weak var timeEstimate: UILabel!
   @IBOutlet weak var startButton: UIButton!
   
   @IBAction func toggleStar() {
@@ -48,12 +49,14 @@ class RouteDetailTableViewController: UITableViewController {
   }
 
   override func viewDidLoad() {
+    print("viewDidLoad DetailView")
     super.viewDidLoad()
     
     route.fetchLocations() {
       self.updateDataSource()
+      let timeEstimateHMS = self.route.timeEstimateInSeconds.secondsToHoursMinutesSeconds()
+      let formattedTime = "\(timeEstimateHMS.0) hours, \(timeEstimateHMS.1) minutes"
     }
-    
     self.configureDetailView()
     self.configureDataSource()
   }
@@ -71,7 +74,6 @@ class RouteDetailTableViewController: UITableViewController {
     
     roundedCornerContainer.addDefaultRoundedCorners(clipsToBounds: true)
   }
-  
   // MARK:- Data Source
   func configureDataSource() {
     typealias LocationDataSource = UITableViewDiffableDataSource<Int, Location>

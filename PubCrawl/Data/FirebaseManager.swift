@@ -15,44 +15,48 @@ class FirebaseManager {
   
   // MARK:- Routes
   
-  static func createNewDummyRoute(completion: @escaping (Route) -> Void) {
+  static func createNewDummyRoute(completion: @escaping (Route?) -> Void) {
     let name = "Route\(Int.random(in: 1...100))"
-    createNewRoute(name: name) { route in
+    createNewRoute(name: name) { (route, error) in
       completion(route)
     }
   }
   
-  static func createNewRoute(name: String, thumbnail: UIImage? = nil, completion: @escaping (Route) -> Void) {
+  static func createNewRoute(name: String, thumbnail: UIImage? = nil, completion: @escaping (Route?, Error?) -> Void) {
     guard let key = ref.child("routes").childByAutoId().key else { return }
-    let route = [
+    let routeData = [
       "name": name,
       "createdAt": Date().timeIntervalSince1970
     ] as [String : Any]
-    ref.child("routes").child(key).setValue(route)
-    
-    let imageRef = storeRef.child("routeImages/\(key)/thumbnail.jpg")
-    
-    if let thumbnail = thumbnail {
-      guard let uploadData = thumbnail.jpegData(compressionQuality: 0.5) else { return }
-      imageRef.putData(uploadData, metadata: nil) { (metadata, error) in
-        if error != nil {
-          print(error?.localizedDescription)
-        } else {
-          completion(Route(id: key, data: route))
-          //          storageRef.downloadURL(completion: { (url, error) in
-          //
-          //            print(url?.absoluteString)
-          //            completion(url?.absoluteString)
-          //          })
-          
-          //  completion((metadata?.downloadURL()?.absoluteString)!))
-          // your uploaded photo url.
-          
-          
+    let route = Route(id: key, data: routeData)
+    ref.child("routes").child(key).setValue(routeData) { (error, ref) in
+      guard error == nil else {
+        completion(nil, error)
+        return
+      }
+      if let thumbnail = thumbnail {
+        setImage(thumbnail, forRoute: route) { (error) in
+          completion(route, error)
         }
       }
+      else {
+        completion(route, nil)
+      }
     }
+  }
+  
+  static func setImage(_ image: UIImage, forRoute route: Route, completion: @escaping (Error?) -> Void) {
+    let imageRef = storeRef.child("routeImages/\(route.id)/thumbnail.jpg")
+    guard let uploadData = image.jpegData(compressionQuality: 0.5) else { return }
     
+    imageRef.putData(uploadData, metadata: nil) { (metadata, error) in
+      if error != nil {
+        completion(error)
+      } else {
+        route.imageRef = imageRef
+        completion(nil)
+      }
+    }
   }
   
   static func getAllRoutes(completion: @escaping ([Route]) -> Void) {
@@ -113,6 +117,25 @@ class FirebaseManager {
         completion(route)
       } else {
         print("No data available")
+      }
+    }
+  }
+  
+  static func deleteRoute(_ route: Route, completion: @escaping (Error?) -> Void) {
+    let id = route.id
+    ref.child("routes").child(id).removeValue { (error, ref) in
+      if let error = error {
+        print(error.localizedDescription)
+        completion(error)
+        return
+      }
+      
+      storeRef.child("routeImages/\(id)/thumbnail.jpg").delete { (error) in
+        if let error = error {
+          print(error.localizedDescription)
+        }
+        
+        completion(nil)
       }
     }
   }

@@ -39,4 +39,39 @@ class GoogleDirectionsManager {
     
     return placeIDs
   }
+  
+  static func getTimeEstimate(forRoute route: Route, completion: @escaping (Int) -> Void) {
+    if let url = makeDirectionsURL(forRoute: route) {
+      AF.request(url).responseJSON { (response) in
+        guard let data = response.data else {
+          return
+        }
+        
+        do {
+          var timeEstimate = 0
+          let jsonData = try JSON(data: data)
+          let routes = jsonData["routes"].arrayValue
+          for route in routes {
+            let legs = route["legs"].arrayValue
+            for leg in legs {
+              guard let legDuration = leg["duration"]["value"].int else { continue }
+              timeEstimate += legDuration
+            }
+          }
+          print(timeEstimate)
+          completion(timeEstimate)
+        }
+        catch let error {
+          print(error.localizedDescription)
+        }
+      }
+    }
+  }
+}
+
+
+extension Int {
+  func secondsToHoursMinutesSeconds() -> (Int, Int, Int) {
+    return (self / 3600, (self % 3600) / 60, (self % 3600) % 60)
+  }
 }

@@ -61,6 +61,8 @@
 		57A4964D262CB58800EF779B /* StarredRoutesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A4964C262CB58800EF779B /* StarredRoutesViewController.swift */; };
 		57A49652262CC10000EF779B /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57A49651262CC10000EF779B /* ExploreViewController.swift */; };
 		57B4577A261B011700658820 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B45779261B011700658820 /* RegisterViewController.swift */; };
+		57DC7B0626480A5100AAEDD1 /* MapMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DC7B0526480A5100AAEDD1 /* MapMarkerView.swift */; };
+		57DC7B0926480A6700AAEDD1 /* MapMarkerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 57DC7B0826480A6700AAEDD1 /* MapMarkerView.xib */; };
 		57DF83AF262CC311002CFBD5 /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DF83AE262CC311002CFBD5 /* PostCell.swift */; };
 		57DF83C1262D8FF8002CFBD5 /* FeaturedRoutesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DF83C0262D8FF8002CFBD5 /* FeaturedRoutesViewController.swift */; };
 		57E60B0B26394EF30005C236 /* NewRouteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E60B0A26394EF30005C236 /* NewRouteViewController.swift */; };
@@ -120,6 +122,8 @@
 		57A4964C262CB58800EF779B /* StarredRoutesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarredRoutesViewController.swift; sourceTree = "<group>"; };
 		57A49651262CC10000EF779B /* ExploreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
 		57B45779261B011700658820 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		57DC7B0526480A5100AAEDD1 /* MapMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMarkerView.swift; sourceTree = "<group>"; };
+		57DC7B0826480A6700AAEDD1 /* MapMarkerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MapMarkerView.xib; sourceTree = "<group>"; };
 		57DF83AE262CC311002CFBD5 /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
 		57DF83C0262D8FF8002CFBD5 /* FeaturedRoutesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedRoutesViewController.swift; sourceTree = "<group>"; };
 		57E60B0A26394EF30005C236 /* NewRouteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRouteViewController.swift; sourceTree = "<group>"; };
@@ -250,6 +254,8 @@
 			isa = PBXGroup;
 			children = (
 				5750C5F426356AC100683CD2 /* RouteMapViewController.swift */,
+				57DC7B0526480A5100AAEDD1 /* MapMarkerView.swift */,
+				57DC7B0826480A6700AAEDD1 /* MapMarkerView.xib */,
 			);
 			path = Maps;
 			sourceTree = "<group>";
@@ -401,6 +407,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				57DC7B0926480A6700AAEDD1 /* MapMarkerView.xib in Resources */,
 				57F0AC352636C80D0043299A /* GooglePlaces.bundle in Resources */,
 				577F1945262050EE004136F4 /* GoogleService-Info.plist in Resources */,
 				5792F77E262F175F002CDCE5 /* ExploreHeaderView.xib in Resources */,
@@ -424,6 +431,7 @@
 				57B4577A261B011700658820 /* RegisterViewController.swift in Sources */,
 				57193B2F2628AD38001F15A6 /* Location.swift in Sources */,
 				575B9AD6261AE67A00350250 /* UIView+RoundCorners.swift in Sources */,
+				57DC7B0626480A5100AAEDD1 /* MapMarkerView.swift in Sources */,
 				5746E5DC26271BE6004E85C6 /* GradientView.swift in Sources */,
 				57759FAB26248400005AC5A4 /* RouteCell.swift in Sources */,
 				57E60B0B26394EF30005C236 /* NewRouteViewController.swift in Sources */,
