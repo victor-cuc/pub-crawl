@@ -87,7 +87,7 @@ class RouteMapViewController: UIViewController {
         
         let marker = GMSMarker(position: coordinate)
         marker.title = String(i+1)
-        marker.iconView = MapMarkerView()
+        marker.iconView = MapMarkerView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
         marker.map = mapView
       }
     }
