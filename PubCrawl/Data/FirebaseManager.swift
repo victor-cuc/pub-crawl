@@ -326,7 +326,9 @@ class FirebaseManager {
         let sortedLocations = locations.sorted { (value1, value2) -> Bool in
           return value1.index < value2.index
         }
-        completion(sortedLocations.compactMap({ $0.location }))
+        DispatchQueue.main.async {
+          completion(sortedLocations.compactMap({ $0.location }))
+        }
       }
       
       for (index, id) in locationIDs.enumerated() {

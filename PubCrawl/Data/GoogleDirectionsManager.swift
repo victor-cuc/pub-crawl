@@ -40,10 +40,11 @@ class GoogleDirectionsManager {
     return placeIDs
   }
   
-  static func getTimeEstimate(forRoute route: Route, completion: @escaping (Int) -> Void) {
+  static func getTimeEstimate(forRoute route: Route, completion: @escaping (Int?, Error?) -> Void) {
     if let url = makeDirectionsURL(forRoute: route) {
       AF.request(url).responseJSON { (response) in
         guard let data = response.data else {
+          completion(nil, response.error)
           return
         }
         
@@ -59,9 +60,10 @@ class GoogleDirectionsManager {
             }
           }
           print(timeEstimate)
-          completion(timeEstimate)
+          completion(timeEstimate, nil)
         }
         catch let error {
+          completion(nil, error)
           print(error.localizedDescription)
         }
       }

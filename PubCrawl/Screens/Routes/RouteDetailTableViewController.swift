@@ -52,13 +52,29 @@ class RouteDetailTableViewController: UITableViewController {
     print("viewDidLoad DetailView")
     super.viewDidLoad()
     
-    route.fetchLocations() {
-      self.updateDataSource()
-      let timeEstimateHMS = self.route.timeEstimateInSeconds.secondsToHoursMinutesSeconds()
-      let formattedTime = "\(timeEstimateHMS.0) hours, \(timeEstimateHMS.1) minutes"
+    loadData()
+    
+    configureDetailView()
+    configureDataSource()
+  }
+  
+  func loadData() {
+    route.fetchLocations() { [weak self] in
+      self?.updateDataSource()
+      self?.loadTimeEstimate()
     }
-    self.configureDetailView()
-    self.configureDataSource()
+  }
+  
+  func loadTimeEstimate() {
+    self.timeEstimate.text = "Loading..."
+    GoogleDirectionsManager.getTimeEstimate(forRoute: route) { [weak self] (directionsEstimate, error) in
+      guard let self = self else { return }
+      guard let directionsEstimate = directionsEstimate else { return }
+      let timeEstimateInSeconds = directionsEstimate + 10 * 60 * self.route.locations.count // 10 mins per location
+      let timeEstimateHMS = timeEstimateInSeconds.secondsToHoursMinutesSeconds()
+      let formattedTime = "\(timeEstimateHMS.0) hours, \(timeEstimateHMS.1) minutes"
+      self.timeEstimate.text = formattedTime
+    }
   }
   
   func configureDetailView() {
