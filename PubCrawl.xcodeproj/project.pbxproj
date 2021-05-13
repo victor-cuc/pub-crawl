@@ -59,12 +59,23 @@
 		57B4577A261B011700658820 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B45779261B011700658820 /* RegisterViewController.swift */; };
 		57DC7B0626480A5100AAEDD1 /* MapMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DC7B0526480A5100AAEDD1 /* MapMarkerView.swift */; };
 		57DC7B0926480A6700AAEDD1 /* MapMarkerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 57DC7B0826480A6700AAEDD1 /* MapMarkerView.xib */; };
+		57DDA5E3264C0D6B00BEE73E /* PubCrawlTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DDA5E2264C0D6B00BEE73E /* PubCrawlTests.swift */; };
 		57DF83AF262CC311002CFBD5 /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DF83AE262CC311002CFBD5 /* PostCell.swift */; };
 		57DF83C1262D8FF8002CFBD5 /* FeaturedRoutesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DF83C0262D8FF8002CFBD5 /* FeaturedRoutesViewController.swift */; };
 		57E60B0B26394EF30005C236 /* NewRouteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E60B0A26394EF30005C236 /* NewRouteViewController.swift */; };
 		57E60B13263977940005C236 /* LocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E60B12263977940005C236 /* LocationCell.swift */; };
 		57E6473326301ADF004A5565 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 57E6473226301ADF004A5565 /* IQKeyboardManagerSwift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		57DDA5E5264C0D6B00BEE73E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5738B364261A05BC00E68A7D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5738B36B261A05BC00E68A7D;
+			remoteInfo = PubCrawl;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		4CFB03C8B8F8AA0037892F7D /* Pods-PubCrawl.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PubCrawl.release.xcconfig"; path = "Target Support Files/Pods-PubCrawl/Pods-PubCrawl.release.xcconfig"; sourceTree = "<group>"; };
@@ -115,6 +126,9 @@
 		57B45779261B011700658820 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		57DC7B0526480A5100AAEDD1 /* MapMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMarkerView.swift; sourceTree = "<group>"; };
 		57DC7B0826480A6700AAEDD1 /* MapMarkerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MapMarkerView.xib; sourceTree = "<group>"; };
+		57DDA5E0264C0D6B00BEE73E /* PubCrawlTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PubCrawlTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		57DDA5E2264C0D6B00BEE73E /* PubCrawlTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PubCrawlTests.swift; sourceTree = "<group>"; };
+		57DDA5E4264C0D6B00BEE73E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		57DF83AE262CC311002CFBD5 /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
 		57DF83C0262D8FF8002CFBD5 /* FeaturedRoutesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedRoutesViewController.swift; sourceTree = "<group>"; };
 		57E60B0A26394EF30005C236 /* NewRouteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRouteViewController.swift; sourceTree = "<group>"; };
@@ -154,6 +168,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		57DDA5DD264C0D6B00BEE73E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -161,6 +182,7 @@
 			isa = PBXGroup;
 			children = (
 				5738B36E261A05BC00E68A7D /* PubCrawl */,
+				57DDA5E1264C0D6B00BEE73E /* PubCrawlTests */,
 				5738B36D261A05BC00E68A7D /* Products */,
 				5750C5D22635676C00683CD2 /* Frameworks */,
 				9D1D464BAA1F7BB73BBE23DB /* Pods */,
@@ -171,6 +193,7 @@
 			isa = PBXGroup;
 			children = (
 				5738B36C261A05BC00E68A7D /* PubCrawl.app */,
+				57DDA5E0264C0D6B00BEE73E /* PubCrawlTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -312,6 +335,15 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		57DDA5E1264C0D6B00BEE73E /* PubCrawlTests */ = {
+			isa = PBXGroup;
+			children = (
+				57DDA5E2264C0D6B00BEE73E /* PubCrawlTests.swift */,
+				57DDA5E4264C0D6B00BEE73E /* Info.plist */,
+			);
+			path = PubCrawlTests;
+			sourceTree = "<group>";
+		};
 		9D1D464BAA1F7BB73BBE23DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -352,6 +384,24 @@
 			productReference = 5738B36C261A05BC00E68A7D /* PubCrawl.app */;
 			productType = "com.apple.product-type.application";
 		};
+		57DDA5DF264C0D6B00BEE73E /* PubCrawlTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 57DDA5E7264C0D6B00BEE73E /* Build configuration list for PBXNativeTarget "PubCrawlTests" */;
+			buildPhases = (
+				57DDA5DC264C0D6B00BEE73E /* Sources */,
+				57DDA5DD264C0D6B00BEE73E /* Frameworks */,
+				57DDA5DE264C0D6B00BEE73E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				57DDA5E6264C0D6B00BEE73E /* PBXTargetDependency */,
+			);
+			name = PubCrawlTests;
+			productName = PubCrawlTests;
+			productReference = 57DDA5E0264C0D6B00BEE73E /* PubCrawlTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -363,6 +413,10 @@
 				TargetAttributes = {
 					5738B36B261A05BC00E68A7D = {
 						CreatedOnToolsVersion = 12.4;
+					};
+					57DDA5DF264C0D6B00BEE73E = {
+						CreatedOnToolsVersion = 12.4;
+						TestTargetID = 5738B36B261A05BC00E68A7D;
 					};
 				};
 			};
@@ -386,6 +440,7 @@
 			projectRoot = "";
 			targets = (
 				5738B36B261A05BC00E68A7D /* PubCrawl */,
+				57DDA5DF264C0D6B00BEE73E /* PubCrawlTests */,
 			);
 		};
 /* End PBXProject section */
@@ -402,6 +457,13 @@
 				5738B37C261A05BE00E68A7D /* LaunchScreen.storyboard in Resources */,
 				5738B379261A05BE00E68A7D /* Assets.xcassets in Resources */,
 				5738B377261A05BC00E68A7D /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		57DDA5DE264C0D6B00BEE73E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -484,7 +546,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		57DDA5DC264C0D6B00BEE73E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				57DDA5E3264C0D6B00BEE73E /* PubCrawlTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		57DDA5E6264C0D6B00BEE73E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5738B36B261A05BC00E68A7D /* PubCrawl */;
+			targetProxy = 57DDA5E5264C0D6B00BEE73E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		5738B375261A05BC00E68A7D /* Main.storyboard */ = {
@@ -680,6 +758,46 @@
 			};
 			name = Release;
 		};
+		57DDA5E8264C0D6B00BEE73E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = BGL98V7Y68;
+				INFOPLIST_FILE = PubCrawlTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.victorcuc.PubCrawlTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PubCrawl.app/PubCrawl";
+			};
+			name = Debug;
+		};
+		57DDA5E9264C0D6B00BEE73E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = BGL98V7Y68;
+				INFOPLIST_FILE = PubCrawlTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.victorcuc.PubCrawlTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PubCrawl.app/PubCrawl";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -697,6 +815,15 @@
 			buildConfigurations = (
 				5738B381261A05BE00E68A7D /* Debug */,
 				5738B382261A05BE00E68A7D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		57DDA5E7264C0D6B00BEE73E /* Build configuration list for PBXNativeTarget "PubCrawlTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				57DDA5E8264C0D6B00BEE73E /* Debug */,
+				57DDA5E9264C0D6B00BEE73E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
