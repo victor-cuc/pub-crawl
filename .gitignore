@@ -1,2 +1,4 @@
 PubCrawl.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved
 PubCrawl.xcodeproj/xcuserdata/cata.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
+Pods/*
+*.xcworkspace
