@@ -16,7 +16,7 @@ class Route: Hashable {
   var name: String
   var starredBy: [String]
   var completedBy: [String]
-  var locations: [Location]!
+  var locations: [Location] = []
   var locationIDs: [String] = []
   var imageRef: StorageReference?
   var createdAt: Date

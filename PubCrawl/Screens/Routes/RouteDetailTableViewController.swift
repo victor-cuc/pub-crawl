@@ -62,6 +62,7 @@ class RouteDetailTableViewController: UITableViewController {
     route.fetchLocations() { [weak self] in
       self?.updateDataSource()
       self?.loadTimeEstimate()
+      self?.toggleStartButton(enabled: !(self?.route.locations.isEmpty == true))
     }
   }
   
@@ -81,14 +82,21 @@ class RouteDetailTableViewController: UITableViewController {
     startButton.addDefaultShadow()
     startButton.addDefaultRoundedCorners()
     
+    
     self.title = route.name
     nameLabel.text = route.name
     starCount.text = String(route.starredBy.count)
     starButton.isSelected = route.isStarredByCurrentUser()
+    toggleStartButton(enabled: !route.locations.isEmpty)
     imageView.loadImageFromFirebase(reference: route.imageRef, placeholder: UIImage(named: "placeholderRouteThumbnail"))
     locationCount.text = String(route.locationIDs.count)
     
     roundedCornerContainer.addDefaultRoundedCorners(clipsToBounds: true)
+  }
+  
+  func toggleStartButton(enabled: Bool) {
+    startButton.backgroundColor = !enabled ? startButton.backgroundColor?.withAlphaComponent(0.6) : startButton.backgroundColor?.withAlphaComponent(1)
+    startButton.isEnabled = enabled
   }
   // MARK:- Data Source
   func configureDataSource() {
@@ -132,7 +140,7 @@ class RouteDetailTableViewController: UITableViewController {
     var newSnapshot = NSDiffableDataSourceSnapshot<Int, Location>()
     
     newSnapshot.appendSections([0])
-    newSnapshot.appendItems(route.locations!)
+    newSnapshot.appendItems(route.locations)
     
     dataSource.apply(newSnapshot, animatingDifferences: true)
   }

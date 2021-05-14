@@ -79,7 +79,7 @@ class EditRouteViewController: UITableViewController {
     var newSnapshot = NSDiffableDataSourceSnapshot<Int, Location>()
     
     newSnapshot.appendSections([0])
-    newSnapshot.appendItems(route.locations!)
+    newSnapshot.appendItems(route.locations)
     
     dataSource.apply(newSnapshot, animatingDifferences: true)
   }

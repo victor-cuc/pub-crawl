@@ -31,7 +31,17 @@ class MapMarkerView: UIView {
   
   func setUpView() {
     Bundle.main.loadNibNamed(kCONTENT_XIB_NAME, owner: self, options: nil)
+    contentView.addFullRoundedCorners()
+    contentView.layer.borderWidth = 2
+    contentView.layer.borderColor = UIColor.black.cgColor
+    
     contentView.fixInView(self)
+  }
+  
+  func invertColors() {
+    contentView.layer.borderColor = UIColor(named: "AccentColor")?.cgColor
+    numberLabel.textColor = UIColor(named: "AccentColor")
+    contentView.backgroundColor = .black
   }
 }
 

@@ -83,11 +83,20 @@ class RouteMapViewController: UIViewController {
         CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
       }
       for i in 0..<coordinates.count {
+        let location = route.locations[i]
         let coordinate = coordinates[i]
         
+        let markerView = MapMarkerView(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+        markerView.numberLabel.text = String(i + 1)
+        
+        if i == 0 || i == coordinates.count - 1 {
+          markerView.invertColors()
+        }
+        
         let marker = GMSMarker(position: coordinate)
-        marker.title = String(i+1)
-        marker.iconView = MapMarkerView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+        marker.title = location.name
+        marker.snippet = location.address
+        marker.iconView = markerView
         marker.map = mapView
       }
     }
