@@ -60,6 +60,8 @@
 		57DC7B0626480A5100AAEDD1 /* MapMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DC7B0526480A5100AAEDD1 /* MapMarkerView.swift */; };
 		57DC7B0926480A6700AAEDD1 /* MapMarkerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 57DC7B0826480A6700AAEDD1 /* MapMarkerView.xib */; };
 		57DDA5E3264C0D6B00BEE73E /* PubCrawlTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DDA5E2264C0D6B00BEE73E /* PubCrawlTests.swift */; };
+		57DF6888264ED8F1006ECC1D /* Maps.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57DF6887264ED8F1006ECC1D /* Maps.storyboard */; };
+		57DF6891264EE3F8006ECC1D /* CreatePostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DF6890264EE3F8006ECC1D /* CreatePostViewController.swift */; };
 		57DF83AF262CC311002CFBD5 /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DF83AE262CC311002CFBD5 /* PostCell.swift */; };
 		57DF83C1262D8FF8002CFBD5 /* FeaturedRoutesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57DF83C0262D8FF8002CFBD5 /* FeaturedRoutesViewController.swift */; };
 		57E60B0B26394EF30005C236 /* NewRouteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57E60B0A26394EF30005C236 /* NewRouteViewController.swift */; };
@@ -129,6 +131,8 @@
 		57DDA5E0264C0D6B00BEE73E /* PubCrawlTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PubCrawlTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		57DDA5E2264C0D6B00BEE73E /* PubCrawlTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PubCrawlTests.swift; sourceTree = "<group>"; };
 		57DDA5E4264C0D6B00BEE73E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		57DF6887264ED8F1006ECC1D /* Maps.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Maps.storyboard; sourceTree = "<group>"; };
+		57DF6890264EE3F8006ECC1D /* CreatePostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostViewController.swift; sourceTree = "<group>"; };
 		57DF83AE262CC311002CFBD5 /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
 		57DF83C0262D8FF8002CFBD5 /* FeaturedRoutesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedRoutesViewController.swift; sourceTree = "<group>"; };
 		57E60B0A26394EF30005C236 /* NewRouteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRouteViewController.swift; sourceTree = "<group>"; };
@@ -256,6 +260,8 @@
 				5750C5F426356AC100683CD2 /* RouteMapViewController.swift */,
 				57DC7B0526480A5100AAEDD1 /* MapMarkerView.swift */,
 				57DC7B0826480A6700AAEDD1 /* MapMarkerView.xib */,
+				57DF6887264ED8F1006ECC1D /* Maps.storyboard */,
+				57DF6890264EE3F8006ECC1D /* CreatePostViewController.swift */,
 			);
 			path = Maps;
 			sourceTree = "<group>";
@@ -457,6 +463,7 @@
 				5738B37C261A05BE00E68A7D /* LaunchScreen.storyboard in Resources */,
 				5738B379261A05BE00E68A7D /* Assets.xcassets in Resources */,
 				5738B377261A05BC00E68A7D /* Main.storyboard in Resources */,
+				57DF6888264ED8F1006ECC1D /* Maps.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -538,6 +545,7 @@
 				57E60B13263977940005C236 /* LocationCell.swift in Sources */,
 				57A49652262CC10000EF779B /* ExploreViewController.swift in Sources */,
 				5738B38A261A075B00E68A7D /* Route.swift in Sources */,
+				57DF6891264EE3F8006ECC1D /* CreatePostViewController.swift in Sources */,
 				57759FB2262594C8005AC5A4 /* Post.swift in Sources */,
 				575B9AD8261AE67A00350250 /* LoginViewController.swift in Sources */,
 				5757DA1C263AF08200CC823E /* GoogleDirectionsManager.swift in Sources */,

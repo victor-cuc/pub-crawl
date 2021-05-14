@@ -12,13 +12,12 @@ import SwiftyJSON
 
 class RouteMapViewController: UIViewController {
   
+  @IBOutlet weak var mapView: GMSMapView!
+  @IBOutlet weak var nextButton: UIButton!
+  @IBOutlet weak var endButton: UIButton!
+  @IBOutlet weak var previousButton: UIButton!
+  
   var route: Route!
-  
-  lazy var mapView: GMSMapView = {
-    let camera = GMSCameraPosition(latitude: -33.868, longitude: 151.2086, zoom: 1)
-    return GMSMapView(frame: .zero, camera: camera)
-  }()
-  
   var observation: NSKeyValueObservation?
   var location: CLLocation? {
     didSet {
@@ -27,8 +26,18 @@ class RouteMapViewController: UIViewController {
     }
   }
   
+  class func instantiateFromStoryboard() -> RouteMapViewController {
+    let storyboard = UIStoryboard(name: "Maps", bundle: nil)
+    let viewController = storyboard.instantiateViewController(identifier: "RouteMapViewController") as! RouteMapViewController
+    
+    return viewController
+  }
+  
+  
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    self.navigationController?.setNavigationBarHidden(true, animated: false)
     // MARK: Request for response from google
     if let url = GoogleDirectionsManager.makeDirectionsURL(forRoute: route) {
       AF.request(url).responseJSON { (response) in
@@ -57,12 +66,14 @@ class RouteMapViewController: UIViewController {
     }
     
     
+    configureButtons()
+    
     mapView.delegate = self
     mapView.settings.compassButton = true
     mapView.settings.myLocationButton = true
     mapView.isMyLocationEnabled = true
-    view = mapView
-    
+    mapView.padding = UIEdgeInsets (top: 0, left: 0, bottom: 98, right: 0)
+        
     createMarkers()
     
     // Listen to the myLocation property of GMSMapView.
@@ -72,8 +83,30 @@ class RouteMapViewController: UIViewController {
     }
   }
   
+  override func viewWillDisappear(_ animated: Bool) {
+    self.navigationController?.setNavigationBarHidden(false, animated: true)
+  }
+  
   deinit {
     observation?.invalidate()
+  }
+  
+  @IBAction func endRoute() {
+    let createPostViewController = CreatePostViewController.instantiateFromStoryboard()
+    createPostViewController.route = route
+    var viewControllers = self.navigationController?.viewControllers
+    viewControllers?.removeLast()
+    viewControllers?.append(createPostViewController)
+    self.navigationController?.setViewControllers(viewControllers!, animated: true)
+  }
+  
+  func configureButtons() {
+    previousButton.addDefaultShadow()
+    previousButton.addRoundedCorners(radius: Constants.Appearance.defaultCornerRadius)
+    endButton.addDefaultShadow()
+    endButton.addRoundedCorners(radius: Constants.Appearance.defaultCornerRadius)
+    nextButton.addDefaultShadow()
+    nextButton.addRoundedCorners(radius: Constants.Appearance.defaultCornerRadius)
   }
   
   func createMarkers() {

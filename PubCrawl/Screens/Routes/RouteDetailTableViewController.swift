@@ -39,7 +39,7 @@ class RouteDetailTableViewController: UITableViewController {
   }
   
   @IBAction func startRoute() {
-    let routeMapViewController = RouteMapViewController()
+    let routeMapViewController = RouteMapViewController.instantiateFromStoryboard()
     routeMapViewController.route = route
     navigationController?.pushViewController(routeMapViewController, animated: true)
   }
