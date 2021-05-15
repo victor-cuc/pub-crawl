@@ -563,16 +563,19 @@
                                                     </subviews>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="5Qg-Dh-2l7">
-                                                    <rect key="frame" x="273.33333333333331" y="0.0" width="84.666666666666686" height="23.666666666666668"/>
+                                                    <rect key="frame" x="256.66666666666669" y="0.0" width="101.33333333333331" height="23.666666666666668"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4 hours" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O73-fl-hFF">
-                                                            <rect key="frame" x="0.0" y="0.0" width="57.333333333333336" height="23.666666666666668"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O73-fl-hFF">
+                                                            <rect key="frame" x="0.0" y="0.0" width="50" height="23.666666666666668"/>
                                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="kGy-oD-8Sx">
+                                                            <rect key="frame" x="54" y="0.0" width="20" height="23.666666666666668"/>
+                                                        </activityIndicatorView>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stopwatch.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="amb-Oa-4ad">
-                                                            <rect key="frame" x="61.333333333333378" y="-1.3333333333333321" width="23.333333333333336" height="24.666666666666664"/>
+                                                            <rect key="frame" x="78" y="-1.3333333333333321" width="23.333333333333329" height="24.666666666666664"/>
                                                             <color key="tintColor" systemColor="labelColor"/>
                                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20"/>
                                                         </imageView>
@@ -714,6 +717,7 @@
                         <outlet property="starCount" destination="9l2-3g-UKw" id="FtN-ho-5Wx"/>
                         <outlet property="startButton" destination="7Fk-NN-f2t" id="MXY-gi-bsu"/>
                         <outlet property="timeEstimate" destination="O73-fl-hFF" id="5dX-2L-r99"/>
+                        <outlet property="timeEstimateActivityIndicator" destination="kGy-oD-8Sx" id="b5J-Th-anW"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bIX-du-S4w" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

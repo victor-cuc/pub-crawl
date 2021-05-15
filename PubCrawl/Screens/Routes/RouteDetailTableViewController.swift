@@ -30,6 +30,8 @@ class RouteDetailTableViewController: UITableViewController {
   @IBOutlet weak var locationCount: UILabel!
   @IBOutlet weak var timeEstimate: UILabel!
   @IBOutlet weak var startButton: UIButton!
+  @IBOutlet weak var timeEstimateActivityIndicator: UIActivityIndicatorView!
+
   
   @IBAction func toggleStar() {
     FirebaseManager.toggleStar(forRoute: route) {
@@ -67,8 +69,12 @@ class RouteDetailTableViewController: UITableViewController {
   }
   
   func loadTimeEstimate() {
+    self.timeEstimateActivityIndicator.isHidden = false
+    self.timeEstimateActivityIndicator.startAnimating()
     self.timeEstimate.text = "Loading..."
     GoogleDirectionsManager.getTimeEstimate(forRoute: route) { [weak self] (directionsEstimate, error) in
+      self?.timeEstimateActivityIndicator.isHidden = true
+      self?.timeEstimateActivityIndicator.stopAnimating()
       guard let self = self else { return }
       guard let directionsEstimate = directionsEstimate else { return }
       let timeEstimateInSeconds = directionsEstimate + 10 * 60 * self.route.locations.count // 10 mins per location
@@ -90,6 +96,7 @@ class RouteDetailTableViewController: UITableViewController {
     toggleStartButton(enabled: !route.locations.isEmpty)
     imageView.loadImageFromFirebase(reference: route.imageRef, placeholder: UIImage(named: "placeholderRouteThumbnail"))
     locationCount.text = String(route.locationIDs.count)
+    timeEstimateActivityIndicator.isHidden = true
     
     roundedCornerContainer.addDefaultRoundedCorners(clipsToBounds: true)
   }

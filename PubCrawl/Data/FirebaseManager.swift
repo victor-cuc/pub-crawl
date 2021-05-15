@@ -168,12 +168,12 @@ class FirebaseManager {
   static func createNewDummyPost(completion: @escaping (Post) -> Void) {
     let text = "post text: \(Int.random(in: 1...100))"
     let routeID = "r1"
-    createNewPost(forRouteID: routeID, withText: text) { post in
-      completion(post)
+    createNewPost(forRouteID: routeID, withText: text) { post, error in
+      completion(post!)
     }
   }
   
-  static func createNewPost(forRouteID routeID: String, withText text: String, completion: @escaping (Post) -> Void) {
+  static func createNewPost(forRouteID routeID: String, withText text: String, completion: @escaping (Post?, Error?) -> Void) {
     let currentUserID = Auth.auth().currentUser!.uid
     guard let key = ref.child("posts").childByAutoId().key else { return }
     let post = [
@@ -182,8 +182,13 @@ class FirebaseManager {
       "text": text,
       "createdAt": Date().timeIntervalSince1970
     ] as [String : Any]
-    ref.child("posts").child(key).setValue(post)
-    completion(Post(id: key, data: post))
+    ref.child("posts").child(key).setValue(post) { (error, ref) in
+      if let error = error {
+        completion(nil, error)
+      } else {
+        completion(Post(id: key, data: post), nil)
+      }
+    }
   }
   
   static func getAllPosts(completion: @escaping ([Post], Error?) -> Void) {

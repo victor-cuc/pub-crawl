@@ -14,6 +14,8 @@ class CreatePostViewController: UIViewController {
   @IBOutlet weak var image2ViewGroup: UIView!
   @IBOutlet weak var postText: UITextView!
   @IBOutlet weak var postButton: UIButton!
+  @IBOutlet weak var skipButton: UIButton!
+  @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
   
   var route: Route!
   
@@ -26,7 +28,7 @@ class CreatePostViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
+    activityIndicator.isHidden = true
     setPlaceholderText()
     
     postButton.addDefaultShadow()
@@ -47,11 +49,25 @@ class CreatePostViewController: UIViewController {
   }
   
   @IBAction func createPost() {
+    view.isUserInteractionEnabled = false
+    activityIndicator.isHidden = false
+    activityIndicator.startAnimating()
     
+    FirebaseManager.createNewPost(forRouteID: route.id, withText: postText.text) { (post, error) in
+      self.view.isUserInteractionEnabled = true
+      self.activityIndicator.isHidden = true
+      self.activityIndicator.stopAnimating()
+      if let error = error {
+        print(error.localizedDescription)
+        return
+      } else {
+        self.navigationController?.popViewController(animated: true)
+      }
+    }
   }
   
   @IBAction func skip() {
-    
+    navigationController?.popViewController(animated: true)
   }
   
   func setPlaceholderText() {

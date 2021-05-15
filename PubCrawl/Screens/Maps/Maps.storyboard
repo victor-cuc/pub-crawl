@@ -158,7 +158,7 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Kqn-dd-RJR">
                                 <rect key="frame" x="16" y="256" width="382" height="475"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -187,7 +187,7 @@
                                     <action selector="skip" destination="JSF-7M-oqX" eventType="touchUpInside" id="gas-Ci-X8T"/>
                                 </connections>
                             </button>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="zS8-ne-naI">
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="zS8-ne-naI">
                                 <rect key="frame" x="368" y="762" width="20" height="20"/>
                                 <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </activityIndicatorView>
@@ -212,11 +212,13 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="zS8-ne-naI" id="5aw-xo-vL0"/>
                         <outlet property="image1" destination="9lI-U3-RzM" id="Z5e-Fz-FOo"/>
                         <outlet property="image2" destination="sRE-vf-mgE" id="59e-zD-E5P"/>
                         <outlet property="image2ViewGroup" destination="AhI-TU-GlO" id="M8w-04-xz0"/>
                         <outlet property="postButton" destination="Te5-Wt-kDp" id="ESc-78-RyB"/>
                         <outlet property="postText" destination="Kqn-dd-RJR" id="pXv-fd-WzB"/>
+                        <outlet property="skipButton" destination="BEc-He-bhn" id="jgc-wM-MRI"/>
                         <outlet property="view" destination="IBh-7v-H7V" id="6su-sg-fwX"/>
                     </connections>
                 </viewController>
