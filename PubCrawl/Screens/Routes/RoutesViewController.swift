@@ -34,7 +34,10 @@ class RoutesViewController: UIViewController {
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
+    
     navigationController?.setNavigationBarHidden(false, animated: animated)
+    
+    fetchRoutes()
   }
   
   @IBAction func newRoute() {

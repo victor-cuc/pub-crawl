@@ -24,6 +24,13 @@ class StarredRoutesViewController: UIViewController {
       setUpView()
     }
   }
+
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    
+    fetchRoutes()
+  }
+  
   func setUpView() {
     self.title = "Saved"
     

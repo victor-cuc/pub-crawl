@@ -34,6 +34,11 @@ class ExploreViewController: UITableViewController {
     configureDataSource()
   }
   
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+
+    self.fetchPosts()
+  }
   func fetchPosts() {
     FirebaseManager.getAllPosts { posts, error in
       self.posts = posts
