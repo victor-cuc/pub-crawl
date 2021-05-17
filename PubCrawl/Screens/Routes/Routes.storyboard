@@ -582,7 +582,6 @@
                                                     </subviews>
                                                 </stackView>
                                             </subviews>
-                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             <constraints>
                                                 <constraint firstItem="0oB-UL-RwR" firstAttribute="leading" secondItem="Sre-MG-c8U" secondAttribute="leading" id="69k-zJ-W5u"/>
                                                 <constraint firstItem="0oB-UL-RwR" firstAttribute="top" secondItem="Sre-MG-c8U" secondAttribute="top" id="7bR-pA-V1g"/>
@@ -650,15 +649,10 @@
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="nmf-OV-Tq5">
                                             <rect key="frame" x="326" y="15" width="44" height="120"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="755" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CoV-mu-2mC" userLabel="Price">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="755" text="$$$$" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CoV-mu-2mC" userLabel="Price">
                                                     <rect key="frame" x="0.0" y="0.0" width="44" height="60"/>
-                                                    <attributedString key="attributedText">
-                                                        <fragment content="$$$$">
-                                                            <attributes>
-                                                                <font key="NSFont" size="17" name="HelveticaNeue"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                    </attributedString>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                                    <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <stackView opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="754" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Kpn-jO-ffV">
@@ -679,6 +673,7 @@
                                             </subviews>
                                         </stackView>
                                     </subviews>
+                                    <color key="backgroundColor" name="defaultBackgroundColor"/>
                                     <constraints>
                                         <constraint firstItem="nmf-OV-Tq5" firstAttribute="leading" secondItem="xRr-6X-CLK" secondAttribute="trailing" constant="16" id="2t6-ML-huM"/>
                                         <constraint firstItem="B9R-RS-j0h" firstAttribute="top" secondItem="5bF-QS-7cF" secondAttribute="topMargin" constant="4" id="G1P-n2-9aA"/>
@@ -692,6 +687,7 @@
                                         <constraint firstItem="xRr-6X-CLK" firstAttribute="leading" secondItem="B9R-RS-j0h" secondAttribute="trailing" constant="16" id="xvA-OT-1xT"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" name="defaultBackgroundColor"/>
                                 <connections>
                                     <outlet property="addressLabel" destination="zEs-dI-Z1l" id="1Nn-Cy-86N"/>
                                     <outlet property="indexLabel" destination="B9R-RS-j0h" id="Ldc-SS-10N"/>
@@ -951,11 +947,7 @@
                             <constraint firstItem="GFr-D4-CoI" firstAttribute="top" secondItem="RZl-6c-Bq7" secondAttribute="top" id="nvD-Ld-hdf"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Saved" id="1KO-9p-Aqy">
-                        <barButtonItem key="leftBarButtonItem" style="plain" systemItem="add" id="iqk-fP-82Y">
-                            <color key="tintColor" name="AccentColor"/>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Saved" id="1KO-9p-Aqy"/>
                     <connections>
                         <outlet property="collectionView" destination="RZl-6c-Bq7" id="zzo-Xd-rjv"/>
                     </connections>

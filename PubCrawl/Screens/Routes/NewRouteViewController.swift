@@ -32,6 +32,8 @@ class NewRouteViewController: UIViewController, UITextFieldDelegate {
     nextButton.isEnabled = nameTextField.hasText
   }
   
+  //MARK:- Actions
+  
   @IBAction func cancel() {
     self.navigationController?.popViewController(animated: true)
   }
@@ -53,26 +55,47 @@ class NewRouteViewController: UIViewController, UITextFieldDelegate {
       }
     }
   }
+  
+  @IBAction func pickPhoto() {
+    let alert = UIAlertController(title: nil, message: nil,
+                                  preferredStyle: .actionSheet)
+    
+    let actionCancel = UIAlertAction(title: "Cancel", style: .cancel,
+                                     handler: nil)
+    alert.addAction(actionCancel)
+    
+    if UIImagePickerController.isSourceTypeAvailable(.camera) {
+      let actionPhoto = UIAlertAction(title: "Take Photo",
+                                      style: .default, handler: { _ in
+                                        self.showImagePicker(source: .camera)
+                                      })
+      alert.addAction(actionPhoto)
+    }
+    
+    if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+      let actionLibrary = UIAlertAction(title: "Choose From Library",
+                                        style: .default, handler: { _ in
+                                          self.showImagePicker(source: .photoLibrary)
+                                        })
+      alert.addAction(actionLibrary)
+    }
+    
+    present(alert, animated: true, completion: nil)
+  }
 }
 
+// MARK:- Image Picker Delegates
+
 extension NewRouteViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-  func takePhotoWithCamera() {
+  
+  func showImagePicker(source: UIImagePickerController.SourceType) {
     let imagePicker = UIImagePickerController()
-    imagePicker.sourceType = .camera
+    imagePicker.sourceType = source
     imagePicker.delegate = self
     imagePicker.allowsEditing = true
     present(imagePicker, animated: true, completion: nil)
   }
   
-  func choosePhotoFromLibrary() {
-    let imagePicker = UIImagePickerController()
-    imagePicker.sourceType = .photoLibrary
-    imagePicker.delegate = self
-    imagePicker.allowsEditing = true
-    present(imagePicker, animated: true, completion: nil)
-  }
-  
-  // MARK:- Image Picker Delegates
   func imagePickerController(_ picker: UIImagePickerController,
        didFinishPickingMediaWithInfo info:
                      [UIImagePickerController.InfoKey : Any]) {
@@ -90,36 +113,5 @@ extension NewRouteViewController: UIImagePickerControllerDelegate, UINavigationC
   func imagePickerControllerDidCancel(_ picker:
                         UIImagePickerController) {
     dismiss(animated: true, completion: nil)
-  }
-  
-  @IBAction func pickPhoto() {
-    if UIImagePickerController.isSourceTypeAvailable(.camera) {
-      showPhotoMenu()
-    } else {
-      choosePhotoFromLibrary()
-    }
-  }
-
-  func showPhotoMenu() {
-    let alert = UIAlertController(title: nil, message: nil,
-                         preferredStyle: .actionSheet)
-
-    let actionCancel = UIAlertAction(title: "Cancel", style: .cancel,
-                                handler: nil)
-    alert.addAction(actionCancel)
-
-    let actionPhoto = UIAlertAction(title: "Take Photo",
-                                    style: .default, handler: { _ in
-                                      self.takePhotoWithCamera()
-                                    })
-    alert.addAction(actionPhoto)
-
-    let actionLibrary = UIAlertAction(title: "Choose From Library",
-                                      style: .default, handler: { _ in
-                                        self.choosePhotoFromLibrary()
-                                      })
-    alert.addAction(actionLibrary)
-
-    present(alert, animated: true, completion: nil)
   }
 }

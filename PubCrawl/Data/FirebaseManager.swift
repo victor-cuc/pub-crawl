@@ -61,7 +61,10 @@ class FirebaseManager {
   
   static func getAllRoutes(completion: @escaping ([Route]) -> Void) {
     ref.child("routes").getData(completion: { (error, snapshot) in
-      guard let routeDict = snapshot.value as? [String: Any] else { fatalError("Error getting/casting route dict") }
+      guard let routeDict = snapshot.value as? [String: Any] else {
+        completion([])
+        return
+      }
       
       var routes = [Route]()
       for route in routeDict {
@@ -168,12 +171,12 @@ class FirebaseManager {
   static func createNewDummyPost(completion: @escaping (Post) -> Void) {
     let text = "post text: \(Int.random(in: 1...100))"
     let routeID = "r1"
-    createNewPost(forRouteID: routeID, withText: text) { post, error in
+    createNewPost(forRouteID: routeID, withText: text, images: []) { post, error in
       completion(post!)
     }
   }
   
-  static func createNewPost(forRouteID routeID: String, withText text: String, completion: @escaping (Post?, Error?) -> Void) {
+  static func createNewPost(forRouteID routeID: String, withText text: String, images: [UIImage], completion: @escaping (Post?, Error?) -> Void) {
     let currentUserID = Auth.auth().currentUser!.uid
     guard let key = ref.child("posts").childByAutoId().key else { return }
     let post = [
@@ -186,7 +189,45 @@ class FirebaseManager {
       if let error = error {
         completion(nil, error)
       } else {
-        completion(Post(id: key, data: post), nil)
+        let post = Post(id: key, data: post)
+        setImages(images, for: post) { (error) in
+          completion(post, error)
+        }
+      }
+    }
+  }
+  
+  static func setImage(_ image: UIImage, named name: String, for post: Post, completion: @escaping (Error?) -> Void) {
+    let imageRefString = "postImages/\(post.id)/\(name).jpg"
+    let imageRef = storeRef.child(imageRefString)
+    guard let uploadData = image.jpegData(compressionQuality: 0.5) else { return }
+    
+    imageRef.putData(uploadData, metadata: nil) { (metadata, error) in
+      if error != nil {
+        completion(error)
+      } else {
+        post.imageRefs.append(imageRef)
+        ref.child("posts/\(post.id)/imageRefs/\(name)").setValue(imageRefString) { (error, ref) in
+          completion(error)
+        }
+      }
+    }
+  }
+  
+  static func setImages(_ images: [UIImage], for post: Post, completion: @escaping (Error?) -> Void) {
+    if images.isEmpty {
+      completion(nil)
+      return
+    }
+    
+    var finishedOperations = 0
+
+    for (index, image) in images.enumerated() {
+      setImage(image, named: "\(index)", for: post) { (error) in
+        finishedOperations += 1
+        if finishedOperations == images.count {
+          completion(error)
+        }
       }
     }
   }
@@ -198,7 +239,10 @@ class FirebaseManager {
         return
       }
       
-      guard let postDict = snapshot.value as? [String: Any] else { fatalError("Error getting/casting post dict") }
+      guard let postDict = snapshot.value as? [String: Any] else {
+        completion([], nil)
+        return
+      }
       
       var posts = [Post]()
       for post in postDict {

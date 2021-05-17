@@ -37,7 +37,6 @@ class RouteMapViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    self.navigationController?.setNavigationBarHidden(true, animated: false)
     // MARK: Request for response from google
     if let url = GoogleDirectionsManager.makeDirectionsURL(forRoute: route) {
       AF.request(url).responseJSON { (response) in
@@ -83,8 +82,9 @@ class RouteMapViewController: UIViewController {
     }
   }
   
-  override func viewWillDisappear(_ animated: Bool) {
-    self.navigationController?.setNavigationBarHidden(false, animated: true)
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    self.navigationController?.setNavigationBarHidden(true, animated: false)
   }
   
   deinit {
@@ -94,10 +94,7 @@ class RouteMapViewController: UIViewController {
   @IBAction func endRoute() {
     let createPostViewController = CreatePostViewController.instantiateFromStoryboard()
     createPostViewController.route = route
-    var viewControllers = self.navigationController?.viewControllers
-    viewControllers?.removeLast()
-    viewControllers?.append(createPostViewController)
-    self.navigationController?.setViewControllers(viewControllers!, animated: true)
+    self.navigationController?.pushViewController(createPostViewController, animated: true)
   }
   
   func configureButtons() {

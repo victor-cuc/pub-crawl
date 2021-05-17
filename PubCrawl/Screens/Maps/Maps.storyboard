@@ -106,10 +106,18 @@
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholderRouteThumbnail" translatesAutoresizingMaskIntoConstraints="NO" id="9lI-U3-RzM">
                                                 <rect key="frame" x="0.0" y="0.0" width="181" height="172"/>
                                             </imageView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7uf-dd-f6t">
-                                                <rect key="frame" x="0.0" y="0.0" width="181" height="172"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7uf-dd-f6t">
+                                                <rect key="frame" x="131" y="122" width="50" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="50" id="URN-y9-IMo"/>
+                                                    <constraint firstAttribute="height" constant="50" id="cXX-Td-baq"/>
+                                                </constraints>
+                                                <color key="tintColor" name="AccentColor"/>
+                                                <state key="normal" image="photo.on.rectangle" catalog="system">
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20"/>
+                                                </state>
                                                 <connections>
-                                                    <action selector="changeImage1" destination="JSF-7M-oqX" eventType="touchUpInside" id="MNl-Ix-4CC"/>
+                                                    <action selector="image1ButtonAction" destination="JSF-7M-oqX" eventType="touchUpInside" id="MNl-Ix-4CC"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -120,8 +128,6 @@
                                             <constraint firstItem="9lI-U3-RzM" firstAttribute="top" secondItem="nEx-qm-2aE" secondAttribute="top" id="Q9h-yF-oQk"/>
                                             <constraint firstAttribute="trailing" secondItem="9lI-U3-RzM" secondAttribute="trailing" id="S72-O4-hMA"/>
                                             <constraint firstAttribute="bottom" secondItem="9lI-U3-RzM" secondAttribute="bottom" id="UnX-7I-5Xx"/>
-                                            <constraint firstItem="7uf-dd-f6t" firstAttribute="top" secondItem="nEx-qm-2aE" secondAttribute="top" id="YrK-2c-3d2"/>
-                                            <constraint firstItem="7uf-dd-f6t" firstAttribute="leading" secondItem="nEx-qm-2aE" secondAttribute="leading" id="Yul-bT-rOb"/>
                                             <constraint firstAttribute="bottom" secondItem="7uf-dd-f6t" secondAttribute="bottom" id="pDQ-ls-xht"/>
                                         </constraints>
                                     </view>
@@ -131,22 +137,28 @@
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholderRouteThumbnail" translatesAutoresizingMaskIntoConstraints="NO" id="sRE-vf-mgE">
                                                 <rect key="frame" x="0.0" y="0.0" width="181" height="172"/>
                                             </imageView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gB9-Oi-w11">
-                                                <rect key="frame" x="0.0" y="0.0" width="181" height="172"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BVr-ba-auN">
+                                                <rect key="frame" x="131" y="122" width="50" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="05a-hk-upB"/>
+                                                    <constraint firstAttribute="width" constant="50" id="7jK-yz-9OI"/>
+                                                </constraints>
+                                                <color key="tintColor" name="AccentColor"/>
+                                                <state key="normal" image="photo.on.rectangle" catalog="system">
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20"/>
+                                                </state>
                                                 <connections>
-                                                    <action selector="changeImage2" destination="JSF-7M-oqX" eventType="touchUpInside" id="K1X-Ue-3NV"/>
+                                                    <action selector="image2ButtonAction" destination="JSF-7M-oqX" eventType="touchUpInside" id="Kcf-vR-WOb"/>
                                                 </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="sRE-vf-mgE" secondAttribute="trailing" id="1FD-kk-i0J"/>
-                                            <constraint firstItem="gB9-Oi-w11" firstAttribute="leading" secondItem="AhI-TU-GlO" secondAttribute="leading" id="3Jp-16-0bQ"/>
                                             <constraint firstAttribute="bottom" secondItem="sRE-vf-mgE" secondAttribute="bottom" id="IFO-to-kUT"/>
-                                            <constraint firstAttribute="trailing" secondItem="gB9-Oi-w11" secondAttribute="trailing" id="Nhf-fD-2BZ"/>
                                             <constraint firstItem="sRE-vf-mgE" firstAttribute="top" secondItem="AhI-TU-GlO" secondAttribute="top" id="OGJ-bf-zKI"/>
-                                            <constraint firstItem="gB9-Oi-w11" firstAttribute="top" secondItem="AhI-TU-GlO" secondAttribute="top" id="OfF-gw-oBW"/>
-                                            <constraint firstAttribute="bottom" secondItem="gB9-Oi-w11" secondAttribute="bottom" id="UzF-e6-ULs"/>
+                                            <constraint firstAttribute="bottom" secondItem="BVr-ba-auN" secondAttribute="bottom" id="ZUj-KI-PWa"/>
+                                            <constraint firstAttribute="trailing" secondItem="BVr-ba-auN" secondAttribute="trailing" id="ecg-Uz-3Wm"/>
                                             <constraint firstItem="sRE-vf-mgE" firstAttribute="leading" secondItem="AhI-TU-GlO" secondAttribute="leading" id="o4R-5Y-gL0"/>
                                         </constraints>
                                     </view>
@@ -213,9 +225,10 @@
                     </view>
                     <connections>
                         <outlet property="activityIndicator" destination="zS8-ne-naI" id="5aw-xo-vL0"/>
-                        <outlet property="image1" destination="9lI-U3-RzM" id="Z5e-Fz-FOo"/>
-                        <outlet property="image2" destination="sRE-vf-mgE" id="59e-zD-E5P"/>
-                        <outlet property="image2ViewGroup" destination="AhI-TU-GlO" id="M8w-04-xz0"/>
+                        <outlet property="image1Container" destination="nEx-qm-2aE" id="Seg-ij-FD1"/>
+                        <outlet property="image2Container" destination="AhI-TU-GlO" id="0A9-sD-H3E"/>
+                        <outlet property="imageView1" destination="9lI-U3-RzM" id="Z5e-Fz-FOo"/>
+                        <outlet property="imageView2" destination="sRE-vf-mgE" id="59e-zD-E5P"/>
                         <outlet property="postButton" destination="Te5-Wt-kDp" id="ESc-78-RyB"/>
                         <outlet property="postText" destination="Kqn-dd-RJR" id="pXv-fd-WzB"/>
                         <outlet property="skipButton" destination="BEc-He-bhn" id="jgc-wM-MRI"/>
@@ -224,10 +237,11 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SeM-65-UhQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="981" y="153"/>
+            <point key="canvasLocation" x="979.71014492753636" y="152.67857142857142"/>
         </scene>
     </scenes>
     <resources>
+        <image name="photo.on.rectangle" catalog="system" width="128" height="96"/>
         <image name="placeholderRouteThumbnail" width="800" height="540"/>
         <namedColor name="AccentColor">
             <color red="1" green="0.80000001192092896" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
