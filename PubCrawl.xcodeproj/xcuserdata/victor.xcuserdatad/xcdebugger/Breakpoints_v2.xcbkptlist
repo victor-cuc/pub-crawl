@@ -14,8 +14,8 @@
             filePath = "PubCrawl/Screens/Routes/ExploreViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "137"
-            endingLineNumber = "137"
+            startingLineNumber = "138"
+            endingLineNumber = "138"
             landmarkName = "toggleStarAction(cell:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -62,9 +62,9 @@
             filePath = "PubCrawl/Data/GoogleDirectionsManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "46"
-            endingLineNumber = "46"
-            landmarkName = "getTimeEstimate(forRoute:completion:)"
+            startingLineNumber = "99"
+            endingLineNumber = "99"
+            landmarkName = "getTimeEstimate(placeIDs:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -78,9 +78,9 @@
             filePath = "PubCrawl/Data/GoogleDirectionsManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "44"
-            endingLineNumber = "44"
-            landmarkName = "getTimeEstimate(forRoute:completion:)"
+            startingLineNumber = "97"
+            endingLineNumber = "97"
+            landmarkName = "getTimeEstimate(placeIDs:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -39,6 +39,7 @@ class ExploreViewController: UITableViewController {
 
     self.fetchPosts()
   }
+  
   func fetchPosts() {
     FirebaseManager.getAllPosts { posts, error in
       self.posts = posts
@@ -119,7 +120,7 @@ class ExploreViewController: UITableViewController {
     newSnapshot.appendSections([.community])
     newSnapshot.appendItems(posts)
     
-    dataSource.apply(newSnapshot, animatingDifferences: true)
+    dataSource.apply(newSnapshot, animatingDifferences: false)
   }
   
   func embedChildViewController(_ viewController: UIViewController, in view: UIView) {

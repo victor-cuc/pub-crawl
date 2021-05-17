@@ -72,7 +72,7 @@ class RouteDetailTableViewController: UITableViewController {
     self.timeEstimateActivityIndicator.isHidden = false
     self.timeEstimateActivityIndicator.startAnimating()
     self.timeEstimate.text = "Loading..."
-    GoogleDirectionsManager.getTimeEstimate(forRoute: route) { [weak self] (directionsEstimate, error) in
+    GoogleDirectionsManager.shared.getTimeEstimate(placeIDs: route.locations.map({ $0.placeID })) { [weak self] (directionsEstimate, error) in
       self?.timeEstimateActivityIndicator.isHidden = true
       self?.timeEstimateActivityIndicator.stopAnimating()
       guard let self = self else { return }

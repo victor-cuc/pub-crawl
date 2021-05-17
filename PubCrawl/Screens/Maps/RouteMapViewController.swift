@@ -18,13 +18,9 @@ class RouteMapViewController: UIViewController {
   @IBOutlet weak var previousButton: UIButton!
   
   var route: Route!
+  var displayedMarkers: [GMSMarker] = []
+  var displayedPolyline: GMSPolyline?
   var observation: NSKeyValueObservation?
-  var location: CLLocation? {
-    didSet {
-      guard oldValue == nil, let firstLocation = location else { return }
-      mapView.camera = GMSCameraPosition(target: firstLocation.coordinate, zoom: 14)
-    }
-  }
   
   class func instantiateFromStoryboard() -> RouteMapViewController {
     let storyboard = UIStoryboard(name: "Maps", bundle: nil)
@@ -37,34 +33,6 @@ class RouteMapViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    // MARK: Request for response from google
-    if let url = GoogleDirectionsManager.makeDirectionsURL(forRoute: route) {
-      AF.request(url).responseJSON { (response) in
-        guard let data = response.data else {
-          return
-        }
-        
-        do {
-          let jsonData = try JSON(data: data)
-          let routes = jsonData["routes"].arrayValue
-          
-          for route in routes {
-            let overview_polyline = route["overview_polyline"].dictionary
-            let points = overview_polyline?["points"]?.string
-            let path = GMSPath.init(fromEncodedPath: points ?? "")
-            let polyline = GMSPolyline.init(path: path)
-            polyline.strokeColor = .systemBlue
-            polyline.strokeWidth = 5
-            polyline.map = self.mapView
-          }
-        }
-        catch let error {
-          print(error.localizedDescription)
-        }
-      }
-    }
-    
-    
     configureButtons()
     
     mapView.delegate = self
@@ -74,17 +42,23 @@ class RouteMapViewController: UIViewController {
     mapView.padding = UIEdgeInsets (top: 0, left: 0, bottom: 98, right: 0)
         
     createMarkers()
-    
     // Listen to the myLocation property of GMSMapView.
-    observation = mapView.observe(\.myLocation, options: [.new]) {
-      [weak self] mapView, _ in
-      self?.location = mapView.myLocation
+    observation = mapView.observe(\.myLocation, options: [.new]) { [weak self] mapView, _ in
+      guard let self = self else {
+        return
+      }
+      
+      self.fitMap(to: self.displayedMarkers.map({ $0.position }))
+      self.getRouteOverviewDirections()
     }
   }
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     self.navigationController?.setNavigationBarHidden(true, animated: false)
+    
+    fitMap(to: displayedMarkers.map( { $0.position }))
+    getRouteOverviewDirections()
   }
   
   deinit {
@@ -112,6 +86,7 @@ class RouteMapViewController: UIViewController {
       let coordinates = route.locations.map { (location) -> CLLocationCoordinate2D in
         CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
       }
+      
       for i in 0..<coordinates.count {
         let location = route.locations[i]
         let coordinate = coordinates[i]
@@ -128,7 +103,43 @@ class RouteMapViewController: UIViewController {
         marker.snippet = location.address
         marker.iconView = markerView
         marker.map = mapView
+        
+        displayedMarkers.append(marker)
       }
+    }
+  }
+  
+  //MARK: - Directions
+  func getRouteOverviewDirections() {
+    let placeIDs = route.locations.map({ $0.placeID })
+    
+    GoogleDirectionsManager.shared.getDirections(myCoordinate: mapView.myLocation?.coordinate, waypoints: placeIDs) { [weak self] (polyline, error) in
+      if error != nil {
+        print(error!.localizedDescription)
+      } else {
+        self?.displayedPolyline = polyline
+        self?.displayedPolyline?.map = self!.mapView
+      }
+    }
+  }
+  
+  //MARK: - Helpers
+  func fitMap(to coordinates: [CLLocationCoordinate2D], animated: Bool = true) {
+    var bounds = GMSCoordinateBounds()
+    
+    for coordinate in coordinates {
+      bounds = bounds.includingCoordinate(coordinate)
+    }
+    
+    if let myCoordinate = mapView.myLocation?.coordinate {
+      bounds = bounds.includingCoordinate(myCoordinate)
+    }
+    
+    let cameraUpdate = GMSCameraUpdate.fit(bounds, withPadding: 40.0)
+    if animated {
+      mapView.animate(with: cameraUpdate)
+    } else {
+      mapView.moveCamera(cameraUpdate)
     }
   }
 }

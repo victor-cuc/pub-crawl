@@ -8,16 +8,37 @@
 import UIKit
 import SwiftyJSON
 import Alamofire
+import CoreLocation
+import GoogleMaps
 
 class GoogleDirectionsManager {
   
-  static func makeDirectionsURL(forRoute route: Route) -> URL? {
-    guard let origin = route.locations.first?.placeID,
-          let destination = route.locations.last?.placeID else {
+  static let shared = GoogleDirectionsManager()
+  
+  private func makeDirectionsURL(myCoordinate: CLLocationCoordinate2D?, placeIDs: [String]) -> URL? {
+    guard placeIDs.count >= 2 || ( placeIDs.count >= 1 && myCoordinate != nil ) else {
       return nil
     }
     
-    let urlString = "https://maps.googleapis.com/maps/api/directions/json?origin=place_id:\(origin)&destination=place_id:\(destination)&mode=walking\(getWaypointsString(forRoute: route))&key=\(Constants.SDK.googleAPIKey)"
+    var waypoints = placeIDs
+    waypoints.removeLast()
+    
+    let origin = placeIDs.first!
+    let destination = placeIDs.last!
+    
+    var originString = "place_id:\(origin)"
+    
+    if let coordinate = myCoordinate {
+      originString = "\(coordinate.latitude),\(coordinate.longitude)"
+    } else {
+      waypoints.removeFirst()
+    }
+    
+    let destinationString = "place_id:\(destination)"
+    
+    let waypointsString = getWaypointsString(placeIDs: waypoints)
+    
+    let urlString = "https://maps.googleapis.com/maps/api/directions/json?origin=\(originString)&destination=\(destinationString)&mode=walking&waypoints=\(waypointsString)&key=\(Constants.SDK.googleAPIKey)"
     
     guard let encoded = urlString.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed),
           let url = URL(string: encoded) else { return nil }
@@ -25,23 +46,55 @@ class GoogleDirectionsManager {
     return url
   }
   
-  private static func getWaypointsString(forRoute route: Route) -> String {
-    var placeIDs: String = ""
-    
-    let locationCount = route.locations.count
-    if locationCount > 2 {
-      placeIDs.append("&waypoints=") // add 'optimize:true|' for waypoint optimisation
-      for i in 1..<locationCount-1 {
-        let placeID = route.locations[i].placeID
-        placeIDs.append("place_id:\(placeID)|")
+  func getDirections(myCoordinate: CLLocationCoordinate2D?, waypoints: [String], completion: @escaping (GMSPolyline?, Error?) -> Void) {
+    if let url = self.makeDirectionsURL(myCoordinate: myCoordinate, placeIDs: waypoints) {
+      AF.request(url).responseJSON { (response) in
+        guard response.error == nil else {
+          completion(nil, response.error)
+          return
+        }
+        
+        guard let data = response.data else {
+          completion(nil, nil)
+          return
+        }
+        
+        do {
+          let jsonData = try JSON(data: data)
+          let routes = jsonData["routes"].arrayValue
+          
+          for route in routes {
+            let overview_polyline = route["overview_polyline"].dictionary
+            let points = overview_polyline?["points"]?.string
+            let path = GMSPath.init(fromEncodedPath: points ?? "")
+            let polyline = GMSPolyline.init(path: path)
+            polyline.strokeColor = .systemBlue
+            polyline.strokeWidth = 5
+            completion(polyline, nil)
+          }
+        }
+        catch let error {
+          completion(nil, error)
+        }
       }
     }
-    
-    return placeIDs
   }
   
-  static func getTimeEstimate(forRoute route: Route, completion: @escaping (Int?, Error?) -> Void) {
-    if let url = makeDirectionsURL(forRoute: route) {
+  private func getWaypointsString(placeIDs: [String]) -> String {
+    var placeIDsString: String = "" // add 'optimize:true|' for waypoint optimisation
+    for item in placeIDs {
+      if !placeIDsString.isEmpty {
+        placeIDsString.append("|")
+      }
+      
+      placeIDsString.append("place_id:\(item)")
+    }
+    
+    return placeIDsString
+  }
+  
+  func getTimeEstimate(placeIDs: [String], completion: @escaping (Int?, Error?) -> Void) {
+    if let url = makeDirectionsURL(myCoordinate: nil, placeIDs: placeIDs) {
       AF.request(url).responseJSON { (response) in
         guard let data = response.data else {
           completion(nil, response.error)
