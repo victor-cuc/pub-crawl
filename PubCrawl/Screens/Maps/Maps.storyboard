@@ -32,6 +32,9 @@
                                 <state key="normal" title="Previous">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="previousButtonAction" destination="Rw8-Xd-sXd" eventType="touchUpInside" id="0NC-EA-8fg"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f0c-OZ-pzO">
                                 <rect key="frame" x="32" y="780" width="350" height="50"/>
@@ -43,6 +46,9 @@
                                 <state key="normal" title="Next">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="nextButtonAction" destination="Rw8-Xd-sXd" eventType="touchUpInside" id="6NJ-jE-v16"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QFG-nA-31W">
                                 <rect key="frame" x="250" y="60" width="132" height="50"/>
@@ -56,7 +62,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="endRoute" destination="Rw8-Xd-sXd" eventType="touchUpInside" id="zZR-S7-22b"/>
+                                    <action selector="endRouteButtonAction" destination="Rw8-Xd-sXd" eventType="touchUpInside" id="zZR-S7-22b"/>
                                 </connections>
                             </button>
                         </subviews>

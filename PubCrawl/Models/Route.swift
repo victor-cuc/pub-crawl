@@ -54,6 +54,20 @@ class Route: Hashable {
     }
   }
   
+  func nextLocation(for location: Location) -> Location? {
+    if let index = locations.firstIndex(of: location), index != locations.count - 1 {
+      return locations[index + 1]
+    }
+    return nil
+  }
+  
+  func previousLocation(for location: Location) -> Location? {
+    if let index = locations.firstIndex(of: location), index != 0 {
+      return locations[index - 1]
+    }
+    return nil
+  }
+  
   func hash(into hasher: inout Hasher) {
     hasher.combine(id)
   }

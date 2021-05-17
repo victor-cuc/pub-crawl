@@ -8,7 +8,7 @@
 import Foundation
 import GooglePlaces
 
-class Location: Hashable, Codable {
+class Location: Hashable, Codable, Equatable {
   var id: String = UUID().uuidString
   var placeID: String
   var name: String

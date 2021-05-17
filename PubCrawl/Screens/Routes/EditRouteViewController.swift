@@ -31,7 +31,6 @@ class EditRouteViewController: UITableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    navigationItem.rightBarButtonItem = editButtonItem
 
     addLocationButton.addDefaultShadow()
     addLocationButton.addFullRoundedCorners()
@@ -40,11 +39,6 @@ class EditRouteViewController: UITableViewController {
     
     self.configureDetailView()
     self.configureDataSource()
-  }
-  
-  override func viewDidAppear(_ animated: Bool) {
-    super.viewDidAppear(animated)
-    tableView.setEditing(true, animated: true)
   }
   
   func configureDetailView() {
@@ -82,23 +76,6 @@ class EditRouteViewController: UITableViewController {
     newSnapshot.appendItems(route.locations)
     
     dataSource.apply(newSnapshot, animatingDifferences: true)
-  }
-  
-  //MARK:- Editing
-  
-  override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-    true
-  }
-  
-  override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-    .delete
-  }
-  
-  override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-    if editingStyle == .delete {
-      guard let location = dataSource.itemIdentifier(for: indexPath) else { return }
-      print("should delete location\(location.name)")
-    }
   }
   
   //MARK:- Location Search
